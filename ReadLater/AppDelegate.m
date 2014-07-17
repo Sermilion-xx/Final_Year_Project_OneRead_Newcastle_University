@@ -7,15 +7,19 @@
 //
 
 #import "AppDelegate.h"
+#import "AccordionTableViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+	[[UIApplication sharedApplication] setStatusBarHidden:NO];
+    NSDictionary *attributes = @{ NSFontAttributeName: [UIFont fontWithName:@"GillSans-Light" size:20],
+								  NSForegroundColorAttributeName: [UIColor whiteColor]};
+	[[UINavigationBar appearance] setTitleTextAttributes:attributes];
+	[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
     return YES;
 }
 
