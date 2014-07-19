@@ -376,6 +376,57 @@
     
 }
 
+- (NSMutableArray*) importAllFollowersForUser:(NSInteger)user_id
+{
+//     sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE tag=?"];
+    NSString *sql = nil;
+    sql = [NSString stringWithFormat:@"SELECT * FROM User AS U JOIN Following AS F ON F.user_id=F.user_id WHERE U.id!=?"];
+    sqlite3_stmt *select;
+    
+    int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
+    User *user = nil;
+    NSMutableArray* followers = [[NSMutableArray alloc]initWithCapacity:20];
+    if (result == SQLITE_OK) {
+        sqlite3_bind_int(select, 1, (int)user_id);
+
+        
+        
+        while (sqlite3_step(select) == SQLITE_ROW) {
+            NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:6];
+            
+            // add the id:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 0)]];
+            // add the firstname:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 1)]];
+            // add the lastname:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 2)]];
+            // add the age:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 3)]];
+            // add the email:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 4)]];
+            // add the password:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 5)]];
+            
+            user = [[User alloc]initWithId:[[values objectAtIndex:0]integerValue] firstname:[values objectAtIndex:1] lastname:[values objectAtIndex:2] age:(NSInteger)[values objectAtIndex:3] email:[values objectAtIndex:4] password:[values objectAtIndex:5] picture:@"default.png"];
+            [followers addObject:user];
+
+        }
+        sqlite3_finalize(select);
+        return followers;
+    } else {
+        NSLog(@"Error: insert prepare statement failed: %s.", sqlite3_errmsg(self.db));
+        sqlite3_finalize(select);
+        return nil;
+    }
+
+}
+
 #pragma mark addArticle
 - (BOOL)addArticleToArticleDB:(Article*)article
 {
