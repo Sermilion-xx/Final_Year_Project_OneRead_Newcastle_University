@@ -17,4 +17,8 @@
 
 - (void) archiveArticle:(Article*) articleToArchive;
 
+- (void) performSegueForSharing:(Article*)article;
+
+- (void) performSegueForTagging;
+
 @end

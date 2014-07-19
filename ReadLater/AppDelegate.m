@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "AccordionTableViewController.h"
 
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -19,6 +20,7 @@
 								  NSForegroundColorAttributeName: [UIColor whiteColor]};
 	[[UINavigationBar appearance] setTitleTextAttributes:attributes];
 	[[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
     
     return YES;
 }

@@ -39,7 +39,6 @@
 		3974E4691976C1BB00F7E457 /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3974E4681976C1BB00F7E457 /* RTLabel.m */; };
 		3974E46B1976C3BA00F7E457 /* HelveticaNeue.dfont in Resources */ = {isa = PBXBuildFile; fileRef = 3974E46A1976C3BA00F7E457 /* HelveticaNeue.dfont */; };
 		3974E46E1976E39C00F7E457 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3974E46D1976E39C00F7E457 /* WebViewController.m */; };
-		3982828B19741287006A8DA5 /* FromTopReplaceSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3982828A19741287006A8DA5 /* FromTopReplaceSegue.m */; };
 		3986B3B2195F02C60010ABCE /* AMWaveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3986B3AF195F02C60010ABCE /* AMWaveTransition.m */; };
 		3986B3B3195F02C60010ABCE /* AMWaveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3986B3B1195F02C60010ABCE /* AMWaveViewController.m */; };
 		3986B3B7195F08A90010ABCE /* login_iclon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3986B3B4195F08A90010ABCE /* login_iclon.png */; };
@@ -54,6 +53,14 @@
 		3995F5BB1950BD6A004C6A1A /* SHCTableViewCell_inbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 3995F5BA1950BD6A004C6A1A /* SHCTableViewCell_inbox.m */; };
 		3995F5BD1950BEA6004C6A1A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3995F5BC1950BEA6004C6A1A /* QuartzCore.framework */; };
 		39A1BB20195F43AB007AAEC8 /* ArchiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3986B3BD195F3E140010ABCE /* ArchiveViewController.m */; };
+		39E1607B197AC069007DB923 /* SharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E16079197AC069007DB923 /* SharingViewController.m */; };
+		39E1608F197B1437007DB923 /* AKTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E16081197B1437007DB923 /* AKTagCell.m */; };
+		39E16090197B1437007DB923 /* AKTagsInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E16084197B1437007DB923 /* AKTagsInputView.m */; };
+		39E16091197B1437007DB923 /* AKTagsListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E16086197B1437007DB923 /* AKTagsListView.m */; };
+		39E16092197B1437007DB923 /* AKTagsLookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E16088197B1437007DB923 /* AKTagsLookup.m */; };
+		39E16093197B1437007DB923 /* AKTagTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E1608A197B1437007DB923 /* AKTagTextFieldCell.m */; };
+		39E16094197B1437007DB923 /* AKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E1608C197B1437007DB923 /* AKTextField.m */; };
+		39E16095197B1437007DB923 /* NSString+StringSizeWithFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E1608E197B1437007DB923 /* NSString+StringSizeWithFont.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,8 +126,6 @@
 		3974E46A1976C3BA00F7E457 /* HelveticaNeue.dfont */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.dfont; sourceTree = "<group>"; };
 		3974E46C1976E39C00F7E457 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		3974E46D1976E39C00F7E457 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
-		3982828919741287006A8DA5 /* FromTopReplaceSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FromTopReplaceSegue.h; sourceTree = "<group>"; };
-		3982828A19741287006A8DA5 /* FromTopReplaceSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FromTopReplaceSegue.m; sourceTree = "<group>"; };
 		3986B3AE195F02C60010ABCE /* AMWaveTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveTransition.h; sourceTree = "<group>"; };
 		3986B3AF195F02C60010ABCE /* AMWaveTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMWaveTransition.m; sourceTree = "<group>"; };
 		3986B3B0195F02C60010ABCE /* AMWaveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMWaveViewController.h; sourceTree = "<group>"; };
@@ -143,6 +148,23 @@
 		3995F5BA1950BD6A004C6A1A /* SHCTableViewCell_inbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHCTableViewCell_inbox.m; sourceTree = "<group>"; };
 		3995F5BC1950BEA6004C6A1A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3995F5BE1950CC29004C6A1A /* SHCTableViewCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHCTableViewCellDelegate.h; sourceTree = "<group>"; };
+		39E16079197AC069007DB923 /* SharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharingViewController.m; path = ../../../../Desktop/SharingViewController.m; sourceTree = "<group>"; };
+		39E1607A197AC069007DB923 /* SharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharingViewController.h; path = ../../../../Desktop/SharingViewController.h; sourceTree = "<group>"; };
+		39E16080197B1437007DB923 /* AKTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCell.h; sourceTree = "<group>"; };
+		39E16081197B1437007DB923 /* AKTagCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagCell.m; sourceTree = "<group>"; };
+		39E16082197B1437007DB923 /* AKTagsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsDefines.h; sourceTree = "<group>"; };
+		39E16083197B1437007DB923 /* AKTagsInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsInputView.h; sourceTree = "<group>"; };
+		39E16084197B1437007DB923 /* AKTagsInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsInputView.m; sourceTree = "<group>"; };
+		39E16085197B1437007DB923 /* AKTagsListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsListView.h; sourceTree = "<group>"; };
+		39E16086197B1437007DB923 /* AKTagsListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsListView.m; sourceTree = "<group>"; };
+		39E16087197B1437007DB923 /* AKTagsLookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagsLookup.h; sourceTree = "<group>"; };
+		39E16088197B1437007DB923 /* AKTagsLookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagsLookup.m; sourceTree = "<group>"; };
+		39E16089197B1437007DB923 /* AKTagTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagTextFieldCell.h; sourceTree = "<group>"; };
+		39E1608A197B1437007DB923 /* AKTagTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTagTextFieldCell.m; sourceTree = "<group>"; };
+		39E1608B197B1437007DB923 /* AKTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTextField.h; sourceTree = "<group>"; };
+		39E1608C197B1437007DB923 /* AKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTextField.m; sourceTree = "<group>"; };
+		39E1608D197B1437007DB923 /* NSString+StringSizeWithFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSizeWithFont.h"; sourceTree = "<group>"; };
+		39E1608E197B1437007DB923 /* NSString+StringSizeWithFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSizeWithFont.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,11 +228,9 @@
 		3907B2D0193CB7BB00100BD6 /* ReadLater */ = {
 			isa = PBXGroup;
 			children = (
-				39164638195C7C0D005389E1 /* Effects */,
 				39164631195C4851005389E1 /* Images */,
 				3907B2D9193CB7BB00100BD6 /* AppDelegate.h */,
 				3907B2DA193CB7BB00100BD6 /* AppDelegate.m */,
-				3995F5AC19509F29004C6A1A /* Swipe Implementation */,
 				398E64C41940CF6500BADF11 /* UI */,
 				3907B2DC193CB7BB00100BD6 /* Images.xcassets */,
 				3907B2F9193CB7C900100BD6 /* Model */,
@@ -282,15 +302,18 @@
 				3916463F195C88C4005389E1 /* AFViewShaker.m */,
 			);
 			name = Effects;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		39224F9B1973D63400E61111 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				39E1607F197B1437007DB923 /* AKTagsInputViewExample */,
+				3995F5AC19509F29004C6A1A /* Swipe Implementation */,
 				3986B3AD195F02C60010ABCE /* AMWaveTransition */,
+				3974E4661976C19600F7E457 /* Clickable Label */,
+				39164638195C7C0D005389E1 /* Effects */,
 				39224F9C1973D63400E61111 /* ECSlidingViewController */,
-				3982828919741287006A8DA5 /* FromTopReplaceSegue.h */,
-				3982828A19741287006A8DA5 /* FromTopReplaceSegue.m */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
@@ -323,6 +346,7 @@
 				3974E4681976C1BB00F7E457 /* RTLabel.m */,
 			);
 			name = "Clickable Label";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		3986B3AD195F02C60010ABCE /* AMWaveTransition */ = {
@@ -341,7 +365,6 @@
 			isa = PBXGroup;
 			children = (
 				39224F9B1973D63400E61111 /* ThirdParty */,
-				3974E4661976C19600F7E457 /* Clickable Label */,
 				3907B2FA193CB7E100100BD6 /* Storyboard.storyboard */,
 				398E64DC194122D300BADF11 /* LoginViewController.h */,
 				398E64DD194122D300BADF11 /* LoginViewController.m */,
@@ -357,6 +380,8 @@
 				3986B3BD195F3E140010ABCE /* ArchiveViewController.m */,
 				3944250519667D8000497336 /* AccordionTableViewController.h */,
 				3944250619667D8000497336 /* AccordionTableViewController.m */,
+				39E1607A197AC069007DB923 /* SharingViewController.h */,
+				39E16079197AC069007DB923 /* SharingViewController.m */,
 				3974E46C1976E39C00F7E457 /* WebViewController.h */,
 				3974E46D1976E39C00F7E457 /* WebViewController.m */,
 			);
@@ -372,6 +397,30 @@
 				3974E4641975BACC00F7E457 /* SHCT_TableViewCell_inbox.xib */,
 			);
 			name = "Swipe Implementation";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		39E1607F197B1437007DB923 /* AKTagsInputViewExample */ = {
+			isa = PBXGroup;
+			children = (
+				39E16080197B1437007DB923 /* AKTagCell.h */,
+				39E16081197B1437007DB923 /* AKTagCell.m */,
+				39E16082197B1437007DB923 /* AKTagsDefines.h */,
+				39E16083197B1437007DB923 /* AKTagsInputView.h */,
+				39E16084197B1437007DB923 /* AKTagsInputView.m */,
+				39E16085197B1437007DB923 /* AKTagsListView.h */,
+				39E16086197B1437007DB923 /* AKTagsListView.m */,
+				39E16087197B1437007DB923 /* AKTagsLookup.h */,
+				39E16088197B1437007DB923 /* AKTagsLookup.m */,
+				39E16089197B1437007DB923 /* AKTagTextFieldCell.h */,
+				39E1608A197B1437007DB923 /* AKTagTextFieldCell.m */,
+				39E1608B197B1437007DB923 /* AKTextField.h */,
+				39E1608C197B1437007DB923 /* AKTextField.m */,
+				39E1608D197B1437007DB923 /* NSString+StringSizeWithFont.h */,
+				39E1608E197B1437007DB923 /* NSString+StringSizeWithFont.m */,
+			);
+			name = AKTagsInputViewExample;
+			path = "../../../../../Downloads/AKTagsInputView-master-2/Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -480,13 +529,17 @@
 			files = (
 				398E64DE194122D300BADF11 /* LoginViewController.m in Sources */,
 				3907B301193CCCA100100BD6 /* Article.m in Sources */,
+				39E16090197B1437007DB923 /* AKTagsInputView.m in Sources */,
 				39224FAD1973D63400E61111 /* ECSlidingSegue.m in Sources */,
 				3986B3B3195F02C60010ABCE /* AMWaveViewController.m in Sources */,
+				39E1607B197AC069007DB923 /* SharingViewController.m in Sources */,
 				394A9EE8194751FA00205F5C /* InboxViewController.m in Sources */,
+				39E1608F197B1437007DB923 /* AKTagCell.m in Sources */,
 				39305F961958460D00E4CDA2 /* ArticleViewController.m in Sources */,
+				39E16091197B1437007DB923 /* AKTagsListView.m in Sources */,
 				3907B2DB193CB7BB00100BD6 /* AppDelegate.m in Sources */,
 				39224FAE1973D63400E61111 /* ECSlidingViewController.m in Sources */,
-				3982828B19741287006A8DA5 /* FromTopReplaceSegue.m in Sources */,
+				39E16093197B1437007DB923 /* AKTagTextFieldCell.m in Sources */,
 				39164640195C88C4005389E1 /* AFViewShaker.m in Sources */,
 				398E64D81941229900BADF11 /* MainViewController.m in Sources */,
 				39224FAB1973D63400E61111 /* ECSlidingAnimationController.m in Sources */,
@@ -499,10 +552,13 @@
 				39224FAF1973D63400E61111 /* UIViewController+ECSlidingViewController.m in Sources */,
 				3974E46E1976E39C00F7E457 /* WebViewController.m in Sources */,
 				3907B2D7193CB7BB00100BD6 /* main.m in Sources */,
+				39E16095197B1437007DB923 /* NSString+StringSizeWithFont.m in Sources */,
 				3944250719667D8000497336 /* AccordionTableViewController.m in Sources */,
 				39224FAC1973D63400E61111 /* ECSlidingInteractiveTransition.m in Sources */,
 				3907B2FE193CB80E00100BD6 /* User.m in Sources */,
 				398E64DB194122AE00BADF11 /* RegisterViewController.m in Sources */,
+				39E16094197B1437007DB923 /* AKTextField.m in Sources */,
+				39E16092197B1437007DB923 /* AKTagsLookup.m in Sources */,
 				3916463B195C7C2E005389E1 /* JCRBlurView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

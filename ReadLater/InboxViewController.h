@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSMutableArray* jsonData;
 
 @property (nonatomic, strong) NSMutableArray* articles;
-@property (nonatomic, strong) NSMutableArray* safeArticles;
+@property (nonatomic, strong) Article* articleToShare;
 @property (nonatomic, strong) Database* db;
 //-----------------------------------------------------------//
 

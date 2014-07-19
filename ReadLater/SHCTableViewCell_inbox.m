@@ -182,7 +182,7 @@ const float LABEL_LEFT_MARGIN = 20.0f;
 		if (_markDeleteOnDragRelease) {
 			// notify the delegate that this item should be deleted
             self.todoItem.completed = YES;
-			//[self.delegate deleteArticle:self.todoItem];
+			[self.delegate deleteArticle:self.todoItem];
             NSLog(@"Delete Selected!");
 		}
         if (!_markArchivedOnDragRelease) {
@@ -197,7 +197,7 @@ const float LABEL_LEFT_MARGIN = 20.0f;
             // mark the item as complete and update the UI state
             self.todoItem.completed = YES;
             NSLog(@"Archive Selected!");
-           // [self.delegate archiveArticle:self.todoItem];
+           [self.delegate archiveArticle:self.todoItem];
             
         }
         if (!_markSetTagOnDragRelease) {
@@ -224,6 +224,7 @@ const float LABEL_LEFT_MARGIN = 20.0f;
         }
         if (_markShareOnDragRelease) {
             // mark the item as complete and update the UI state
+            [self.delegate performSegueForSharing:self.todoItem];
             self.todoItem.completed = YES;
             NSLog(@"Share Selected!");
         }

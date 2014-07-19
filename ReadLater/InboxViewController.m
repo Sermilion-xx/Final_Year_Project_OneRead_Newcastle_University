@@ -13,6 +13,7 @@
 #import "AMWaveTransition.h"
 #import "AccordionTableViewController.h"
 #import "WebViewController.h"
+#import "SharingViewController.h"
 
 
 
@@ -329,6 +330,17 @@
     [self.tableView reloadData];
 }
 
+- (void) performSegueForSharing:(Article*)article
+{
+    self.articleToShare = article;
+    [self performSegueWithIdentifier: @"shareSegue" sender: self];
+}
+
+- (void) performSegueForTagging
+{
+
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -362,6 +374,11 @@
     if([segue.identifier isEqualToString:@"WebView"]){
         WebViewController *controller = (WebViewController *)segue.destinationViewController;
         controller.url = self.url;
+    }
+    
+    if([segue.identifier isEqualToString:@"shareSegue"]){
+        SharingViewController *controller = (SharingViewController *)segue.destinationViewController;
+        controller.article = self.articleToShare;
     }
 
 }
@@ -398,5 +415,7 @@
     self.url = url;
     [self performSegueWithIdentifier: @"WebView" sender: self];
 }
+
+
 
 @end

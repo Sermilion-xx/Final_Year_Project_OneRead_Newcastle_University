@@ -191,6 +191,17 @@
     [self.tableView reloadData];
 }
 
+
+- (void) performSegueForSharing:(Article *)article
+{
+    
+}
+
+- (void) performSegueForTagging
+{
+    
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
