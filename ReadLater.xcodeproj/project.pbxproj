@@ -61,6 +61,7 @@
 		39E16093197B1437007DB923 /* AKTagTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E1608A197B1437007DB923 /* AKTagTextFieldCell.m */; };
 		39E16094197B1437007DB923 /* AKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E1608C197B1437007DB923 /* AKTextField.m */; };
 		39E16095197B1437007DB923 /* NSString+StringSizeWithFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E1608E197B1437007DB923 /* NSString+StringSizeWithFont.m */; };
+		39E16098197C456B007DB923 /* TaggingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E16097197C456B007DB923 /* TaggingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +166,8 @@
 		39E1608C197B1437007DB923 /* AKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTextField.m; sourceTree = "<group>"; };
 		39E1608D197B1437007DB923 /* NSString+StringSizeWithFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSizeWithFont.h"; sourceTree = "<group>"; };
 		39E1608E197B1437007DB923 /* NSString+StringSizeWithFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSizeWithFont.m"; sourceTree = "<group>"; };
+		39E16096197C456B007DB923 /* TaggingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaggingViewController.h; sourceTree = "<group>"; };
+		39E16097197C456B007DB923 /* TaggingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaggingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -382,6 +385,8 @@
 				3944250619667D8000497336 /* AccordionTableViewController.m */,
 				39E1607A197AC069007DB923 /* SharingViewController.h */,
 				39E16079197AC069007DB923 /* SharingViewController.m */,
+				39E16096197C456B007DB923 /* TaggingViewController.h */,
+				39E16097197C456B007DB923 /* TaggingViewController.m */,
 				3974E46C1976E39C00F7E457 /* WebViewController.h */,
 				3974E46D1976E39C00F7E457 /* WebViewController.m */,
 			);
@@ -535,6 +540,7 @@
 				39E1607B197AC069007DB923 /* SharingViewController.m in Sources */,
 				394A9EE8194751FA00205F5C /* InboxViewController.m in Sources */,
 				39E1608F197B1437007DB923 /* AKTagCell.m in Sources */,
+				39E16098197C456B007DB923 /* TaggingViewController.m in Sources */,
 				39305F961958460D00E4CDA2 /* ArticleViewController.m in Sources */,
 				39E16091197B1437007DB923 /* AKTagsListView.m in Sources */,
 				3907B2DB193CB7BB00100BD6 /* AppDelegate.m in Sources */,

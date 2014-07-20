@@ -210,6 +210,7 @@ const float LABEL_LEFT_MARGIN = 20.0f;
         }
         if (_markSetTagOnDragRelease) {
             // mark the item as complete and update the UI state
+            [self.delegate performSegueForTagging:self.todoItem];
             self.todoItem.completed = YES;
             NSLog(@"Set Tag Selected!");
 

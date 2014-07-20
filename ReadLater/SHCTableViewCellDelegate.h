@@ -19,6 +19,6 @@
 
 - (void) performSegueForSharing:(Article*)article;
 
-- (void) performSegueForTagging;
+- (void) performSegueForTagging:(Article*)article;
 
 @end

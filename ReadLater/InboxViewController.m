@@ -14,6 +14,7 @@
 #import "AccordionTableViewController.h"
 #import "WebViewController.h"
 #import "SharingViewController.h"
+#import "TaggingViewController.h"
 
 
 
@@ -336,9 +337,10 @@
     [self performSegueWithIdentifier: @"shareSegue" sender: self];
 }
 
-- (void) performSegueForTagging
+- (void) performSegueForTagging:(Article*)article
 {
-
+    self.articleToTag = article;
+    [self performSegueWithIdentifier: @"tagSegue" sender: self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -379,6 +381,11 @@
     if([segue.identifier isEqualToString:@"shareSegue"]){
         SharingViewController *controller = (SharingViewController *)segue.destinationViewController;
         controller.article = self.articleToShare;
+    }
+    
+    if([segue.identifier isEqualToString:@"tagSegue"]){
+        TaggingViewController *controller = (TaggingViewController *)segue.destinationViewController;
+        controller.article = self.articleToTag;
     }
 
 }

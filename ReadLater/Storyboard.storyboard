@@ -162,7 +162,8 @@
                     <connections>
                         <outlet property="tableView" destination="yaJ-Q9-yeZ" id="XKf-Mu-yIy"/>
                         <segue destination="ApC-kJ-pgE" kind="modal" identifier="WebView" id="zZO-lr-EDM"/>
-                        <segue destination="Wup-fV-5xf" kind="push" identifier="shareSegue" id="6CJ-iH-dIO"/>
+                        <segue destination="Wup-fV-5xf" kind="modal" identifier="shareSegue" id="6CJ-iH-dIO"/>
+                        <segue destination="RIu-jg-gkA" kind="modal" identifier="tagSegue" id="GCo-MZ-22g"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQu-4i-nAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -847,6 +848,9 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnPressed:" destination="Wup-fV-5xf" eventType="touchUpInside" id="BWz-ee-iYP"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -860,6 +864,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6IA-WZ-mRL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="599" y="-1664"/>
+        </scene>
+        <!--Tagging View Controller-->
+        <scene sceneID="Fvv-1O-OwP">
+            <objects>
+                <viewController id="RIu-jg-gkA" customClass="TaggingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xm7-l0-unP"/>
+                        <viewControllerLayoutGuide type="bottom" id="wQo-ln-2Yk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="oBh-Q1-ZJn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="F0B-ln-pT8">
+                                <rect key="frame" x="20" y="56" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QJs-nk-b3r">
+                                <rect key="frame" x="15" y="269" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter tags:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6c-rG-xGe">
+                                <rect key="frame" x="119" y="240" width="83" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Sz-We-WCa">
+                                <rect key="frame" x="263" y="20" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Share">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnPressed:" destination="RIu-jg-gkA" eventType="touchUpInside" id="z6q-dy-1GD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="tagsTextField" destination="QJs-nk-b3r" id="bh8-WZ-nji"/>
+                        <outlet property="titleLabel" destination="F0B-ln-pT8" id="Sln-68-k60"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JDT-Mo-b8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1012" y="-1664"/>
         </scene>
     </scenes>
     <resources>
