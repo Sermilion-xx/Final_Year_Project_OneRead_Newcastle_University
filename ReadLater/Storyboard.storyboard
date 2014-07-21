@@ -799,6 +799,51 @@
             </objects>
             <point key="canvasLocation" x="1643" y="-981"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Gra-Ae-gkz">
+            <objects>
+                <viewController id="dVo-fM-ozv" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="w0w-fY-2j7"/>
+                        <viewControllerLayoutGuide type="bottom" id="PJD-lp-TDx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eKj-Fi-5tA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rpj-bl-z2F">
+                                <rect key="frame" x="20" y="66" width="280" height="66"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjL-eT-10F">
+                                <rect key="frame" x="41" y="75" width="47" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="E.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHE-Rh-iOa">
+                                <rect key="frame" x="137" y="75" width="47" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="R.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ata-8d-hwf">
+                                <rect key="frame" x="229" y="75" width="47" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="A.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hu0-uw-zlW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2211" y="-987"/>
+        </scene>
         <!--Sharing View Controller-->
         <scene sceneID="1ft-ls-3A6">
             <objects>
@@ -920,6 +965,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="A.png" width="62" height="62"/>
+        <image name="E.png" width="62" height="62"/>
+        <image name="R.png" width="62" height="62"/>
         <image name="background" width="802" height="1424"/>
         <image name="beaker" width="33" height="40"/>
         <image name="glass" width="29" height="40"/>

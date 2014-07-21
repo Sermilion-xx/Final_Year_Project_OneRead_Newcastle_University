@@ -22,7 +22,7 @@
 
 
 
-@synthesize tfFirstname, tfLastname, tfAge, tfEmail, tfPassword, tfPicture, registerDelegate,db;
+@synthesize tfFirstname, tfLastname, tfAge, tfEmail, tfPassword, tfPicture, registerDelegate, db;
 
 - (Database* ) db
 {
@@ -56,26 +56,27 @@
                      password:self.tfPassword.text
                       picture:self.tfPicture.text];
         [self.db closeDatabase];
+        [self dismissViewControllerAnimated:YES completion:NULL];
         }
         else{
-//           UIAlertView *alert = [[UIAlertView alloc]
-//                                        initWithTitle:@"Error:"
-//                                        message:@"Passwords do not match!"
-//                                        delegate:self
-//                                        cancelButtonTitle:@"OK"
-//                                        otherButtonTitles:nil];
-//        [alert show];
+           UIAlertView *alert = [[UIAlertView alloc]
+                                        initWithTitle:@"Error:"
+                                        message:@"Passwords do not match!"
+                                        delegate:self
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil];
+        [alert show];
         }
         
     }
-//    else {UIAlertView *alert = [[UIAlertView alloc]
-//                                  initWithTitle:@"Error:"
-//                                  message:@"Please fill all fields"
-//                                  delegate:self
-//                                  cancelButtonTitle:@"OK"
-//                                  otherButtonTitles:nil];
-//        [alert show];
-//    }
+    else {UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error:"
+                                  message:@"Please fill all fields"
+                                  delegate:self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (IBAction)userFinishedEnteringText:(UITextField *)sender
@@ -151,7 +152,7 @@
 
 - (void)alertView:(UIAlertView *)alertViewParam didDismissWithButtonIndex:(NSInteger)buttonIndex {
     self.alertView = nil; // release it
-    // do something...
+
 }
 
 
