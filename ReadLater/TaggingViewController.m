@@ -99,6 +99,7 @@
 
 - (IBAction) btnPressed:(id)sender
 {
+    //[self.db addTagsForArticleWithID:[self.article.article_id tags:];
    [self dismissViewControllerAnimated:YES completion:NULL]; 
 }
 

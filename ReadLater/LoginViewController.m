@@ -14,7 +14,6 @@
 
 
 @interface LoginViewController ()
-@property (nonatomic,strong) JCRBlurView *blurView;
 @property (nonatomic, strong) IBOutletCollection(UIView) NSArray * allTextFields;
 @property (nonatomic, strong) IBOutletCollection(UIButton) NSArray * allButtons;
 @property (nonatomic, strong) AFViewShaker * viewShaker;
@@ -22,17 +21,7 @@
 
 @implementation LoginViewController
 
-@synthesize tfEmail, tfPassword, loginDelegate, db, logged, articles;
-
-
-- (NSInteger) logged
-{
-    if(!logged){
-        logged = 0;
-    }
-    return logged;
-}
-
+@synthesize tfEmail, tfPassword, db;
 
 - (Database* ) db
 {
@@ -43,12 +32,15 @@
     return db;
 }
 
+
+//blocks segue if login credentials are wrong
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     NSInteger str = -1;
+    //user data for logged user; if nil, then login failed =>block segue
     str = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
     if ([identifier isEqualToString:@"Login"]) {
         
-        if (str > -1) {
+        if (str != -1) {
             return YES;
         }else{
             NSLog(@"Locked View");
@@ -58,20 +50,34 @@
     return YES;
 }
 
+/**
+ Action method that defines behaviour when login button is tapped
+ **/
 - (IBAction)btnLoginTapped:(UIButton *)sender
 {
-    self.logged = 0;
+    //check that fields are not empty
     if (![self.tfEmail.text isEqualToString:@"Email"] &&
         ![self.tfPassword.text isEqualToString:@"Password"] && ![self.tfEmail.text isEqualToString:@""] &&
         ![self.tfPassword.text isEqualToString:@""]) {
-        
+        User *user = nil;
         [self.db openDatabase];
-        [self.db login:self.tfEmail.text password:self.tfPassword.text];
-        NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-        self.articles = [self.db importAllArchivedForUser:user_id];
+        //see if entered data exist
+        user = [self.db login:self.tfEmail.text password:self.tfPassword.text];
+        //if credentials found =>login successufl
+        if (user!=nil) {
+            //set user object to session
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat: @"%d", (int)user.user_id] forKey:@"UserLoginIdSession"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //import all archived articles for the user
+        }else{
+            //set user data object to -1, that siginifies failure in login
+            [[NSUserDefaults standardUserDefaults] setObject:@"-1"forKey:@"UserLoginIdSession"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
         [self.db closeDatabase];
 
     }else{
+        //set user data object to -1, that siginifies failure in login
         [[NSUserDefaults standardUserDefaults] setObject:@"-1"forKey:@"UserLoginIdSession"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
@@ -139,13 +145,13 @@
     
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"Menu"]){
-        InboxViewController *controller = (InboxViewController *)segue.destinationViewController;
-        controller.articles = self.articles;
-
-        
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//    if([segue.identifier isEqualToString:@"Menu"]){
+//        InboxViewController *controller = (InboxViewController *)segue.destinationViewController;
+//        controller.articles = self.articles;
+//
+//        
+//    }
+//}
 
 @end

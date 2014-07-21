@@ -10,33 +10,17 @@
 #import "Database.h"
 #import "Article.h"
 
-
-@protocol LoginDelegate <NSObject>
-
-- (void) didLoginWithEmail:(NSString *) email
-                  password:(NSString *) password;
-
-@end
-
 @interface LoginViewController : UIViewController
 
-@property (nonatomic, assign) NSInteger logged;
-
-@property (nonatomic, strong) NSMutableArray* articles;
+//database object declaration, to access methods for database interactions
 @property (nonatomic, strong) Database* db;
-
-@property (nonatomic, weak) id <LoginDelegate> loginDelegate;
-
+//textfields for entering login information
 @property (nonatomic, strong) IBOutlet UITextField *tfEmail;
 @property (nonatomic, strong) IBOutlet UITextField *tfPassword;
 
+//action methods
 - (IBAction)userFinishedEnteringText:(UITextField *)sender;
 - (IBAction)btnLoginTapped:(UIButton *)sender;
 - (IBAction)goBack:(UIStoryboardSegue *)sender;
-
-
-
-//For HTTP Requests
-
 
 @end
