@@ -32,6 +32,7 @@
 		39224FAD1973D63400E61111 /* ECSlidingSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = 39224FA51973D63400E61111 /* ECSlidingSegue.m */; };
 		39224FAE1973D63400E61111 /* ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39224FA71973D63400E61111 /* ECSlidingViewController.m */; };
 		39224FAF1973D63400E61111 /* UIViewController+ECSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39224FA91973D63400E61111 /* UIViewController+ECSlidingViewController.m */; };
+		392B8D88197F141900E62168 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 392B8D86197F141900E62168 /* DWTagList.m */; };
 		39305F961958460D00E4CDA2 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39305F951958460D00E4CDA2 /* ArticleViewController.m */; };
 		3944250719667D8000497336 /* AccordionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3944250619667D8000497336 /* AccordionTableViewController.m */; };
 		394A9EE8194751FA00205F5C /* InboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 394A9EE7194751FA00205F5C /* InboxViewController.m */; };
@@ -120,6 +121,8 @@
 		39224FA71973D63400E61111 /* ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ECSlidingViewController.m; sourceTree = "<group>"; };
 		39224FA81973D63400E61111 /* UIViewController+ECSlidingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ECSlidingViewController.h"; sourceTree = "<group>"; };
 		39224FA91973D63400E61111 /* UIViewController+ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ECSlidingViewController.m"; sourceTree = "<group>"; };
+		392B8D86197F141900E62168 /* DWTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTagList.m; sourceTree = "<group>"; };
+		392B8D87197F141900E62168 /* DWTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTagList.h; sourceTree = "<group>"; };
 		39305F941958460D00E4CDA2 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
 		39305F951958460D00E4CDA2 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 		3944250519667D8000497336 /* AccordionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionTableViewController.h; sourceTree = "<group>"; };
@@ -326,6 +329,7 @@
 		39224F9B1973D63400E61111 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				39E160AF197EC02D007DB923 /* DWTagList */,
 				39E1607F197B1437007DB923 /* AKTagsInputViewExample */,
 				3995F5AC19509F29004C6A1A /* Swipe Implementation */,
 				3986B3AD195F02C60010ABCE /* AMWaveTransition */,
@@ -440,6 +444,16 @@
 				39E1608E197B1437007DB923 /* NSString+StringSizeWithFont.m */,
 			);
 			name = AKTagsInputViewExample;
+			path = "../../../../../Downloads/AKTagsInputView-master-2/Classes";
+			sourceTree = "<group>";
+		};
+		39E160AF197EC02D007DB923 /* DWTagList */ = {
+			isa = PBXGroup;
+			children = (
+				392B8D86197F141900E62168 /* DWTagList.m */,
+				392B8D87197F141900E62168 /* DWTagList.h */,
+			);
+			name = DWTagList;
 			path = "../../../../../Downloads/AKTagsInputView-master-2/Classes";
 			sourceTree = "<group>";
 		};
@@ -570,6 +584,7 @@
 				398E64D81941229900BADF11 /* MainViewController.m in Sources */,
 				39224FAB1973D63400E61111 /* ECSlidingAnimationController.m in Sources */,
 				3986B3BE195F3E140010ABCE /* ArchiveViewController.m in Sources */,
+				392B8D88197F141900E62168 /* DWTagList.m in Sources */,
 				3986B3B2195F02C60010ABCE /* AMWaveTransition.m in Sources */,
 				39224FAA1973D63400E61111 /* ECPercentDrivenInteractiveTransition.m in Sources */,
 				3974E4691976C1BB00F7E457 /* RTLabel.m in Sources */,

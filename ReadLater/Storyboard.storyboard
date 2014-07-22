@@ -837,11 +837,11 @@
                                 </state>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Tags Content - Rectangle.png" translatesAutoresizingMaskIntoConstraints="NO" id="dH8-10-1xJ">
-                                <rect key="frame" x="20" y="176" width="280" height="87"/>
+                                <rect key="frame" x="20" y="176" width="280" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Tags Content - Rectangle.png" translatesAutoresizingMaskIntoConstraints="NO" id="4Xw-C9-3he">
-                                <rect key="frame" x="20" y="315" width="280" height="117"/>
+                                <rect key="frame" x="20" y="315" width="280" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Tags Title - Rectangle.png" translatesAutoresizingMaskIntoConstraints="NO" id="OBe-Ou-Mdb">
@@ -852,8 +852,13 @@
                                 <rect key="frame" x="20" y="290" width="280" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hvd-go-ID5">
+                                <rect key="frame" x="268" y="293" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="All"/>
+                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Tags Title - Rectangle.png" translatesAutoresizingMaskIntoConstraints="NO" id="D44-eu-usS">
-                                <rect key="frame" x="20" y="462" width="280" height="24"/>
+                                <rect key="frame" x="20" y="442" width="280" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tags:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsT-T3-CvN">
@@ -869,35 +874,50 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sorting:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jy-64-BjE">
-                                <rect key="frame" x="27" y="440" width="58" height="21"/>
+                                <rect key="frame" x="27" y="420" width="58" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zor-Rv-6c4">
-                                <rect key="frame" x="63" y="459" width="32" height="30"/>
+                                <rect key="frame" x="63" y="439" width="32" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Date">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yTt-O6-MQw">
-                                <rect key="frame" x="207" y="459" width="45" height="30"/>
+                                <rect key="frame" x="207" y="439" width="45" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Rating">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6m-YZ-0uI">
-                                <rect key="frame" x="145" y="494" width="30" height="30"/>
+                                <rect key="frame" x="145" y="474" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Go!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCM-ob-Yi2">
+                                <rect key="frame" x="268" y="152" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="All"/>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.9575892857142857" green="0.9575892857142857" blue="0.9575892857142857" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="A" destination="Ata-8d-hwf" id="FiC-4Z-SQA"/>
+                        <outlet property="E" destination="wjL-eT-10F" id="g4H-1U-M9x"/>
+                        <outlet property="R" destination="WHE-Rh-iOa" id="a3v-zC-k57"/>
+                        <outlet property="allBlogsButton" destination="hvd-go-ID5" id="edi-up-Q7Y"/>
+                        <outlet property="allTagsButton" destination="hCM-ob-Yi2" id="7Ln-g9-jk6"/>
+                        <outlet property="goButton" destination="W6m-YZ-0uI" id="i5t-eW-au2"/>
+                        <outlet property="sortByDateButton" destination="Zor-Rv-6c4" id="dZ8-6Z-Lma"/>
+                        <outlet property="sortByRatingButton" destination="yTt-O6-MQw" id="FaI-LI-ZJS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hu0-uw-zlW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

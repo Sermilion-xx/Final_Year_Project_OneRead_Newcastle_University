@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D3F68C62-4CE6-422D-9BEA-D8664F8FCCE7</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ReadLater</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C3FFB80E-DE50-469A-8D31-7C580701307F</key>
+		<string>https://github.com/Sermilion/oneread.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ReadLater.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C3FFB80E-DE50-469A-8D31-7C580701307F</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Sermilion/oneread.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C3FFB80E-DE50-469A-8D31-7C580701307F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C3FFB80E-DE50-469A-8D31-7C580701307F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ReadLater_14.07.14_(Sorting_Filtering) AlmostFinishedFilters+CustomCellFinished</string>
+		</dict>
+	</array>
+</dict>
+</plist>
