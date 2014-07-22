@@ -64,6 +64,9 @@
 		39E1609A197DAE6C007DB923 /* E.png in Resources */ = {isa = PBXBuildFile; fileRef = 39E16099197DAE6C007DB923 /* E.png */; };
 		39E1609C197DAEF7007DB923 /* R.png in Resources */ = {isa = PBXBuildFile; fileRef = 39E1609B197DAEF7007DB923 /* R.png */; };
 		39E1609E197DAF4A007DB923 /* A.png in Resources */ = {isa = PBXBuildFile; fileRef = 39E1609D197DAF4A007DB923 /* A.png */; };
+		39E160A4197E780C007DB923 /* Rectangle 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 39E160A3197E780C007DB923 /* Rectangle 1.png */; };
+		39E160A7197EABA8007DB923 /* Tags Content - Rectangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 39E160A5197EABA8007DB923 /* Tags Content - Rectangle.png */; };
+		39E160A8197EABA8007DB923 /* Tags Title - Rectangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 39E160A6197EABA8007DB923 /* Tags Title - Rectangle.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +175,9 @@
 		39E16099197DAE6C007DB923 /* E.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = E.png; path = Images/E.png; sourceTree = "<group>"; };
 		39E1609B197DAEF7007DB923 /* R.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = R.png; path = Images/R.png; sourceTree = "<group>"; };
 		39E1609D197DAF4A007DB923 /* A.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = A.png; path = Images/A.png; sourceTree = "<group>"; };
+		39E160A3197E780C007DB923 /* Rectangle 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Rectangle 1.png"; sourceTree = "<group>"; };
+		39E160A5197EABA8007DB923 /* Tags Content - Rectangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tags Content - Rectangle.png"; sourceTree = "<group>"; };
+		39E160A6197EABA8007DB923 /* Tags Title - Rectangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Tags Title - Rectangle.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +298,9 @@
 		39164631195C4851005389E1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				39E160A5197EABA8007DB923 /* Tags Content - Rectangle.png */,
+				39E160A6197EABA8007DB923 /* Tags Title - Rectangle.png */,
+				39E160A3197E780C007DB923 /* Rectangle 1.png */,
 				39E1609D197DAF4A007DB923 /* A.png */,
 				39E1609B197DAEF7007DB923 /* R.png */,
 				39E16099197DAE6C007DB923 /* E.png */,
@@ -513,6 +522,7 @@
 				39E1609C197DAEF7007DB923 /* R.png in Resources */,
 				3974E46B1976C3BA00F7E457 /* HelveticaNeue.dfont in Resources */,
 				391A6CE81964E999006DDFB4 /* down-arrow.png in Resources */,
+				39E160A7197EABA8007DB923 /* Tags Content - Rectangle.png in Resources */,
 				3907B2D5193CB7BB00100BD6 /* InfoPlist.strings in Resources */,
 				3907B2DD193CB7BB00100BD6 /* Images.xcassets in Resources */,
 				3907B2FB193CB7E100100BD6 /* Storyboard.storyboard in Resources */,
@@ -520,8 +530,10 @@
 				391A6CEA1964EAB4006DDFB4 /* data.plist in Resources */,
 				3986B3B8195F08A90010ABCE /* password_logo.png in Resources */,
 				39E1609E197DAF4A007DB923 /* A.png in Resources */,
+				39E160A8197EABA8007DB923 /* Tags Title - Rectangle.png in Resources */,
 				3986B3B7195F08A90010ABCE /* login_iclon.png in Resources */,
 				39E1609A197DAE6C007DB923 /* E.png in Resources */,
+				39E160A4197E780C007DB923 /* Rectangle 1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
