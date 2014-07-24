@@ -25,7 +25,7 @@
 
 @implementation InboxViewController
 
-@synthesize db, articles, response, jsonData, bgView;
+@synthesize db, articles, response, jsonData, bgView, selectedBlogs, selectedTags, ERA, sortingOption;
 
 
 
@@ -46,6 +46,24 @@
     return db;
 }
 
+- (NSMutableArray* ) selectedBlogs
+{
+    if (!selectedBlogs) {
+        selectedBlogs = [[NSMutableArray alloc] initWithCapacity:20];
+    }
+    
+    return selectedBlogs;
+}
+
+- (NSMutableArray* ) selectedTags
+{
+    if (!selectedTags) {
+        selectedTags = [[NSMutableArray alloc] initWithCapacity:20];
+    }
+    
+    return selectedTags;
+}
+
 
 #pragma mark Initialization
 
@@ -55,7 +73,8 @@
     // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
     self = [super initWithStyle:style];
     if (self) {
-        
+        self.selectedTags = [[NSMutableArray alloc] initWithCapacity:20];
+        self.selectedBlogs = [[NSMutableArray alloc] initWithCapacity:20];
 		UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,150,30)];
 		[titleLabel setBackgroundColor:[UIColor clearColor]];
 		[titleLabel setTextColor:[UIColor whiteColor]];
@@ -173,9 +192,19 @@
         }
         if (count>0) {
             NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-            NSMutableArray *importedArticles = [self.db importAllArticlesForUser:(int)user_id archived:0];
-            self.articles = [[self sortArticlesByDate:importedArticles]mutableCopy];
+            //NSMutableArray *importedArticles = [self.db importAllArticlesForUser:(int)user_id archived:0];
             
+            if (self.selectedTags.count>0) {
+                self.articles = [self.db importAndFilterByRangeOfValues:self.selectedTags byOption:0];
+                self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+            }
+            if(self.selectedBlogs.count>0){
+                NSMutableArray* blogSelected = [[NSMutableArray alloc]initWithCapacity:20];
+                blogSelected = [self.db importAndFilterByRangeOfValues:self.selectedBlogs byOption:1];
+                
+                [self.articles addObjectsFromArray:blogSelected];
+                self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+            }
             [self.tableView reloadData];
             
             //NSLog(@"connectionDidFinishLoading: Articles has been imported. Size: %lu %lu", (unsigned long)jsonData.count, (unsigned long)jsonData.count);
@@ -412,6 +441,42 @@
     return sortedEventArray;
         
     
+}
+
+#pragma mark Filtering/Sorting of Articles
+//sorting type: 0 - date , 1- by rating
+- (NSArray*)sortArticlesBy:(int )type
+{
+    NSSortDescriptor *aSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"rating" ascending:YES comparator:^(id obj1, id obj2) {
+        
+        if ([obj1 integerValue] > [obj2 integerValue]) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if ([obj1 integerValue] < [obj2 integerValue]) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+    
+    
+    
+    if (type==0) {
+        
+        NSSortDescriptor *dateDescriptor = [NSSortDescriptor
+                                            sortDescriptorWithKey:@"date"
+                                            ascending:YES];
+        NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+        NSArray *sortedEventArray = [self.articles
+                                     sortedArrayUsingDescriptors:sortDescriptors];
+        return sortedEventArray;
+        
+    }else if(type==1){
+        NSArray* sortedByRatingArray = [NSMutableArray arrayWithArray:[self.articles sortedArrayUsingDescriptors:[NSArray arrayWithObject:aSortDescriptor]]];
+        
+        return sortedByRatingArray;
+        
+    }
+    return nil;
 }
 
 #pragma mark RTLabel delegate

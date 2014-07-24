@@ -334,6 +334,91 @@
     
 }
 
+- (NSMutableArray*)importAndFilterByRangeOfValues:(NSMutableArray*)values byOption:(NSInteger)option
+{
+    NSString * strComma = [values componentsJoinedByString:@","];
+    NSString * sql = nil;//[NSString stringWithFormat:@"SELECT * FROM tableName WHERE fieldName IN (\"%@\")", strComma];
+    NSMutableArray *filteredArticles = [[NSMutableArray alloc]initWithCapacity:20];
+    
+
+    if (option==1) {
+        sql = [NSString stringWithFormat:@"SELECT * FROM Article WHERE blog IN (%@)", strComma];
+        //sql = [NSString stringWithFormat:@"SELECT * FROM Article  WHERE blog=?"];
+        
+    }else if(option==0){
+        //sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE tag=?"];
+        sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE tag IN (%@) AND blog=?", strComma];
+        //sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE tag IN ('#iphone','#objective-c')"];
+        
+    }
+    
+    sqlite3_stmt *select;
+    
+    int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
+//    //printf( "could not prepare statemnt: %s\n", sqlite3_errmsg(self.db) );
+//    
+//    sqlite3_bind_text(select, 1, [option UTF8String],  -1, SQLITE_TRANSIENT);
+
+    if (result == SQLITE_OK) {
+        
+        
+        while (sqlite3_step(select) == SQLITE_ROW) {
+            NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:6];
+            //NSLog(@"***********Filtered By Tag: %d %d" , result, SQLITE_OK);
+            // add the id:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 0)]];
+            // add the content:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 1)]];
+            // add the author:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 2)]];
+            // add the date:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 3)]];
+            // add the url:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 4)]];
+            // add the tags:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 5)]];
+            // add the title:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 6)]];
+            // add the blog:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 7)]];
+            // add the rating:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 8)]];
+            
+            
+            
+            Article* article = [[Article alloc]init];
+            
+            article.article_id = [[values objectAtIndex:0]integerValue];
+            article.content = [values objectAtIndex:1];
+            article.author = [values objectAtIndex:2];
+            article.date = [values objectAtIndex:3];
+            article.url = [values objectAtIndex:4];
+            article.stringTags = [values objectAtIndex:5];
+            article.title = [values objectAtIndex:6];
+            article.blog = [values objectAtIndex:7];
+            NSInteger a = [[values objectAtIndex:8] integerValue];
+            article.rating = a;
+            [filteredArticles addObject:article];
+            //NSLog(@"Filtered Article: %@", article);
+        }
+        
+    }
+    sqlite3_finalize(select);
+    //NSLog(@"%lu articles were imported form db", (unsigned long)filteredArticles.count);
+    return filteredArticles;
+    
+}
+
+
 - (NSMutableArray*)getAllTags
 {
     NSString *sql = [NSString stringWithFormat:@"SELECT DISTINCT tag FROM ArticleTags"];

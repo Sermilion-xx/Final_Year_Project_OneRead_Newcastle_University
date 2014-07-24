@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="dVo-fM-ozv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="deU-6u-mqh">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -67,7 +67,7 @@
                                 <connections>
                                     <action selector="btnLoginTapped:" destination="deU-6u-mqh" eventType="touchUpInside" id="omB-s4-RGn"/>
                                     <action selector="onShakeAllAction:" destination="deU-6u-mqh" eventType="touchUpInside" id="Bbr-Ls-lyz"/>
-                                    <segue destination="ydw-o7-Tdu" kind="modal" identifier="Login" id="Pvr-sN-fVI"/>
+                                    <segue destination="Hlv-Z3-gUX" kind="modal" identifier="Login" id="ADb-2m-BSv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nJf-mK-PDi">
@@ -168,7 +168,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQu-4i-nAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1120" y="-268"/>
+            <point key="canvasLocation" x="1646" y="-268"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="nDe-Of-DpG">
@@ -186,27 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9h1-z3-N2T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3265" y="-612"/>
-        </scene>
-        <!--Tab Bar Controller - Navigation Controller-->
-        <scene sceneID="igO-jy-RqB">
-            <objects>
-                <tabBarController title="Navigation Controller" definesPresentationContext="YES" id="ydw-o7-Tdu" sceneMemberID="viewController">
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="Bdg-ZT-Xho">
-                        <rect key="frame" x="129" y="330" width="163" height="49"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="R3E-Bn-rnj" kind="relationship" relationship="viewControllers" id="WF0-0y-wBg"/>
-                        <segue destination="Tl7-nI-QeF" kind="relationship" relationship="viewControllers" id="aOB-zc-VGg"/>
-                        <segue destination="X5Q-b1-ZGx" kind="relationship" relationship="viewControllers" id="JVj-Gk-qLO"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1X4-xC-usq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-21" y="212"/>
+            <point key="canvasLocation" x="3791" y="-612"/>
         </scene>
         <!--Archive View Controller - Feed-->
         <scene sceneID="kaf-F9-7Nb">
@@ -242,7 +222,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H8k-4z-bgj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="592" y="1443"/>
+            <point key="canvasLocation" x="1646" y="651"/>
         </scene>
         <!--Article View Controller-->
         <scene sceneID="wmC-nq-X2S">
@@ -312,7 +292,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="boL-hb-TcT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1787" y="-262"/>
+            <point key="canvasLocation" x="2313" y="-262"/>
         </scene>
         <!--Navigation Controller - Inbox-->
         <scene sceneID="Nhy-6N-Soz">
@@ -329,7 +309,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ARn-5e-rdR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="592" y="-268"/>
+            <point key="canvasLocation" x="1118" y="-268"/>
         </scene>
         <!--Register View Controller-->
         <scene sceneID="dcV-L8-phP">
@@ -675,7 +655,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5sA-Cy-7QB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="580" y="-981"/>
+            <point key="canvasLocation" x="1106" y="-981"/>
         </scene>
         <!--Sliding View Controller - Inbox-->
         <scene sceneID="ySC-GU-Plc">
@@ -698,7 +678,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcN-ed-ZWg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1106" y="-981"/>
+            <point key="canvasLocation" x="1702" y="-1155"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="VRN-MX-2Ja">
@@ -797,9 +777,9 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yya-9E-sdx" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="E7u-ef-2TB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1643" y="-981"/>
+            <point key="canvasLocation" x="2169" y="-981"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Main View Controller - Item-->
         <scene sceneID="Gra-Ae-gkz">
             <objects>
                 <viewController id="dVo-fM-ozv" customClass="MainViewController" sceneMemberID="viewController">
@@ -821,6 +801,9 @@
                                 <state key="normal" image="E.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="ETapped:" destination="dVo-fM-ozv" eventType="touchUpInside" id="Tvv-fc-B9c"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHE-Rh-iOa">
                                 <rect key="frame" x="137" y="75" width="47" height="47"/>
@@ -828,6 +811,9 @@
                                 <state key="normal" image="R.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="RTapped:" destination="dVo-fM-ozv" eventType="touchUpInside" id="cAe-pf-4qt"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ata-8d-hwf">
                                 <rect key="frame" x="229" y="75" width="47" height="47"/>
@@ -835,6 +821,9 @@
                                 <state key="normal" image="A.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="ATapped:" destination="dVo-fM-ozv" eventType="touchUpInside" id="LJG-yU-a7b"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Tags Content - Rectangle.png" translatesAutoresizingMaskIntoConstraints="NO" id="dH8-10-1xJ">
                                 <rect key="frame" x="20" y="176" width="280" height="90"/>
@@ -885,6 +874,9 @@
                                 <state key="normal" title="Date">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="sortByDateTapped:" destination="dVo-fM-ozv" eventType="touchUpInside" id="k36-49-qc9"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yTt-O6-MQw">
                                 <rect key="frame" x="207" y="439" width="45" height="30"/>
@@ -892,6 +884,9 @@
                                 <state key="normal" title="Rating">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="sortByRatingTapped:" destination="dVo-fM-ozv" eventType="touchUpInside" id="8ph-uf-LQD"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W6m-YZ-0uI">
                                 <rect key="frame" x="145" y="474" width="30" height="30"/>
@@ -899,6 +894,9 @@
                                 <state key="normal" title="Go!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="GoTapped:" destination="dVo-fM-ozv" eventType="touchUpInside" id="QcE-Jq-yjA"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hCM-ob-Yi2">
                                 <rect key="frame" x="268" y="152" width="22" height="22"/>
@@ -908,6 +906,7 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="8eu-hN-ogt"/>
                     <connections>
                         <outlet property="A" destination="Ata-8d-hwf" id="FiC-4Z-SQA"/>
                         <outlet property="E" destination="wjL-eT-10F" id="g4H-1U-M9x"/>
@@ -917,11 +916,13 @@
                         <outlet property="goButton" destination="W6m-YZ-0uI" id="i5t-eW-au2"/>
                         <outlet property="sortByDateButton" destination="Zor-Rv-6c4" id="dZ8-6Z-Lma"/>
                         <outlet property="sortByRatingButton" destination="yTt-O6-MQw" id="FaI-LI-ZJS"/>
+                        <segue destination="R3E-Bn-rnj" kind="modal" identifier="InboxSegue" id="hHU-WE-wlD"/>
+                        <segue destination="X5Q-b1-ZGx" kind="modal" identifier="ArchiveSegue" id="01k-rI-HtP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hu0-uw-zlW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2211" y="-987"/>
+            <point key="canvasLocation" x="533" y="-535"/>
         </scene>
         <!--Sharing View Controller-->
         <scene sceneID="1ft-ls-3A6">
@@ -1041,6 +1042,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JDT-Mo-b8H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1012" y="-1664"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Pk6-iD-132">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Hlv-Z3-gUX" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="I0i-MJ-KPh">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="dVo-fM-ozv" kind="relationship" relationship="viewControllers" id="xbS-IA-07u"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="inX-fG-fTj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7" y="-535"/>
         </scene>
     </scenes>
     <resources>

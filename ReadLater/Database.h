@@ -36,6 +36,8 @@
 
 - (NSMutableArray*) importAllFollowersForUser:(NSInteger)user_id;
 
+- (NSMutableArray*)importAndFilterByRangeOfValues:(NSMutableArray*)values byOption:(NSInteger)option;
+
 - (NSMutableArray*)getAllTags;
 - (NSMutableArray*)getAllBlog;
 

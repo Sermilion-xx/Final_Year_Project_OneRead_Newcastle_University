@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "User.h"
 #import "DWTagList.h"
+#import "InboxViewController.h"
 
 @interface MainViewController ()
 
@@ -16,7 +17,7 @@
 
 @implementation MainViewController
 
-@synthesize allBlogs, allTags, db;
+@synthesize allBlogs, allTags, db, selectedTags, selectedBlogs, ERA, sortingOption;
 
 - (Database* ) db
 {
@@ -44,7 +45,39 @@
     return allTags;
 }
 
+- (NSMutableArray* ) selectedTags
+{
+    if (!selectedTags) {
+        selectedTags = [[NSMutableArray alloc] initWithCapacity:20];
+    }
+    
+    return selectedTags;
+}
 
+- (NSMutableArray* ) selectedBlogs
+{
+    if (!selectedBlogs) {
+        selectedBlogs = [[NSMutableArray alloc] initWithCapacity:20];
+    }
+    
+    return selectedBlogs;
+}
+
+- (NSInteger)ERA
+{
+    if (!ERA) {
+        ERA = 1;
+    }
+    return ERA;
+}
+
+- (NSInteger)sortingOption
+{
+    if (!sortingOption) {
+        sortingOption = 0;
+    }
+    return sortingOption;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -94,30 +127,93 @@
 
 - (void)selectedTag:(NSString *)tagName tagIndex:(NSInteger)tagIndex
 {
+
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message"
 //                                                    message:[NSString stringWithFormat:@"You tapped tag %@ at index %ld", tagName,(long)tagIndex]
 //                                                   delegate:nil
 //                                          cancelButtonTitle:@"Ok"
 //                                          otherButtonTitles:nil];
 //    [alert show];
-
-    [self.selectedTags addObject:tagName];
-    
+    NSRange range = [tagName rangeOfString:@"."];
+    if (range.location != NSNotFound) {
+        
+        if ([self.selectedBlogs containsObject:tagName]) {
+            [self.selectedBlogs removeObject:tagName];
+            NSLog(@"Blog %@ removed", tagName);
+        }else{
+            [self.selectedBlogs addObject:[NSString stringWithFormat:@"'%@'", tagName]];
+            NSLog(@"Blog %@ added", tagName);
+        }
+        
+    }else{
+        if ([self.selectedTags containsObject:tagName]) {
+            
+            [self.selectedTags removeObject:tagName];
+            NSLog(@"Tag %@ removed", tagName);
+        }else{
+            [self.selectedTags addObject:[NSString stringWithFormat:@"'%@'", tagName]];
+            NSLog(@"Tag %@ added", tagName);
+        }
+        
+    }
     
 }
 
 - (IBAction)ETapped:(id)sender
 {
-    
+    self.ERA = 0;
 }
-- (IBAction)tappedAdd:(id)sender
+
+- (IBAction)RTapped:(id)sender
 {
-//    [_addTagField resignFirstResponder];
-//    if ([[_addTagField text] length]) {
-//        [_array addObject:[_addTagField text]];
-//    }
-//    [_addTagField setText:@""];
-//    [_tagList setTags:_array];
+    self.ERA = 1;
+}
+
+- (IBAction)ATapped:(id)sender
+{
+    self.ERA = 2;
+}
+
+- (IBAction)sortByDateTapped:(id)sender
+{
+    self.sortingOption = 0;
+}
+
+- (IBAction)sortByRatingTapped:(id)sender
+{
+    self.sortingOption = 1;
+}
+
+- (IBAction)GoTapped:(id)sender
+{
+    if (self.selectedTags.count==0) {
+        self.selectedTags = self.allTags;
+    }
+    if (self.selectedBlogs.count==0) {
+        self.selectedBlogs= self.allBlogs;
+    }
+    
+    
+    if (self.ERA == 0) {
+       [self performSegueWithIdentifier: @"ExploreSegue" sender: self];
+    }else if(self.ERA ==1){
+        [self performSegueWithIdentifier: @"InboxSegue" sender: self];
+    }else if(self.ERA ==2){
+        [self performSegueWithIdentifier: @"ArchiveSegue" sender: self];
+    }
+}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if([segue.identifier isEqualToString:@"InboxSegue"]){
+        UINavigationController * navigationController = (UINavigationController *)[segue destinationViewController];
+        InboxViewController * controller = [[navigationController viewControllers] objectAtIndex:0];
+        controller.ERA = ERA;
+        controller.sortingOption = self.sortingOption;
+        controller.selectedTags = self.selectedTags;
+        controller.selectedBlogs = self.selectedBlogs;
+
+    }
+    
 }
 
 - (void)viewDidUnload

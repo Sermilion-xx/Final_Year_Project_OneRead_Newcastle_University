@@ -123,6 +123,7 @@
 		39224FA91973D63400E61111 /* UIViewController+ECSlidingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ECSlidingViewController.m"; sourceTree = "<group>"; };
 		392B8D86197F141900E62168 /* DWTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DWTagList.m; sourceTree = "<group>"; };
 		392B8D87197F141900E62168 /* DWTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTagList.h; sourceTree = "<group>"; };
+		392B8D8919810D6700E62168 /* DWTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DWTagView.h; sourceTree = "<group>"; };
 		39305F941958460D00E4CDA2 /* ArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArticleViewController.h; sourceTree = "<group>"; };
 		39305F951958460D00E4CDA2 /* ArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArticleViewController.m; sourceTree = "<group>"; };
 		3944250519667D8000497336 /* AccordionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccordionTableViewController.h; sourceTree = "<group>"; };
@@ -450,8 +451,9 @@
 		39E160AF197EC02D007DB923 /* DWTagList */ = {
 			isa = PBXGroup;
 			children = (
-				392B8D86197F141900E62168 /* DWTagList.m */,
 				392B8D87197F141900E62168 /* DWTagList.h */,
+				392B8D86197F141900E62168 /* DWTagList.m */,
+				392B8D8919810D6700E62168 /* DWTagView.h */,
 			);
 			name = DWTagList;
 			path = "../../../../../Downloads/AKTagsInputView-master-2/Classes";

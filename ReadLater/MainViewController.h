@@ -20,7 +20,12 @@
 @property (nonatomic, strong) DWTagList             *blogList;
 //@property (nonatomic, weak) IBOutlet UITextField    *addTagField;
 
-- (IBAction)tappedAdd:(id)sender;
+- (IBAction)GoTapped:(id)sender;
+- (IBAction)ETapped:(id)sender;
+- (IBAction)RTapped:(id)sender;
+- (IBAction)ATapped:(id)sender;
+- (IBAction)sortByDateTapped:(id)sender;
+- (IBAction)sortByRatingTapped:(id)sender;
 
 @property (nonatomic, strong) IBOutlet UIButton* E;
 @property (nonatomic, strong) IBOutlet UIButton* R;
@@ -28,8 +33,10 @@
 
 @property (nonatomic, strong) IBOutlet UIButton* allTagsButton;
 @property (nonatomic, strong) IBOutlet UIButton* allBlogsButton;
+
 @property (nonatomic, strong) IBOutlet UIButton* sortByDateButton;
 @property (nonatomic, strong) IBOutlet UIButton* sortByRatingButton;
+
 @property (nonatomic, strong) IBOutlet UIButton* goButton;
 
 @property (nonatomic, strong) NSMutableArray* allTags;
@@ -39,6 +46,8 @@
 @property (nonatomic, strong) Database* db;
 //0 - E, 1- R, 2-A
 @property (nonatomic, assign) NSInteger ERA;
+//0 - date, 1 - rating
+@property (nonatomic, assign) NSInteger sortingOption;
 
 
 @end
