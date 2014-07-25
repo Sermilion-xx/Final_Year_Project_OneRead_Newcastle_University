@@ -25,7 +25,7 @@
 
 @implementation InboxViewController
 
-@synthesize db, articles, response, jsonData, bgView, selectedBlogs, selectedTags, ERA, sortingOption;
+@synthesize db, articles, response, jsonData, bgView, selectedBlogs, selectedTags, ERA, sortingOption, allTagsAndBlogs;
 
 
 
@@ -64,6 +64,13 @@
     return selectedTags;
 }
 
+- (BOOL) allTagsAndBlogs
+{
+    if (!allTagsAndBlogs) {
+        allTagsAndBlogs = NO;
+    }
+    return allTagsAndBlogs;
+}
 
 #pragma mark Initialization
 
@@ -191,23 +198,20 @@
             count++;
         }
         if (count>0) {
-            NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-            //NSMutableArray *importedArticles = [self.db importAllArticlesForUser:(int)user_id archived:0];
+ 
+            if (!self.allTagsAndBlogs) {
+                if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
+                    self.articles = [self.db importAndFilterTags:self.selectedTags andBlogs:selectedBlogs archived:NO];
+                    self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+                }
+            }else{
+                NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
+                self.articles = [self.db importAllArticlesForUser:(int)user_id archived:0];
+                self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+            }
             
-            if (self.selectedTags.count>0) {
-                self.articles = [self.db importAndFilterByRangeOfValues:self.selectedTags byOption:0];
-                self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-            }
-            if(self.selectedBlogs.count>0){
-                NSMutableArray* blogSelected = [[NSMutableArray alloc]initWithCapacity:20];
-                blogSelected = [self.db importAndFilterByRangeOfValues:self.selectedBlogs byOption:1];
-                
-                [self.articles addObjectsFromArray:blogSelected];
-                self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-            }
             [self.tableView reloadData];
-            
-            //NSLog(@"connectionDidFinishLoading: Articles has been imported. Size: %lu %lu", (unsigned long)jsonData.count, (unsigned long)jsonData.count);
+
         }else{
             //NSLog(@"connectionDidFinishLoading: Failed to import article.");
         }

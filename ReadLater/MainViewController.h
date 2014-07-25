@@ -48,6 +48,7 @@
 @property (nonatomic, assign) NSInteger ERA;
 //0 - date, 1 - rating
 @property (nonatomic, assign) NSInteger sortingOption;
+@property (nonatomic, assign) BOOL allTagsAndBlogs;
 
 
 @end

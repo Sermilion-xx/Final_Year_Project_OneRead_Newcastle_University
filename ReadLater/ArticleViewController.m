@@ -18,6 +18,8 @@
 
 @synthesize article, article_content, article_image, article_title, interactive;
 
+
+
 - (id)initWithArticle:(Article*) article1
 {
     self = [super init];
@@ -51,8 +53,14 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     interactive = [[AMWaveTransition alloc] init];
     
+    
 
-        
+    
+    [self.tableView reloadData];
+
+    
+
+    
     
 }
 

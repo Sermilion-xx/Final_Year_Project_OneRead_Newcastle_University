@@ -10,6 +10,7 @@
 #import "User.h"
 #import "DWTagList.h"
 #import "InboxViewController.h"
+#import "ArchiveViewController.h"
 
 @interface MainViewController ()
 
@@ -17,7 +18,7 @@
 
 @implementation MainViewController
 
-@synthesize allBlogs, allTags, db, selectedTags, selectedBlogs, ERA, sortingOption;
+@synthesize allBlogs, allTags, db, selectedTags, selectedBlogs, ERA, sortingOption, allTagsAndBlogs;
 
 - (Database* ) db
 {
@@ -79,6 +80,14 @@
     return sortingOption;
 }
 
+- (BOOL) allTagsAndBlogs
+{
+    if (!allTagsAndBlogs) {
+        allTagsAndBlogs = NO;
+    }
+    return allTagsAndBlogs;
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -127,16 +136,8 @@
 
 - (void)selectedTag:(NSString *)tagName tagIndex:(NSInteger)tagIndex
 {
-
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Message"
-//                                                    message:[NSString stringWithFormat:@"You tapped tag %@ at index %ld", tagName,(long)tagIndex]
-//                                                   delegate:nil
-//                                          cancelButtonTitle:@"Ok"
-//                                          otherButtonTitles:nil];
-//    [alert show];
     NSRange range = [tagName rangeOfString:@"."];
     if (range.location != NSNotFound) {
-        
         if ([self.selectedBlogs containsObject:tagName]) {
             [self.selectedBlogs removeObject:tagName];
             NSLog(@"Blog %@ removed", tagName);
@@ -144,10 +145,8 @@
             [self.selectedBlogs addObject:[NSString stringWithFormat:@"'%@'", tagName]];
             NSLog(@"Blog %@ added", tagName);
         }
-        
     }else{
         if ([self.selectedTags containsObject:tagName]) {
-            
             [self.selectedTags removeObject:tagName];
             NSLog(@"Tag %@ removed", tagName);
         }else{
@@ -186,11 +185,22 @@
 
 - (IBAction)GoTapped:(id)sender
 {
+    
+    if (self.selectedTags.count==0 && self.selectedBlogs.count==0) {
+        self.allTagsAndBlogs=YES;
+    }
+    
     if (self.selectedTags.count==0) {
-        self.selectedTags = self.allTags;
+        for (int i=0; i<self.allTags.count; i++) {
+            [self.selectedTags addObject:[NSString stringWithFormat:@"'%@'", [self.allTags objectAtIndex:i]]];
+        }
+        //self.selectedTags = self.allTags;
     }
     if (self.selectedBlogs.count==0) {
-        self.selectedBlogs= self.allBlogs;
+        for (int i=0; i<self.allBlogs.count; i++) {
+            [self.selectedBlogs addObject:[NSString stringWithFormat:@"'%@'", [self.allBlogs objectAtIndex:i]]];
+        }
+        //self.selectedBlogs= self.allBlogs;
     }
     
     
@@ -211,7 +221,19 @@
         controller.sortingOption = self.sortingOption;
         controller.selectedTags = self.selectedTags;
         controller.selectedBlogs = self.selectedBlogs;
+        controller.allTagsAndBlogs = self.allTagsAndBlogs;
 
+    }
+    
+    if([segue.identifier isEqualToString:@"ArchiveSegue"]){
+        UINavigationController * navigationController = (UINavigationController *)[segue destinationViewController];
+        ArchiveViewController * controller = [[navigationController viewControllers] objectAtIndex:0];
+        controller.ERA = ERA;
+        controller.sortingOption = self.sortingOption;
+        controller.selectedTags = self.selectedTags;
+        controller.selectedBlogs = self.selectedBlogs;
+        controller.allTagsAndBlogs = self.allTagsAndBlogs;
+        
     }
     
 }
@@ -226,6 +248,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)goBack:(UIStoryboardSegue *)sender
+{
+    
 }
 
 @end

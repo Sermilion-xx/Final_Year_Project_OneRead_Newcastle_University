@@ -334,33 +334,23 @@
     
 }
 
-- (NSMutableArray*)importAndFilterByRangeOfValues:(NSMutableArray*)values byOption:(NSInteger)option
+- (NSMutableArray*)importAndFilterTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs archived:(BOOL) archived
 {
-    NSString * strComma = [values componentsJoinedByString:@","];
-    NSString * sql = nil;//[NSString stringWithFormat:@"SELECT * FROM tableName WHERE fieldName IN (\"%@\")", strComma];
+    NSString * tagsArrayString = [tags componentsJoinedByString:@","];
+    NSString * blogsArrayString = [blogs componentsJoinedByString:@","];
+    NSString * sql = nil;
     NSMutableArray *filteredArticles = [[NSMutableArray alloc]initWithCapacity:20];
     
+        //correct here
+        sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE a.archived=(?) tag IN (%@) AND A.blog IN (%@) GROUP BY tag, A.blog", tagsArrayString, blogsArrayString];
 
-    if (option==1) {
-        sql = [NSString stringWithFormat:@"SELECT * FROM Article WHERE blog IN (%@)", strComma];
-        //sql = [NSString stringWithFormat:@"SELECT * FROM Article  WHERE blog=?"];
-        
-    }else if(option==0){
-        //sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE tag=?"];
-        sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE tag IN (%@) AND blog=?", strComma];
-        //sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE tag IN ('#iphone','#objective-c')"];
-        
-    }
     
     sqlite3_stmt *select;
     
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
-//    //printf( "could not prepare statemnt: %s\n", sqlite3_errmsg(self.db) );
-//    
-//    sqlite3_bind_text(select, 1, [option UTF8String],  -1, SQLITE_TRANSIENT);
 
     if (result == SQLITE_OK) {
-        
+     sqlite3_bind_int (select, 1, (BOOL)archived);
         
         while (sqlite3_step(select) == SQLITE_ROW) {
             NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:6];
@@ -407,7 +397,11 @@
             article.blog = [values objectAtIndex:7];
             NSInteger a = [[values objectAtIndex:8] integerValue];
             article.rating = a;
-            [filteredArticles addObject:article];
+            
+            if (![filteredArticles containsObject:article]) {
+                [filteredArticles addObject:article];
+            }
+            
             //NSLog(@"Filtered Article: %@", article);
         }
         

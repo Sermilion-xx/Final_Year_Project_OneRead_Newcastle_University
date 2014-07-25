@@ -147,6 +147,22 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Inbox" id="nVy-xX-hDM">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="LSp-GT-Q6j">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Xdz-zL-6y1">
+                                <rect key="frame" x="16" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="UBZ-u7-ES4" kind="unwind" unwindAction="goBack:" id="ZIN-DC-ajp"/>
+                                </connections>
+                            </button>
+                            <connections>
+                                <segue destination="UBZ-u7-ES4" kind="unwind" unwindAction="goBack:" id="EDQ-Qg-feZ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="WiD-HQ-f0V">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xz3-mv-kyq">
                                 <rect key="frame" x="233" y="5" width="71" height="33"/>
@@ -167,6 +183,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQu-4i-nAc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="UBZ-u7-ES4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1646" y="-268"/>
         </scene>

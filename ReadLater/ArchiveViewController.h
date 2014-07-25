@@ -29,4 +29,13 @@
 
 @property (strong, nonatomic) NSArray *data;
 
+//0 - E, 1- R, 2-A
+@property (nonatomic, assign) NSInteger ERA;
+//0 - date, 1 - rating
+@property (nonatomic, assign) NSInteger sortingOption;
+
+@property (nonatomic, strong) NSMutableArray* selectedTags;
+@property (nonatomic, strong) NSMutableArray* selectedBlogs;
+@property (nonatomic, assign) BOOL allTagsAndBlogs;
+
 @end

@@ -18,9 +18,33 @@
 
 @implementation ArchiveViewController
 
-@synthesize db, articles, response, jsonData;
+@synthesize db, articles, response, jsonData, sortingOption, allTagsAndBlogs, selectedBlogs, selectedTags;
 
+- (NSMutableArray* ) selectedBlogs
+{
+    if (!selectedBlogs) {
+        selectedBlogs = [[NSMutableArray alloc] initWithCapacity:20];
+    }
+    
+    return selectedBlogs;
+}
 
+- (NSMutableArray* ) selectedTags
+{
+    if (!selectedTags) {
+        selectedTags = [[NSMutableArray alloc] initWithCapacity:20];
+    }
+    
+    return selectedTags;
+}
+
+- (BOOL) allTagsAndBlogs
+{
+    if (!allTagsAndBlogs) {
+        allTagsAndBlogs = NO;
+    }
+    return allTagsAndBlogs;
+}
 
 
 - (NSMutableArray* ) articles
@@ -54,12 +78,27 @@
 - (void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [self.db openDatabase];
     NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
     NSArray *importedArticles =  [self.db importAllArchivedForUser:user_id];
     self.articles = nil;
     [self.articles addObjectsFromArray:importedArticles];
     [self.tableView reloadData];
+    
+    if (!self.allTagsAndBlogs) {
+        if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
+            self.articles = [self.db importAndFilterTags:self.selectedTags andBlogs:selectedBlogs archived:YES];
+            self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+        }
+    }else{
+        NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
+        self.articles = [self.db importAllArticlesForUser:(int)user_id archived:0];
+        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+    }
+    
+    
+    
     NSLog(@"A-viewWillAppear: self.articles: %lu", (unsigned long)self.articles.count);
     [self.db closeDatabase];
     [self.tableView registerClass:[SHCTableViewCell_inbox class] forCellReuseIdentifier:@"Content"];
@@ -219,6 +258,41 @@
     
 }
 
+#pragma mark Filtering/Sorting of Articles
+//sorting type: 0 - date , 1- by rating
+- (NSArray*)sortArticlesBy:(int )type
+{
+    NSSortDescriptor *aSortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"rating" ascending:YES comparator:^(id obj1, id obj2) {
+        
+        if ([obj1 integerValue] > [obj2 integerValue]) {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+        if ([obj1 integerValue] < [obj2 integerValue]) {
+            return (NSComparisonResult)NSOrderedAscending;
+        }
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+    
+    
+    
+    if (type==0) {
+        
+        NSSortDescriptor *dateDescriptor = [NSSortDescriptor
+                                            sortDescriptorWithKey:@"date"
+                                            ascending:YES];
+        NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+        NSArray *sortedEventArray = [self.articles
+                                     sortedArrayUsingDescriptors:sortDescriptors];
+        return sortedEventArray;
+        
+    }else if(type==1){
+        NSArray* sortedByRatingArray = [NSMutableArray arrayWithArray:[self.articles sortedArrayUsingDescriptors:[NSArray arrayWithObject:aSortDescriptor]]];
+        
+        return sortedByRatingArray;
+        
+    }
+    return nil;
+}
 
 - (IBAction)goBack:(UIStoryboardSegue *)sender
 {

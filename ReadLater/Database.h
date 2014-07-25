@@ -36,7 +36,7 @@
 
 - (NSMutableArray*) importAllFollowersForUser:(NSInteger)user_id;
 
-- (NSMutableArray*)importAndFilterByRangeOfValues:(NSMutableArray*)values byOption:(NSInteger)option;
+- (NSMutableArray*)importAndFilterTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs archived:(BOOL) archived;
 
 - (NSMutableArray*)getAllTags;
 - (NSMutableArray*)getAllBlog;
