@@ -17,7 +17,7 @@
                BlueprintIdentifier = "3907B2C6193CB7BB00100BD6"
                BuildableName = "ReadLater.app"
                BlueprintName = "ReadLater"
-               ReferencedContainer = "container:ReadLater.xcodeproj">
+               ReferencedContainer = "container:readlater.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "3907B2E1193CB7BC00100BD6"
                BuildableName = "ReadLaterTests.xctest"
                BlueprintName = "ReadLaterTests"
-               ReferencedContainer = "container:ReadLater.xcodeproj">
+               ReferencedContainer = "container:readlater.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -45,7 +45,7 @@
             BlueprintIdentifier = "3907B2C6193CB7BB00100BD6"
             BuildableName = "ReadLater.app"
             BlueprintName = "ReadLater"
-            ReferencedContainer = "container:ReadLater.xcodeproj">
+            ReferencedContainer = "container:readlater.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "3907B2C6193CB7BB00100BD6"
             BuildableName = "ReadLater.app"
             BlueprintName = "ReadLater"
-            ReferencedContainer = "container:ReadLater.xcodeproj">
+            ReferencedContainer = "container:readlater.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -82,7 +82,7 @@
             BlueprintIdentifier = "3907B2C6193CB7BB00100BD6"
             BuildableName = "ReadLater.app"
             BlueprintName = "ReadLater"
-            ReferencedContainer = "container:ReadLater.xcodeproj">
+            ReferencedContainer = "container:readlater.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
