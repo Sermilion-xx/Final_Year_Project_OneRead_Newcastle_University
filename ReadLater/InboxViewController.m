@@ -13,7 +13,7 @@
 #import "AMWaveTransition.h"
 #import "AccordionTableViewController.h"
 #import "WebViewController.h"
-#import "SharingViewController.h"
+//#import "SharingViewController.h"
 #import "TaggingViewController.h"
 
 
@@ -411,10 +411,10 @@
         controller.url = self.url;
     }
     
-    if([segue.identifier isEqualToString:@"shareSegue"]){
-        SharingViewController *controller = (SharingViewController *)segue.destinationViewController;
-        controller.article = self.articleToShare;
-    }
+//    if([segue.identifier isEqualToString:@"shareSegue"]){
+//        SharingViewController *controller = (SharingViewController *)segue.destinationViewController;
+//        controller.article = self.articleToShare;
+//    }
     
     if([segue.identifier isEqualToString:@"tagSegue"]){
         TaggingViewController *controller = (TaggingViewController *)segue.destinationViewController;
