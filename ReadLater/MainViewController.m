@@ -136,22 +136,29 @@
 
 - (void)selectedTag:(NSString *)tagName tagIndex:(NSInteger)tagIndex
 {
+    NSString * tappedBlogOrTag = [NSString stringWithFormat:@"'%@'", tagName];
+    
+    if (self.allTagsAndBlogs) {
+        [self.selectedTags removeAllObjects];
+        [self.selectedBlogs removeAllObjects];
+    }
     NSRange range = [tagName rangeOfString:@"."];
     if (range.location != NSNotFound) {
-        if ([self.selectedBlogs containsObject:tagName]) {
-            [self.selectedBlogs removeObject:tagName];
+        
+        if ([self.selectedBlogs containsObject:tappedBlogOrTag]) {
+            [self.selectedBlogs removeObject:tappedBlogOrTag];
             NSLog(@"Blog %@ removed", tagName);
         }else{
-            [self.selectedBlogs addObject:[NSString stringWithFormat:@"'%@'", tagName]];
-            NSLog(@"Blog %@ added", tagName);
+            [self.selectedBlogs addObject:tappedBlogOrTag];
+            NSLog(@"Blog %@ added", tappedBlogOrTag);
         }
     }else{
-        if ([self.selectedTags containsObject:tagName]) {
-            [self.selectedTags removeObject:tagName];
-            NSLog(@"Tag %@ removed", tagName);
+        if ([self.selectedTags containsObject:tappedBlogOrTag]) {
+            [self.selectedTags removeObject:tappedBlogOrTag];
+            NSLog(@"Tag %@ removed", tappedBlogOrTag);
         }else{
-            [self.selectedTags addObject:[NSString stringWithFormat:@"'%@'", tagName]];
-            NSLog(@"Tag %@ added", tagName);
+            [self.selectedTags addObject:tappedBlogOrTag];
+            NSLog(@"Tag %@ added", tappedBlogOrTag);
         }
         
     }
@@ -188,20 +195,22 @@
     
     if (self.selectedTags.count==0 && self.selectedBlogs.count==0) {
         self.allTagsAndBlogs=YES;
+    }else{
+        self.allTagsAndBlogs=NO;
     }
     
-    if (self.selectedTags.count==0) {
-        for (int i=0; i<self.allTags.count; i++) {
-            [self.selectedTags addObject:[NSString stringWithFormat:@"'%@'", [self.allTags objectAtIndex:i]]];
-        }
-        //self.selectedTags = self.allTags;
-    }
-    if (self.selectedBlogs.count==0) {
-        for (int i=0; i<self.allBlogs.count; i++) {
-            [self.selectedBlogs addObject:[NSString stringWithFormat:@"'%@'", [self.allBlogs objectAtIndex:i]]];
-        }
-        //self.selectedBlogs= self.allBlogs;
-    }
+//    if (self.selectedTags.count==0) {
+//        for (int i=0; i<self.allTags.count; i++) {
+//            [self.selectedTags addObject:[NSString stringWithFormat:@"'%@'", [self.allTags objectAtIndex:i]]];
+//        }
+//        //self.selectedTags = self.allTags;
+//    }
+//    if (self.selectedBlogs.count==0) {
+//        for (int i=0; i<self.allBlogs.count; i++) {
+//            [self.selectedBlogs addObject:[NSString stringWithFormat:@"'%@'", [self.allBlogs objectAtIndex:i]]];
+//        }
+//        //self.selectedBlogs= self.allBlogs;
+//    }
     
     
     if (self.ERA == 0) {

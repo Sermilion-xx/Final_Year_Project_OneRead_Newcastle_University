@@ -619,12 +619,27 @@
                             <outlet property="delegate" destination="0tW-Tk-OD3" id="eXa-L2-qe8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Archive" id="rpU-xM-6Bi"/>
+                    <navigationItem key="navigationItem" title="Archive" id="rpU-xM-6Bi">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="3WS-fg-6Rq">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="udG-Q1-Zja">
+                                <rect key="frame" x="16" y="5" width="71" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="oX5-RB-loF" kind="unwind" unwindAction="goBack:" id="oY7-Rd-054"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="LJS-Va-WB7" id="ANt-JN-UsN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3cY-NU-7L9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="oX5-RB-loF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1084" y="646"/>
         </scene>

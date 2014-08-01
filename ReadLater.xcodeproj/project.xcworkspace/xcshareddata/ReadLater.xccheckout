@@ -5,16 +5,16 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>D3F68C62-4CE6-422D-9BEA-D8664F8FCCE7</string>
+	<string>6150C00A-FD69-4986-A50A-39A025FF3BD9</string>
 	<key>IDESourceControlProjectName</key>
-	<string>ReadLater</string>
+	<string>readlater</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>C3FFB80E-DE50-469A-8D31-7C580701307F</key>
 		<string>https://github.com/Sermilion/oneread.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>ReadLater.xcodeproj/project.xcworkspace</string>
+	<string>readlater.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>C3FFB80E-DE50-469A-8D31-7C580701307F</key>

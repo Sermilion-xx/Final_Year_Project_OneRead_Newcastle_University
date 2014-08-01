@@ -303,8 +303,7 @@ static NSString *CellIdentifier = @"MyOptionCell";
                 [self.enteredTags removeAllObjects];
                 [self.articles removeAllObjects];
                 
-                NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-                self.articles = [self.db importAllArticlesForUser:(int)user_id archived:0];
+                self.articles = [self.db importAllArticlesWithStatus:0];
                 [self.delegate  selectedFilter:self.articles];
                 
                 [self dismissViewControllerAnimated:YES completion:NULL];
@@ -312,11 +311,9 @@ static NSString *CellIdentifier = @"MyOptionCell";
             
             if ([cellValue isEqualToString:@"Reset Blogs"]) {
                 [self.articles removeAllObjects];
-                
-                NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-                self.articles = [self.db importAllArticlesForUser:(int)user_id archived:0];
+
+                self.articles = [self.db importAllArticlesWithStatus:0];
                 [self.delegate  selectedFilter:self.articles];
-                
                 [self dismissViewControllerAnimated:YES completion:NULL];
             }
             

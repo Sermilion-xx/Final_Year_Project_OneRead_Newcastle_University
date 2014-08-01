@@ -7,7 +7,7 @@
 
 #import "DWTagList.h"
 #import <QuartzCore/QuartzCore.h>
-
+//
 #define CORNER_RADIUS 10.0f
 #define LABEL_MARGIN_DEFAULT 5.0f
 #define BOTTOM_MARGIN_DEFAULT 5.0f
@@ -216,6 +216,13 @@
     
     if ([self.tagDelegate respondsToSelector:@selector(selectedTag:tagIndex:)]) {
         [self.tagDelegate selectedTag:tagView.label.text tagIndex:tagView.tag];
+
+        if (button.backgroundColor == [UIColor redColor]) {
+            [button setBackgroundColor:[self getBackgroundColor]];
+        }else{
+            [button setBackgroundColor:[UIColor redColor]];
+        }
+        
     }
 
     if ([self.tagDelegate respondsToSelector:@selector(selectedTag:)]) {

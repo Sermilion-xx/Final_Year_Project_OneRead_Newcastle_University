@@ -25,7 +25,7 @@
 
 @implementation InboxViewController
 
-@synthesize db, articles, response, jsonData, bgView, selectedBlogs, selectedTags, ERA, sortingOption, allTagsAndBlogs;
+@synthesize db, connection, articles, response, jsonData, bgView, selectedBlogs, selectedTags, ERA, sortingOption, allTagsAndBlogs;
 
 
 
@@ -107,21 +107,21 @@
 
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost/nextril/index.php"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0];
     
-    NSURLConnection * connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     //send id of article that was added last, to server,
     //which will return json arrya of all articles with id greater then the one sent
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
     
-    if (connection) {
-
-
+    if (self.connection) {
+         NSLog(@"makeConnetion: Connected!");
+        [self connectionDidFinishLoading:self.connection];
     }else{
-        //NSLog(@"viewWillAppear: Error while connecting...");
+        NSLog(@"makeConnetion: Error while connecting...");
     }
     
     }else{
-       // NSLog(@"Loading 2nd time!");
+        NSLog(@"makeConnetion: Loading 2nd time!");
     }
 }
 
@@ -136,9 +136,11 @@
 - (void) connectionDidFinishLoading:(NSURLConnection *)connection
 {
     
-    if(sizeof(response)>0){
+    if(response!=nil){
         
         //NSLog(@"Got response from server %@", response);
+    if (self.connection) {
+
         NSError* error;
         NSArray* json = [NSJSONSerialization
                          JSONObjectWithData:response //1
@@ -173,9 +175,10 @@
             NSString* title = [item objectForKey:@"title"];
             NSString* blog = [item objectForKey:@"blog"];
             NSInteger rating = [[item objectForKey:@"rating"]integerValue];
+            NSInteger status = [[item objectForKey:@"status"]integerValue];
             
             
-            Article* article = [[Article alloc]initWithId:0 content:content author:author date:date1 url:url tags:tagsArray stringTags:tags arhived:archived title:title blog:blog rating:rating];
+            Article* article = [[Article alloc]initWithId:0 content:content author:author date:date1 url:url tags:tagsArray stringTags:tags arhived:archived title:title blog:blog rating:rating status:status];
             //adding articel to database
             added = [self.db addArticleToArticleDB:article];
             
@@ -197,30 +200,33 @@
             }
             count++;
         }
-        if (count>0) {
+    }
+    }
+        //if (count>0) {
  
             if (!self.allTagsAndBlogs) {
-                if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
-                    self.articles = [self.db importAndFilterTags:self.selectedTags andBlogs:selectedBlogs archived:NO];
+                //if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
+                    self.articles = [self.db importAndFilterTags:self.selectedTags andBlogs:selectedBlogs status:0];
                     self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-                }
+                //}
             }else{
-                NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-                self.articles = [self.db importAllArticlesForUser:(int)user_id archived:0];
+                //NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
+                self.articles = [self.db importAllArticlesWithStatus:0];
                 self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
             }
             
             [self.tableView reloadData];
 
-        }else{
-            //NSLog(@"connectionDidFinishLoading: Failed to import article.");
-        }
-        
-    }else{
-        //NSLog(@"connectionDidFinishLoading: Did not get resopnse from server: %@", response);
-    }
-    
-    connection = nil;
+//        }else{
+//            //NSLog(@"connectionDidFinishLoading: Failed to import article.");
+//        }
+        self.connection = nil;
+    //}
+//    else{
+//        //NSLog(@"connectionDidFinishLoading: Did not get resopnse from server: %@", response);
+//    }
+
+
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -232,6 +238,12 @@
     [self.db openDatabase];
     NSString* date_added = [self.db getLastArticleDate];
     [self makeConnetion:(id)date_added];
+    
+//    if (self.connection) {
+//
+//        
+//    }
+    
     
 }
 
@@ -249,7 +261,7 @@
     [self.view setBackgroundColor:[UIColor clearColor]];
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     //[self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.tableView registerNib:[UINib nibWithNibName:@"SHCTableViewCell_inbox" bundle:nil] forCellReuseIdentifier:@"ContentCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SHCT_TableViewCell_inbox" bundle:nil] forCellReuseIdentifier:@"ContentCell"];
 
     [self setTitle:@"Inbox"];
     
@@ -295,7 +307,7 @@
     cell.title.text = article.title;
     cell.tags.text = article.stringTags;
     //self.blog always = blog.com, cant find where it get initialised
-    cell.blog.hidden=YES;
+    //cell.blog.hidden=YES;
     cell.rtLabel.text = blogLink;
     [cell.rtLabel setDelegate:self];
 
@@ -339,7 +351,7 @@
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
                           withRowAnimation:UITableViewRowAnimationFade];
     [self.db openDatabase];
-    [self.db deleteArticle:articleToDelete.article_id forUser:16];
+    [self.db deleteArticle:articleToDelete.article_id];
     [self.db closeDatabase];
     [self.tableView endUpdates];
     [self.tableView reloadData];
@@ -396,7 +408,7 @@
 
 - (IBAction)goBack:(UIStoryboardSegue *)sender
 {
-    
+
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{

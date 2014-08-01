@@ -10,7 +10,7 @@
 
 @implementation Article
 
-@synthesize title,content,author,date,url,tags;
+@synthesize title,content,author,date,url,tags, rating, blog, status, stringTags;
 
 - (id) initWithId:(NSInteger)Articele_id
           content:(NSString *)Content
@@ -23,6 +23,7 @@
             title:(NSString *)Title
              blog:(NSString*)Blog
            rating:(NSInteger)Rating
+           status:(NSInteger)Status
 
 {
     self = [super init];
@@ -39,6 +40,7 @@
         self.completed = false;
         self.blog = Blog;
         self.rating = Rating;
+        self.status = Status;
     }
     return self;
 }

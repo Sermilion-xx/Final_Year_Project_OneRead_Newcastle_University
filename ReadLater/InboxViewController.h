@@ -28,6 +28,7 @@
 @property (nonatomic, strong) Article* articleToShare;
 @property (nonatomic, strong) Article* articleToTag;
 @property (nonatomic, strong) Database* db;
+@property (nonatomic, strong) NSURLConnection * connection;
 //-----------------------------------------------------------//
 
 @property (strong, nonatomic) NSArray *data;

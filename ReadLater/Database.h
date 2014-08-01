@@ -30,13 +30,13 @@
 - (User*) login:(NSString *) email
        password:(NSString *) password;
 
-- (NSMutableArray*)importAllArticlesForUser:(int)user_id archived:(int)archived;
+- (NSMutableArray*)importAllArticlesWithStatus:(int)status;
 
 - (NSMutableArray*)importAllArticlesFilterByOption:(NSString*)option;
 
 - (NSMutableArray*) importAllFollowersForUser:(NSInteger)user_id;
 
-- (NSMutableArray*)importAndFilterTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs archived:(BOOL) archived;
+- (NSMutableArray*)importAndFilterTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs status:(BOOL) status;
 
 - (NSMutableArray*)getAllTags;
 - (NSMutableArray*)getAllBlog;
@@ -50,7 +50,7 @@
 
 - (BOOL) addTagsForArticleWithID:(NSInteger)article_id tags:(NSArray*)tags;
 
-- (BOOL) deleteArticle:(NSInteger) article_id forUser:(NSInteger)user_id;
+- (BOOL) deleteArticle:(NSInteger) article_id;
 
 - (BOOL) archiveArticle:(Article *) article forUser:(NSInteger)user_id;
 

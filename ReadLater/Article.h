@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSString* blog;
 @property (nonatomic, assign) NSInteger rating;
+@property (nonatomic, assign) NSInteger status;
 
 // A boolean value that determines the completed state of this item.
 @property (nonatomic) BOOL completed;
@@ -36,7 +37,8 @@
              arhived:(NSInteger)Archived
                title:(NSString *)Title
                 blog:(NSString*)Blog
-              rating:(NSInteger)Rating;
+              rating:(NSInteger)Rating
+              status:(NSInteger)Status;
 
 
 

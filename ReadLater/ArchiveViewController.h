@@ -11,9 +11,10 @@
 #import "LoginViewController.h"
 #import "Database.h"
 #import "SHCTableViewCellDelegate.h"
+#import "RTLabel.h"
 
 
-@interface ArchiveViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, SHCTableViewCellDelegate>
+@interface ArchiveViewController : UIViewController  <UITableViewDataSource, UITableViewDelegate, SHCTableViewCellDelegate, RTLabelDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

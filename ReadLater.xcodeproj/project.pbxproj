@@ -22,6 +22,8 @@
 		3907B2FB193CB7E100100BD6 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3907B2FA193CB7E100100BD6 /* Storyboard.storyboard */; };
 		3907B2FE193CB80E00100BD6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 3907B2FD193CB80E00100BD6 /* User.m */; };
 		3907B301193CCCA100100BD6 /* Article.m in Sources */ = {isa = PBXBuildFile; fileRef = 3907B300193CCCA100100BD6 /* Article.m */; };
+		390E25B219844782006B4402 /* SHCTableViewCell_inbox.h in Resources */ = {isa = PBXBuildFile; fileRef = 3995F5B91950BD6A004C6A1A /* SHCTableViewCell_inbox.h */; };
+		390E25B419844887006B4402 /* SHCT_TableViewCell_inbox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 390E25B319844887006B4402 /* SHCT_TableViewCell_inbox.xib */; };
 		3916463B195C7C2E005389E1 /* JCRBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3916463A195C7C2E005389E1 /* JCRBlurView.m */; };
 		39164640195C88C4005389E1 /* AFViewShaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 3916463F195C88C4005389E1 /* AFViewShaker.m */; };
 		391A6CE81964E999006DDFB4 /* down-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 391A6CE71964E999006DDFB4 /* down-arrow.png */; };
@@ -35,7 +37,6 @@
 		39305F961958460D00E4CDA2 /* ArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39305F951958460D00E4CDA2 /* ArticleViewController.m */; };
 		3944250719667D8000497336 /* AccordionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3944250619667D8000497336 /* AccordionTableViewController.m */; };
 		394A9EE8194751FA00205F5C /* InboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 394A9EE7194751FA00205F5C /* InboxViewController.m */; };
-		3974E4651975BACC00F7E457 /* SHCT_TableViewCell_inbox.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3974E4641975BACC00F7E457 /* SHCT_TableViewCell_inbox.xib */; };
 		3974E4691976C1BB00F7E457 /* RTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3974E4681976C1BB00F7E457 /* RTLabel.m */; };
 		3974E46B1976C3BA00F7E457 /* HelveticaNeue.dfont in Resources */ = {isa = PBXBuildFile; fileRef = 3974E46A1976C3BA00F7E457 /* HelveticaNeue.dfont */; };
 		3974E46E1976E39C00F7E457 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3974E46D1976E39C00F7E457 /* WebViewController.m */; };
@@ -101,6 +102,7 @@
 		3907B2FD193CB80E00100BD6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		3907B2FF193CCCA100100BD6 /* Article.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Article.h; sourceTree = "<group>"; };
 		3907B300193CCCA100100BD6 /* Article.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Article.m; sourceTree = "<group>"; };
+		390E25B319844887006B4402 /* SHCT_TableViewCell_inbox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SHCT_TableViewCell_inbox.xib; path = readlater/SHCT_TableViewCell_inbox.xib; sourceTree = SOURCE_ROOT; };
 		39164639195C7C2E005389E1 /* JCRBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRBlurView.h; sourceTree = "<group>"; };
 		3916463A195C7C2E005389E1 /* JCRBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRBlurView.m; sourceTree = "<group>"; };
 		3916463E195C88C4005389E1 /* AFViewShaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFViewShaker.h; sourceTree = "<group>"; };
@@ -126,7 +128,6 @@
 		3944250619667D8000497336 /* AccordionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccordionTableViewController.m; sourceTree = "<group>"; };
 		394A9EE6194751FA00205F5C /* InboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InboxViewController.h; sourceTree = "<group>"; };
 		394A9EE7194751FA00205F5C /* InboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InboxViewController.m; sourceTree = "<group>"; };
-		3974E4641975BACC00F7E457 /* SHCT_TableViewCell_inbox.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHCT_TableViewCell_inbox.xib; sourceTree = "<group>"; };
 		3974E4671976C1BB00F7E457 /* RTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RTLabel.h; sourceTree = "<group>"; };
 		3974E4681976C1BB00F7E457 /* RTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RTLabel.m; sourceTree = "<group>"; };
 		3974E46A1976C3BA00F7E457 /* HelveticaNeue.dfont */ = {isa = PBXFileReference; lastKnownFileType = file; path = HelveticaNeue.dfont; sourceTree = "<group>"; };
@@ -410,10 +411,10 @@
 		3995F5AC19509F29004C6A1A /* Swipe Implementation */ = {
 			isa = PBXGroup;
 			children = (
+				390E25B319844887006B4402 /* SHCT_TableViewCell_inbox.xib */,
 				3995F5B91950BD6A004C6A1A /* SHCTableViewCell_inbox.h */,
 				3995F5BA1950BD6A004C6A1A /* SHCTableViewCell_inbox.m */,
 				3995F5BE1950CC29004C6A1A /* SHCTableViewCellDelegate.h */,
-				3974E4641975BACC00F7E457 /* SHCT_TableViewCell_inbox.xib */,
 			);
 			name = "Swipe Implementation";
 			path = ..;
@@ -527,6 +528,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				390E25B419844887006B4402 /* SHCT_TableViewCell_inbox.xib in Resources */,
+				390E25B219844782006B4402 /* SHCTableViewCell_inbox.h in Resources */,
 				39E1609C197DAEF7007DB923 /* R.png in Resources */,
 				3974E46B1976C3BA00F7E457 /* HelveticaNeue.dfont in Resources */,
 				391A6CE81964E999006DDFB4 /* down-arrow.png in Resources */,
@@ -534,7 +537,6 @@
 				3907B2D5193CB7BB00100BD6 /* InfoPlist.strings in Resources */,
 				3907B2DD193CB7BB00100BD6 /* Images.xcassets in Resources */,
 				3907B2FB193CB7E100100BD6 /* Storyboard.storyboard in Resources */,
-				3974E4651975BACC00F7E457 /* SHCT_TableViewCell_inbox.xib in Resources */,
 				391A6CEA1964EAB4006DDFB4 /* data.plist in Resources */,
 				3986B3B8195F08A90010ABCE /* password_logo.png in Resources */,
 				39E1609E197DAF4A007DB923 /* A.png in Resources */,

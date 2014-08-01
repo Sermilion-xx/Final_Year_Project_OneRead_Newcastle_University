@@ -86,16 +86,16 @@
     [self.articles addObjectsFromArray:importedArticles];
     [self.tableView reloadData];
     
-    if (!self.allTagsAndBlogs) {
-        if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
-            self.articles = [self.db importAndFilterTags:self.selectedTags andBlogs:selectedBlogs archived:YES];
-            self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-        }
-    }else{
-        NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-        self.articles = [self.db importAllArticlesForUser:(int)user_id archived:0];
-        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-    }
+//    if (!self.allTagsAndBlogs) {
+//        if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
+//            self.articles = [self.db importAndFilterTags:self.selectedTags andBlogs:selectedBlogs archived:YES];
+//            self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+//        }
+//    }else{
+//        NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
+//        self.articles = [self.db importAllArticlesForUser:(int)user_id archived:0];
+//        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+//    }
     
     
     
@@ -119,7 +119,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.tableView registerNib:[UINib nibWithNibName:@"SHCTableViewCell_inbox" bundle:nil] forCellReuseIdentifier:@"ContentCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"SHCT_TableViewCell_inbox" bundle:nil] forCellReuseIdentifier:@"ContentCell"];
     
     
     
@@ -152,15 +152,21 @@
     static NSString *CellIdentifier = @"ContentCell";
     
     SHCTableViewCell_inbox *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    //cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+    cell.textLabel.textColor = [UIColor whiteColor];
+    [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:11]];
     cell.textLabel.backgroundColor = [UIColor clearColor];
-    Article* article = [self.articles objectAtIndex:indexPath.row];
-    cell.blog.text = article.blog;
-    cell.rating.text = [NSString stringWithFormat: @"%ld", (long)article.rating];
-    cell.title.text = article.title;
     [cell setBackgroundColor:[UIColor clearColor]];
 	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    Article* article = [self.articles objectAtIndex:indexPath.row];
+    
+    NSMutableString* blogLink = [[NSMutableString alloc] init];
+    [blogLink appendFormat:@"%@%@%@%@%@", @"<a href='http://www.", article.blog, @"'>",article.blog, @"</a>"];
+    //cell.blog.text = @"<a href='http://www.google.com'>link to google</a>";//blogLink;
+    cell.rating.text = [NSString stringWithFormat: @"%ld", (long)article.rating];
+    cell.title.text = article.title;
+    cell.tags.text = article.stringTags;
+    cell.rtLabel.text = blogLink;
+    [cell.rtLabel setDelegate:self];
     
     cell.delegate = self;
     cell.todoItem = article;
@@ -205,7 +211,7 @@
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
                           withRowAnimation:UITableViewRowAnimationFade];
     [self.db openDatabase];
-    [self.db deleteArticle:articleToDelete.article_id forUser:16];
+    [self.db deleteArticle:articleToDelete.article_id];
     [self.db closeDatabase];
     [self.tableView endUpdates];
     [self.tableView reloadData];

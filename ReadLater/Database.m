@@ -184,18 +184,16 @@
     
 }
 #pragma mark importAllArticles
-- (NSMutableArray*)importAllArticlesForUser:(int)user_id archived:(int)archived
+- (NSMutableArray*)importAllArticlesWithStatus:(int)status
 {
     NSMutableArray *inboxArticles = [[NSMutableArray alloc]initWithCapacity:20];
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN UserArticle AS UA ON UA.article_id=A.ID WHERE user_id=? AND archived=?"];
-    //NSString *sql = [NSString stringWithFormat:@"SELECT * FROM UserArticle"];
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Article WHERE status=?"];
     
     sqlite3_stmt *select;
     
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
     
-    sqlite3_bind_int (select, 1, (int)user_id);
-    sqlite3_bind_int (select, 2, (int)archived);
+    sqlite3_bind_int (select, 1, (int)status);
     if (result == SQLITE_OK) {
         
 
@@ -229,6 +227,9 @@
             // add the rating:
             [values addObject:
              [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 8)]];
+            // add the status:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 9)]];
             
            
             
@@ -242,9 +243,10 @@
             article.stringTags = [values objectAtIndex:5];
             article.title = [values objectAtIndex:6];
             article.blog = [values objectAtIndex:7];
-            NSInteger a = [[values objectAtIndex:8] integerValue];
-            article.rating = a;
+            article.rating = [[values objectAtIndex:8] integerValue];
+            article.status = [[values objectAtIndex:9]integerValue];
             [inboxArticles addObject:article];
+            
             //NSLog(@"Imported Article: %@", article);
         }
         
@@ -308,6 +310,9 @@
             // add the rating:
             [values addObject:
              [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 8)]];
+            // add the status:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 9)]];
             
             
             
@@ -321,8 +326,8 @@
             article.stringTags = [values objectAtIndex:5];
             article.title = [values objectAtIndex:6];
             article.blog = [values objectAtIndex:7];
-            NSInteger a = [[values objectAtIndex:8] integerValue];
-            article.rating = a;
+            article.rating = [[values objectAtIndex:8] integerValue];
+            article.status = [[values objectAtIndex:9] integerValue];
             [filteredArticles addObject:article];
             //NSLog(@"Filtered Article: %@", article);
         }
@@ -334,23 +339,30 @@
     
 }
 
-- (NSMutableArray*)importAndFilterTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs archived:(BOOL) archived
+- (NSMutableArray*)importAndFilterTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs status:(BOOL) status
 {
     NSString * tagsArrayString = [tags componentsJoinedByString:@","];
     NSString * blogsArrayString = [blogs componentsJoinedByString:@","];
     NSString * sql = nil;
     NSMutableArray *filteredArticles = [[NSMutableArray alloc]initWithCapacity:20];
     
-        //correct here
-        sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE a.archived=(?) tag IN (%@) AND A.blog IN (%@) GROUP BY tag, A.blog", tagsArrayString, blogsArrayString];
-
+    if (tags.count==0 && blogs.count==0) {
+        sql = [NSString stringWithFormat:@"SELECT * FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 GROUP BY ArticleTags.tag"];
+    }else if(tags.count==0){
+        sql = [NSString stringWithFormat:@"SELECT * FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND blog IN (%@)", blogsArrayString];
+    }else if(blogs.count==0){
+        sql = [NSString stringWithFormat:@"SELECT * FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND ArticleTags.tag IN (%@)", tagsArrayString];
+    }else{
+        sql = [NSString stringWithFormat:@"SELECT * FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND ArticleTags.tag IN (%@) AND blog IN (%@)", tagsArrayString, blogsArrayString];
+    }
+    
     
     sqlite3_stmt *select;
     
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
 
     if (result == SQLITE_OK) {
-     sqlite3_bind_int (select, 1, (BOOL)archived);
+     sqlite3_bind_int (select, 1, (BOOL)status);
         
         while (sqlite3_step(select) == SQLITE_ROW) {
             NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:6];
@@ -382,6 +394,9 @@
             // add the rating:
             [values addObject:
              [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 8)]];
+            //add the status
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 9)]];
             
             
             
@@ -395,8 +410,8 @@
             article.stringTags = [values objectAtIndex:5];
             article.title = [values objectAtIndex:6];
             article.blog = [values objectAtIndex:7];
-            NSInteger a = [[values objectAtIndex:8] integerValue];
-            article.rating = a;
+            article.rating = [[values objectAtIndex:8] integerValue];
+            article.status = [[values objectAtIndex:9] integerValue];
             
             if (![filteredArticles containsObject:article]) {
                 [filteredArticles addObject:article];
@@ -472,7 +487,6 @@
         
         while (sqlite3_step(select) == SQLITE_ROW) {
             NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:6];
-            
             // add the id:
             [values addObject:
              [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 0)]];
@@ -509,7 +523,7 @@
 #pragma mark addArticle
 - (BOOL)addArticleToArticleDB:(Article*)article
 {
-    NSString *sql = @"INSERT INTO Article (content,author,date,url,tags, title, blog, rating) VALUES (?,?,?,?,?,?,?,?)";
+    NSString *sql = @"INSERT INTO Article (content,author,date,url,tags, title, blog, rating, status) VALUES (?,?,?,?,?,?,?,?,?)";
     sqlite3_stmt *insert;
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &insert, NULL);
 
@@ -525,6 +539,7 @@
         sqlite3_bind_text(insert, 6, [article.title UTF8String],   -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insert, 7, [article.blog UTF8String],   -1, SQLITE_TRANSIENT);
         sqlite3_bind_int (insert, 8, (int)article.rating);
+        sqlite3_bind_int (insert, 9, (int)article.status);
         result = sqlite3_step(insert);
         
         sqlite3_finalize(insert);
@@ -544,14 +559,34 @@
     
 }
 
-- (BOOL) deleteArticle:(NSInteger) article_id forUser:(NSInteger)user_id
+//- (BOOL) deleteArticle:(NSInteger) article_id forUser:(NSInteger)user_id
+//{
+//    NSString *sql = @"DELETE FROM UserArticle WHERE article_id=? AND user_id=?;";
+//    sqlite3_stmt *insert;
+//    int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &insert, NULL);
+//    if (result == SQLITE_OK) {
+//        sqlite3_bind_int (insert, 1, (int)article_id);
+//        sqlite3_bind_int (insert, 2, (int)user_id);
+//        result = sqlite3_step(insert);
+//        sqlite3_finalize(insert);
+//        //NSLog(@"deleteArticle: Article Deleted!");
+//        return true;
+//    }else {
+//        NSLog(@"deleteArticle: Error: insert prepare statement failed: %s.", sqlite3_errmsg(self.db));
+//        sqlite3_finalize(insert);
+//        return false;
+//    }
+//}
+
+
+- (BOOL) deleteArticle:(NSInteger) article_id
 {
-    NSString *sql = @"DELETE FROM UserArticle WHERE article_id=? AND user_id=?;";
+    //NSString *sql = @"DELETE FROM UserArticle WHERE article_id=? AND user_id=?;";
+    NSString *sql = @"UPDATE Article SET status=2 WHERE article_id=?";
     sqlite3_stmt *insert;
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &insert, NULL);
     if (result == SQLITE_OK) {
         sqlite3_bind_int (insert, 1, (int)article_id);
-        sqlite3_bind_int (insert, 2, (int)user_id);
         result = sqlite3_step(insert);
         sqlite3_finalize(insert);
         //NSLog(@"deleteArticle: Article Deleted!");
@@ -562,7 +597,6 @@
         return false;
     }
 }
-
 
 - (BOOL) addArticleToUserArticleDB:(Article *)article
 {
