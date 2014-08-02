@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSString* author;
 @property (nonatomic, strong) NSDate* date;
 @property (nonatomic, strong) NSString* url;
-@property (nonatomic, strong) NSArray* tags;
+@property (nonatomic, strong) NSMutableArray* tags;
 @property (nonatomic, strong) NSString* stringTags;
 @property (nonatomic, assign) NSInteger archived;
 @property (nonatomic, strong) NSString* title;
@@ -32,7 +32,7 @@
               author:(NSString *)Author
                 date:(NSDate *)Date
                  url:(NSString *)Url
-                tags:(NSArray*)Tags
+                tags:(NSMutableArray*)Tags
           stringTags:(NSString*)StringTags
              arhived:(NSInteger)Archived
                title:(NSString *)Title

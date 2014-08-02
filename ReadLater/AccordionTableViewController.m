@@ -253,19 +253,7 @@ static NSString *CellIdentifier = @"MyOptionCell";
                 [self.enteredBlogs removeAllObjects];
                 self.enteredBlogs = [self.db importAllArticlesFilterByOption:cellValue];
                 [self.db closeDatabase];
-                //[self.articles removeAllObjects];
-                
-                //            if(self.enteredTags.count>0){
-                //                for (int i = 0; i<self.enteredTags.count; i++) {
-                //
-                //                    if ([self.enteredBlogs containsObject:[self.enteredTags objectAtIndex:i]]) {
-                //                        [self.articles addObject:[self.enteredTags objectAtIndex:i]];
-                //                    }
-                //                }
-                //            }else{
-                //                self.articles = self.enteredBlogs;
-                //
-                //            }
+
                 self.articles = enteredBlogs;
                 [self.delegate  selectedFilter:self.articles];
                 [self dismissViewControllerAnimated:YES completion:NULL];
@@ -278,17 +266,6 @@ static NSString *CellIdentifier = @"MyOptionCell";
                 self.enteredTags = [self.db importAllArticlesFilterByOption:cellValue];
                 [self.db closeDatabase];
                 [self.articles removeAllObjects];
-                
-                //            if(self.enteredBlogs.count>0){
-                //                for (int i = 0; i<self.enteredBlogs.count; i++) {
-                //
-                //                    if ([self.enteredTags containsObject:[self.enteredBlogs objectAtIndex:i]]) {
-                //                        [self.articles addObject:[self.enteredBlogs objectAtIndex:i]];
-                //                    }
-                //                }
-                //            }else{
-                //                self.articles = self.enteredBlogs;
-                //            }
                 
                 self.articles = self.enteredTags;
                 [self.delegate  selectedFilter:self.articles];

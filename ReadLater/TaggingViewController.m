@@ -97,6 +97,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
 #pragma mark TODO: add tag to server
 #pragma mark TODO: refresh Reading List to display newly added tag
 - (IBAction) btnPressed:(id)sender
@@ -108,12 +110,13 @@
         for (int i=0; i<temp.count; i++) {
             [_tagsInputView.selectedTags addObject:[NSString stringWithFormat:@"#%@", [temp objectAtIndex:i]]];
         }
-    
     [self.db openDatabase];
     for (int i=0;i<_tagsInputView.selectedTags.count; i++){
         [self.db addTagsForArticleWithID:self.article.article_id tags:[_tagsInputView.selectedTags objectAtIndex:i]];
+        [self.article.tags addObject:[_tagsInputView.selectedTags objectAtIndex:i]];
     }
     [self.db closeDatabase];
+    [self.delegate tagAddedToArticle:self.article];
     
    [self dismissViewControllerAnimated:YES completion:NULL]; 
 }

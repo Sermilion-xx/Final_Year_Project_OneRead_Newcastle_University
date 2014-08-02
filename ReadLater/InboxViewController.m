@@ -391,6 +391,7 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
     if([segue.identifier isEqualToString:@"Menu"]){
         AccordionTableViewController *controller = (AccordionTableViewController *)segue.destinationViewController;
         controller.articles = self.articles;
@@ -410,6 +411,7 @@
     if([segue.identifier isEqualToString:@"tagSegue"]){
         TaggingViewController *controller = (TaggingViewController *)segue.destinationViewController;
         controller.article = self.articleToTag;
+        [controller setDelegate:self];
     }
 
 }
@@ -417,13 +419,19 @@
 
 
 #pragma mark - State Selection Delegate
-- (void)tagAddedToArticle:(NSMutableArray *)tags
+- (void)tagAddedToArticle:(Article *)article
 {
-    NSString* date_added = [self.db getLastArticleDate];
-        [self makeConnetion:(id)date_added];
-        [self.tableView reloadData];
-
-   
+    if (!self.allTagsAndBlogs) {
+        //if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
+        self.articles = [self.db importAndFilterByTags:self.selectedTags andBlogs:selectedBlogs status:0];
+        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+        //}
+    }else{
+        //NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
+        self.articles = [self.db importAllArticlesWithStatus:0];
+        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+    }
+    [self.tableView reloadData];
 }
 
 - (NSArray*)sortArticlesByDate:(NSMutableArray*)articles1

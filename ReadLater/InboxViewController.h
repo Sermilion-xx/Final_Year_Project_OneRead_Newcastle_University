@@ -12,8 +12,7 @@
 #import "Database.h"
 #import "SHCTableViewCellDelegate.h"
 #import "RTLabel.h"
-
-
+#import "TaggingViewController.h"
 
 @interface InboxViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, SHCTableViewCellDelegate, RTLabelDelegate>
 

@@ -9,12 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "Article.h"
 #import "Database.h"
+#import "InboxViewController.h"
+
 
 @protocol TaggingDelegate <NSObject>
-- (void)tagAddedToArticle:(NSMutableArray *)tags;
+- (void)tagAddedToArticle:(Article *)article;
 @end
 
-@interface TaggingViewController : UIViewController
+
+@interface TaggingViewController : UIViewController 
 
 @property (nonatomic, strong) IBOutlet UITextField* tagsTextField;
 @property (nonatomic, strong) IBOutlet UILabel* titleLabel;
@@ -25,5 +28,7 @@
 @property (nonatomic, strong) Database* db;
 
 - (IBAction) btnPressed:(id)sender;
+
+@property (nonatomic, weak) id<TaggingDelegate> delegate;
 
 @end

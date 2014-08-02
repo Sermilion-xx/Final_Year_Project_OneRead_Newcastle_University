@@ -86,19 +86,7 @@
     [self.articles addObjectsFromArray:importedArticles];
     [self.tableView reloadData];
     
-//    if (!self.allTagsAndBlogs) {
-//        if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
-//            self.articles = [self.db importAndFilterTags:self.selectedTags andBlogs:selectedBlogs archived:YES];
-//            self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-//        }
-//    }else{
-//        NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-//        self.articles = [self.db importAllArticlesForUser:(int)user_id archived:0];
-//        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-//    }
-    
-    
-    
+
     NSLog(@"A-viewWillAppear: self.articles: %lu", (unsigned long)self.articles.count);
     [self.db closeDatabase];
     [self.tableView registerClass:[SHCTableViewCell_inbox class] forCellReuseIdentifier:@"Content"];

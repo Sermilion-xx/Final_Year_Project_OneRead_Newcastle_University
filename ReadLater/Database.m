@@ -189,7 +189,7 @@
     NSMutableArray *inboxArticles = [[NSMutableArray alloc]initWithCapacity:20];
     NSString *sql = nil;// [NSString stringWithFormat:@"SELECT * FROM Article WHERE status=?"];
     
-    sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article INNER JOIN ArticleTags ON Article.id = ArticleTags.article_id WHERE status=? GROUP BY Article.id"];
+    sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article INNER JOIN ArticleTags ON Article.id = ArticleTags.article_id WHERE status=? GROUP BY Article.id"];
     sqlite3_stmt *select;
     
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
@@ -216,24 +216,24 @@
             // add the url:
             [values addObject:
              [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 4)]];
-            // add the tags:
-            [values addObject:
-             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 5)]];
+//            // add the tags:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 5)]];
             // add the title:
             [values addObject:
-             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 6)]];
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 5)]];
             // add the blog:
             [values addObject:
-             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 7)]];
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 6)]];
             // add the rating:
             [values addObject:
-             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 8)]];
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 7)]];
             // add the status:
             [values addObject:
-             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 9)]];
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 8)]];
             // add allTags:
             [values addObject:
-             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 10)]];
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 9)]];
            
             
             Article* article = [[Article alloc]init];
@@ -243,11 +243,11 @@
             article.author = [values objectAtIndex:2];
             article.date = [values objectAtIndex:3];
             article.url = [values objectAtIndex:4];
-            article.stringTags = [values objectAtIndex:10];
-            article.title = [values objectAtIndex:6];
-            article.blog = [values objectAtIndex:7];
-            article.rating = [[values objectAtIndex:8] integerValue];
-            article.status = [[values objectAtIndex:9]integerValue];
+            article.stringTags = [values objectAtIndex:9];
+            article.title = [values objectAtIndex:5];
+            article.blog = [values objectAtIndex:6];
+            article.rating = [[values objectAtIndex:7] integerValue];
+            article.status = [[values objectAtIndex:8]integerValue];
             [inboxArticles addObject:article];
             
             //NSLog(@"Imported Article: %@", article);
@@ -350,15 +350,15 @@
     NSMutableArray *filteredArticles = [[NSMutableArray alloc]initWithCapacity:20];
     
     if (tags.count==0 && blogs.count==0) {
-        sql = [NSString stringWithFormat:@"SELECT * FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 GROUP BY ArticleTags.tag"];
+        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 GROUP BY Article.id"];
     }else if(tags.count==0){
-        sql = [NSString stringWithFormat:@"SELECT * FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND blog IN (%@)", blogsArrayString];
+        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND blog IN (%@) GROUP BY Article.id", blogsArrayString];
     }else if(blogs.count==0){
-        sql = [NSString stringWithFormat:@"SELECT * FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND ArticleTags.tag IN (%@)", tagsArrayString];
+        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND ArticleTags.tag IN (%@) GROUP BY Article.id", tagsArrayString];
     }else{
-        sql = [NSString stringWithFormat:@"SELECT * FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND ArticleTags.tag IN (%@) AND blog IN (%@)", tagsArrayString, blogsArrayString];
+        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND ArticleTags.tag IN (%@) AND blog IN (%@) GROUP BY Article.id", tagsArrayString, blogsArrayString];
     }
-    
+//    SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article INNER JOIN ArticleTags ON Article.id = ArticleTags.article_id WHERE status=? GROUP BY Article.id
     
     sqlite3_stmt *select;
     
@@ -387,7 +387,7 @@
              [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 4)]];
             // add the tags:
             [values addObject:
-             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 5)]];
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 10)]];
             // add the title:
             [values addObject:
              [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 6)]];
