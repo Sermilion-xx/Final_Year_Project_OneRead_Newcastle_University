@@ -187,8 +187,9 @@
 - (NSMutableArray*)importAllArticlesWithStatus:(int)status
 {
     NSMutableArray *inboxArticles = [[NSMutableArray alloc]initWithCapacity:20];
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Article WHERE status=?"];
+    NSString *sql = nil;// [NSString stringWithFormat:@"SELECT * FROM Article WHERE status=?"];
     
+    sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article INNER JOIN ArticleTags ON Article.id = ArticleTags.article_id WHERE status=? GROUP BY Article.id"];
     sqlite3_stmt *select;
     
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
@@ -230,7 +231,9 @@
             // add the status:
             [values addObject:
              [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 9)]];
-            
+            // add allTags:
+            [values addObject:
+             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 10)]];
            
             
             Article* article = [[Article alloc]init];
@@ -240,7 +243,7 @@
             article.author = [values objectAtIndex:2];
             article.date = [values objectAtIndex:3];
             article.url = [values objectAtIndex:4];
-            article.stringTags = [values objectAtIndex:5];
+            article.stringTags = [values objectAtIndex:10];
             article.title = [values objectAtIndex:6];
             article.blog = [values objectAtIndex:7];
             article.rating = [[values objectAtIndex:8] integerValue];
