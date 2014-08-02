@@ -1,33 +1,33 @@
 //
-//  TaggingViewController.m
-//  ReadLater
+//  SharingViewController.m
+//  readlater
 //
-//  Created by Ibragim Gapuraev on 20/07/2014.
+//  Created by Ibragim Gapuraev on 02/08/2014.
 //  Copyright (c) 2014 Sermilion. All rights reserved.
 //
 
+#import "SharingViewController.h"
 #import "TaggingViewController.h"
 #import "AKTagsInputView.h"
 #import "AKTagsDefines.h"
 #import "AKTagsInputView.h"
 
-@interface TaggingViewController ()
+@interface SharingViewController ()
 {
-	AKTagsInputView *_tagsInputView;
+    AKTagsInputView *_tagsInputView;
 }
-
 @end
 
-@implementation TaggingViewController
+@implementation SharingViewController
 
-@synthesize tags, article, db;
+@synthesize allFollowers, article, db;
 
-- (NSMutableArray*) tags
+- (NSArray*) allFollowers
 {
-    if(!tags){
-        tags = [[NSMutableArray alloc]initWithCapacity:20];
+    if(!allFollowers){
+        allFollowers = [[NSMutableArray alloc]initWithCapacity:20];
     }
-    return tags;
+    return allFollowers;
 }
 
 - (Database* ) db
@@ -60,13 +60,14 @@
     [self.view setBackgroundColor:[UIColor clearColor]];
     self.titleLabel.text = self.article.title;
     [self.db openDatabase];
-    self.tags = [self.db getAllTags];
+    NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
+    self.allFollowers = [self.db importAllFollowersForUser:user_id];
     [self.db closeDatabase];
     
     
 	_tagsInputView = [[AKTagsInputView alloc] initWithFrame:CGRectMake(17, 261.0f, 278, 35.0f)];
 	_tagsInputView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	_tagsInputView.lookupTags = self.tags; //@[@"ios", @"iphone", @"objective-c", @"development", @"cocoa", @"xcode", @"icloud"];
+	_tagsInputView.lookupTags = self.allFollowers; //@[@"ios", @"iphone", @"objective-c", @"development", @"cocoa", @"xcode", @"icloud"];
 	_tagsInputView.selectedTags = [[NSMutableArray alloc]init];
 	_tagsInputView.enableTagsLookup = YES;
     _tagsInputView.backgroundColor = [UIColor clearColor];
@@ -87,7 +88,7 @@
     [self.view addSubview:tempImageView];
     [self.view sendSubviewToBack:tempImageView];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navbar"] forBarMetrics:UIBarMetricsDefault];
-
+    
     // Do any additional setup after loading the view.
 }
 
@@ -101,21 +102,9 @@
 #pragma mark TODO: refresh Reading List to display newly added tag
 - (IBAction) btnPressed:(id)sender
 {
-    NSLog(@"TagInputView %@", _tagsInputView.selectedTags);
-    NSMutableArray* temp = [[NSMutableArray alloc] initWithArray:_tagsInputView.selectedTags];
-    [_tagsInputView.selectedTags removeAllObjects];
     
-        for (int i=0; i<temp.count; i++) {
-            [_tagsInputView.selectedTags addObject:[NSString stringWithFormat:@"#%@", [temp objectAtIndex:i]]];
-        }
     
-    [self.db openDatabase];
-    for (int i=0;i<_tagsInputView.selectedTags.count; i++){
-        [self.db addTagsForArticleWithID:self.article.article_id tags:[_tagsInputView.selectedTags objectAtIndex:i]];
-    }
-    [self.db closeDatabase];
-    
-   [self dismissViewControllerAnimated:YES completion:NULL]; 
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

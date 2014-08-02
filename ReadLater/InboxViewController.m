@@ -13,13 +13,13 @@
 #import "AMWaveTransition.h"
 #import "AccordionTableViewController.h"
 #import "WebViewController.h"
-//#import "SharingViewController.h"
+#import "SharingViewController.h"
 #import "TaggingViewController.h"
 
 
 
 
-@interface InboxViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, OptionSelectionDelegate>
+@interface InboxViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, TaggingDelegate>
 
 @end
 
@@ -165,12 +165,9 @@
             NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
             [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSDate *date1 = [dateFormat dateFromString:date];
-            
             NSString* url = [item objectForKey:@"url"];
             NSString* tags = [item objectForKey:@"tags"];
-            
             NSArray *tagsArray = [tags componentsSeparatedByString:@","];
-            
             NSInteger archived = [[item objectForKey:@"archived"]integerValue];
             NSString* title = [item objectForKey:@"title"];
             NSString* blog = [item objectForKey:@"blog"];
@@ -206,7 +203,7 @@
  
             if (!self.allTagsAndBlogs) {
                 //if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
-                    self.articles = [self.db importAndFilterTags:self.selectedTags andBlogs:selectedBlogs status:0];
+                    self.articles = [self.db importAndFilterByTags:self.selectedTags andBlogs:selectedBlogs status:0];
                     self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
                 //}
             }else{
@@ -238,13 +235,7 @@
     [self.db openDatabase];
     NSString* date_added = [self.db getLastArticleDate];
     [self makeConnetion:(id)date_added];
-    
-//    if (self.connection) {
-//
-//        
-//    }
-    
-    
+  
 }
 
 - (void)viewDidLoad
@@ -277,13 +268,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    //NSLog(@"numberOfRowsInSection: self.articles: %lu", (unsigned long)self.articles.count);
     return self.articles.count;
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    //cell.backgroundColor = [self colorForIndex:indexPath.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -292,7 +280,6 @@
     static NSString *CellIdentifier = @"ContentCell";
     
     SHCTableViewCell_inbox *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-              //cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     cell.textLabel.textColor = [UIColor whiteColor];
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:11]];
     cell.textLabel.backgroundColor = [UIColor clearColor];
@@ -302,15 +289,11 @@
     
     NSMutableString* blogLink = [[NSMutableString alloc] init];
     [blogLink appendFormat:@"%@%@%@%@%@", @"<a href='http://www.", article.blog, @"'>",article.blog, @"</a>"];
-    //cell.blog.text = @"<a href='http://www.google.com'>link to google</a>";//blogLink;
     cell.rating.text = [NSString stringWithFormat: @"%ld", (long)article.rating];
     cell.title.text = article.title;
     cell.tags.text = article.stringTags;
-    //self.blog always = blog.com, cant find where it get initialised
-    //cell.blog.hidden=YES;
     cell.rtLabel.text = blogLink;
     [cell.rtLabel setDelegate:self];
-
     cell.delegate = self;
     cell.todoItem = article;
     return cell;
@@ -370,7 +353,6 @@
     NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
     [self.db openDatabase];
     [self.db archiveArticle:articleToArchive forUser:user_id];
-    //NSLog(@"Block to archive.");
     [self.db closeDatabase];
     [self.tableView endUpdates];
     [self.tableView reloadData];
@@ -397,12 +379,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath  *)indexPath
 {
-    
     ArticleViewController *articleView = [self.storyboard instantiateViewControllerWithIdentifier:@"ArticleView"];
     articleView.article = [self.articles objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:articleView animated:YES];
-
-    
 }
 
 
@@ -415,7 +394,7 @@
     if([segue.identifier isEqualToString:@"Menu"]){
         AccordionTableViewController *controller = (AccordionTableViewController *)segue.destinationViewController;
         controller.articles = self.articles;
-        [controller setDelegate:self];
+        //[controller setDelegate:self];
     }
     
     if([segue.identifier isEqualToString:@"WebView"]){
@@ -423,10 +402,10 @@
         controller.url = self.url;
     }
     
-//    if([segue.identifier isEqualToString:@"shareSegue"]){
-//        SharingViewController *controller = (SharingViewController *)segue.destinationViewController;
-//        controller.article = self.articleToShare;
-//    }
+    if([segue.identifier isEqualToString:@"shareSegue"]){
+        SharingViewController *controller = (SharingViewController *)segue.destinationViewController;
+        controller.article = self.articleToShare;
+    }
     
     if([segue.identifier isEqualToString:@"tagSegue"]){
         TaggingViewController *controller = (TaggingViewController *)segue.destinationViewController;
@@ -438,9 +417,10 @@
 
 
 #pragma mark - State Selection Delegate
-- (void)selectedFilter:(NSMutableArray *)articles1
+- (void)tagAddedToArticle:(NSMutableArray *)tags
 {
-    self.articles = articles1;
+    NSString* date_added = [self.db getLastArticleDate];
+        [self makeConnetion:(id)date_added];
         [self.tableView reloadData];
 
    

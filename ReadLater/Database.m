@@ -339,7 +339,7 @@
     
 }
 
-- (NSMutableArray*)importAndFilterTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs status:(BOOL) status
+- (NSMutableArray*)importAndFilterByTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs status:(BOOL) status
 {
     NSString * tagsArrayString = [tags componentsJoinedByString:@","];
     NSString * blogsArrayString = [blogs componentsJoinedByString:@","];
@@ -445,9 +445,8 @@
     }
     sqlite3_finalize(select);
     return values;
-    
-
 }
+
 
 - (NSMutableArray*)getAllBlog
 {
@@ -474,7 +473,7 @@
 {
 //     sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN ArticleTags AS AT ON AT.article_id=A.ID WHERE tag=?"];
     NSString *sql = nil;
-    sql = [NSString stringWithFormat:@"SELECT * FROM User AS U JOIN Following AS F ON F.user_id=F.user_id WHERE U.id!=?"];
+    sql = [NSString stringWithFormat:@"SELECT * FROM User WHERE U.id!=?"];
     sqlite3_stmt *select;
     
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);

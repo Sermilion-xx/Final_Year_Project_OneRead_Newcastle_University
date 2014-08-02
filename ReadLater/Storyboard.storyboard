@@ -1013,8 +1013,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <outlet property="shareMessage" destination="mjb-dj-2la" id="ICn-2A-QFW"/>
-                        <outlet property="shareTo" destination="Mw5-Ub-FGv" id="5Ow-IF-50t"/>
+                        <outlet property="followersTextField" destination="Mw5-Ub-FGv" id="4zb-Iy-Zus"/>
+                        <outlet property="shareMessage" destination="mjb-dj-2la" id="Chl-3p-YHr"/>
                         <outlet property="titleLabel" destination="jfA-mS-fZ0" id="oLk-qd-XfU"/>
                     </connections>
                 </viewController>

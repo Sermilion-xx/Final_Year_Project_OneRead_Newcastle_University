@@ -10,6 +10,10 @@
 #import "Article.h"
 #import "Database.h"
 
+@protocol TaggingDelegate <NSObject>
+- (void)tagAddedToArticle:(NSMutableArray *)tags;
+@end
+
 @interface TaggingViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UITextField* tagsTextField;
@@ -21,4 +25,5 @@
 @property (nonatomic, strong) Database* db;
 
 - (IBAction) btnPressed:(id)sender;
+
 @end
