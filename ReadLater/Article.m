@@ -17,7 +17,7 @@
            author:(NSString *)Author
              date:(NSDate *)Date
               url:(NSString *)Url
-             tags:(NSArray*)Tags
+             tags:(NSMutableArray*)Tags
        stringTags:(NSString*)StringTags
           arhived:(NSInteger)Archived
             title:(NSString *)Title

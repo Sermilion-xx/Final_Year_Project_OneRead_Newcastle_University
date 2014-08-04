@@ -350,13 +350,13 @@
     NSMutableArray *filteredArticles = [[NSMutableArray alloc]initWithCapacity:20];
     
     if (tags.count==0 && blogs.count==0) {
-        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 GROUP BY Article.id"];
+        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=? GROUP BY Article.id"];
     }else if(tags.count==0){
-        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND blog IN (%@) GROUP BY Article.id", blogsArrayString];
+        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=? AND blog IN (%@) GROUP BY Article.id", blogsArrayString];
     }else if(blogs.count==0){
-        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND ArticleTags.tag IN (%@) GROUP BY Article.id", tagsArrayString];
+        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=? AND ArticleTags.tag IN (%@) GROUP BY Article.id", tagsArrayString];
     }else{
-        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=0 AND ArticleTags.tag IN (%@) AND blog IN (%@) GROUP BY Article.id", tagsArrayString, blogsArrayString];
+        sql = [NSString stringWithFormat:@"SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article LEFT OUTER JOIN ArticleTags ON ArticleTags.article_id=article.id WHERE status=? AND ArticleTags.tag IN (%@) AND blog IN (%@) GROUP BY Article.id", tagsArrayString, blogsArrayString];
     }
 //    SELECT id, content, author,date,url,tags,title,blog,rating,status, group_concat(ArticleTags.tag) AS allTags FROM Article INNER JOIN ArticleTags ON Article.id = ArticleTags.article_id WHERE status=? GROUP BY Article.id
     
@@ -369,7 +369,6 @@
         
         while (sqlite3_step(select) == SQLITE_ROW) {
             NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:6];
-            //NSLog(@"***********Filtered By Tag: %d %d" , result, SQLITE_OK);
             // add the id:
             [values addObject:
              [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 0)]];
@@ -689,9 +688,9 @@
 }
 
 
-- (BOOL) archiveArticle:(Article *) article forUser:(NSInteger)user_id
+- (BOOL) archiveArticle:(Article *) article
 {
-    NSString *sql = [NSString stringWithFormat:@"UPDATE UserArticle SET archived = ? WHERE article_id=? AND user_id=?"];
+    NSString *sql = [NSString stringWithFormat:@"UPDATE Article SET status = 1 WHERE id=?"];
     
     sqlite3_stmt *update;
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &update, NULL);
@@ -701,8 +700,6 @@
         sqlite3_bind_int(update, 1, 1);
         
         sqlite3_bind_int(update, 2 , (int)article.article_id);
-        
-        sqlite3_bind_int(update, 3 , (int)user_id);
         
         char* errmsg;
         sqlite3_exec(self.db, "COMMIT", NULL, NULL, &errmsg);

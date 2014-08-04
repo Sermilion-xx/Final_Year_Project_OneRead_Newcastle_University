@@ -11,14 +11,17 @@
 #import "SHCTableViewCell_inbox.h"
 #import "ArticleViewController.h"
 #import "AMWaveTransition.h"
+#import "SharingViewController.h"
+#import "WebViewController.h"
+#import "TaggingViewController.h"
 
-@interface ArchiveViewController ()
+@interface ArchiveViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, TaggingDelegate>
 
 @end
 
 @implementation ArchiveViewController
 
-@synthesize db, articles, response, jsonData, sortingOption, allTagsAndBlogs, selectedBlogs, selectedTags;
+@synthesize db, articles, response, jsonData, selectedBlogs, selectedTags, ERA, sortingOption, allTagsAndBlogs;
 
 - (NSMutableArray* ) selectedBlogs
 {
@@ -80,10 +83,15 @@
     [super viewWillAppear:animated];
     
     [self.db openDatabase];
-    NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-    NSArray *importedArticles =  [self.db importAllArchivedForUser:user_id];
-    self.articles = nil;
-    [self.articles addObjectsFromArray:importedArticles];
+    
+    if (!self.allTagsAndBlogs) {
+        self.articles = [self.db importAndFilterByTags:self.selectedTags andBlogs:selectedBlogs status:1];
+        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+    }else{
+        self.articles = [self.db importAllArticlesWithStatus:1];
+        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+    }
+
     [self.tableView reloadData];
     
 
@@ -215,9 +223,8 @@
     
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
                           withRowAnimation:UITableViewRowAnimationFade];
-    NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
     [self.db openDatabase];
-    [self.db archiveArticle:articleToArchive forUser:user_id];
+    [self.db archiveArticle:articleToArchive];
     NSLog(@"A-Block to archive.");
     [self.db closeDatabase];
     [self.tableView endUpdates];
@@ -225,15 +232,39 @@
 }
 
 
-- (void) performSegueForSharing:(Article *)article
+
+- (void) performSegueForSharing:(Article*)article
 {
+    self.articleToShare = article;
+    [self performSegueWithIdentifier: @"shareSegueArchive" sender: self];
+}
+
+- (void) performSegueForTagging:(Article*)article
+{
+    self.articleToTag = article;
+    [self performSegueWithIdentifier: @"tagSegueArchive" sender: self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if([segue.identifier isEqualToString:@"WebView"]){
+        WebViewController *controller = (WebViewController *)segue.destinationViewController;
+        controller.url = self.url;
+    }
+    
+    if([segue.identifier isEqualToString:@"shareSegueArchive"]){
+        SharingViewController *controller = (SharingViewController *)segue.destinationViewController;
+        controller.article = self.articleToShare;
+    }
+    
+    if([segue.identifier isEqualToString:@"tagSegueArchive"]){
+        TaggingViewController *controller = (TaggingViewController *)segue.destinationViewController;
+        controller.article = self.articleToTag;
+        [controller setDelegate:self];
+    }
     
 }
 
-- (void) performSegueForTagging
-{
-    
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -248,6 +279,35 @@
     ArticleViewController *articleView = [self.storyboard instantiateViewControllerWithIdentifier:@"ArticleView"];
     articleView.article = [self.articles objectAtIndex:indexPath.row];
     [self.navigationController pushViewController:articleView animated:YES];
+    
+    
+}
+
+#pragma mark - State Selection Delegate
+- (void)tagAddedToArticle:(Article *)article
+{
+    if (!self.allTagsAndBlogs) {
+        //if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
+        self.articles = [self.db importAndFilterByTags:self.selectedTags andBlogs:selectedBlogs status:0];
+        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+        //}
+    }else{
+        //NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
+        self.articles = [self.db importAllArticlesWithStatus:0];
+        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+    }
+    [self.tableView reloadData];
+}
+
+- (NSArray*)sortArticlesByDate:(NSMutableArray*)articles1
+{
+    NSSortDescriptor *dateDescriptor = [NSSortDescriptor
+                                        sortDescriptorWithKey:@"date"
+                                        ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:dateDescriptor];
+    NSArray *sortedEventArray = [articles1
+                                 sortedArrayUsingDescriptors:sortDescriptors];
+    return sortedEventArray;
     
     
 }
@@ -288,8 +348,13 @@
     return nil;
 }
 
-- (IBAction)goBack:(UIStoryboardSegue *)sender
+#pragma mark RTLabel delegate
+
+- (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSURL*)url
 {
-    
+	NSLog(@"did select url %@", url);
+    self.url = url;
+    [self performSegueWithIdentifier: @"WebView" sender: self];
 }
+
 @end

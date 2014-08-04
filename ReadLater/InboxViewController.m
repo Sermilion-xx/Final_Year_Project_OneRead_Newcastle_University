@@ -167,7 +167,7 @@
             NSDate *date1 = [dateFormat dateFromString:date];
             NSString* url = [item objectForKey:@"url"];
             NSString* tags = [item objectForKey:@"tags"];
-            NSArray *tagsArray = [tags componentsSeparatedByString:@","];
+            NSMutableArray *tagsArray = [[tags componentsSeparatedByString:@","]mutableCopy];
             NSInteger archived = [[item objectForKey:@"archived"]integerValue];
             NSString* title = [item objectForKey:@"title"];
             NSString* blog = [item objectForKey:@"blog"];
@@ -199,24 +199,14 @@
         }
     }
     }
-        //if (count>0) {
- 
             if (!self.allTagsAndBlogs) {
-                //if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
                     self.articles = [self.db importAndFilterByTags:self.selectedTags andBlogs:selectedBlogs status:0];
                     self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-                //}
             }else{
-                //NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
                 self.articles = [self.db importAllArticlesWithStatus:0];
                 self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
             }
-            
             [self.tableView reloadData];
-
-//        }else{
-//            //NSLog(@"connectionDidFinishLoading: Failed to import article.");
-//        }
         self.connection = nil;
     //}
 //    else{
@@ -293,6 +283,7 @@
     cell.title.text = article.title;
     cell.tags.text = article.stringTags;
     cell.rtLabel.text = blogLink;
+    
     [cell.rtLabel setDelegate:self];
     cell.delegate = self;
     cell.todoItem = article;
@@ -350,9 +341,9 @@
     
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
                           withRowAnimation:UITableViewRowAnimationFade];
-    NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
+    //NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
     [self.db openDatabase];
-    [self.db archiveArticle:articleToArchive forUser:user_id];
+    [self.db archiveArticle:articleToArchive];
     [self.db closeDatabase];
     [self.tableView endUpdates];
     [self.tableView reloadData];
@@ -447,6 +438,7 @@
     
 }
 
+
 #pragma mark Filtering/Sorting of Articles
 //sorting type: 0 - date , 1- by rating
 - (NSArray*)sortArticlesBy:(int )type
@@ -491,6 +483,8 @@
     self.url = url;
     [self performSegueWithIdentifier: @"WebView" sender: self];
 }
+
+
 
 
 

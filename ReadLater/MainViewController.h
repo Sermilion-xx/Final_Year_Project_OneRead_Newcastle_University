@@ -12,8 +12,10 @@
 #import "LoginViewController.h"
 #import "Database.h"
 #import "DWTagList.h"
+#import "AllTagsViewController.h"
+#import "AllBlogsViewController.h"
 
-@interface MainViewController : UIViewController <DWTagListDelegate>
+@interface MainViewController : UIViewController <DWTagListDelegate, AllTagsSelectDelegate, AllBlogsSelectDelegate>
 
 @property (nonatomic, strong) NSMutableArray        *array;
 @property (nonatomic, strong) DWTagList             *tagList;
@@ -49,6 +51,10 @@
 //0 - date, 1 - rating
 @property (nonatomic, assign) NSInteger sortingOption;
 @property (nonatomic, assign) BOOL allTagsAndBlogs;
+//to indicate all tags(0) or all blogs(1)
+@property (nonatomic, assign) NSInteger type;
+
+
 
 
 @end

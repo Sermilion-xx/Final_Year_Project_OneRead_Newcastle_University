@@ -13,6 +13,9 @@
 #import "SHCTableViewCellDelegate.h"
 #import "RTLabel.h"
 #import "TaggingViewController.h"
+#import "AllTagsViewController.h"
+
+
 
 @interface InboxViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, SHCTableViewCellDelegate, RTLabelDelegate>
 
@@ -44,6 +47,8 @@
 @property (nonatomic, strong) NSMutableArray* selectedTags;
 @property (nonatomic, strong) NSMutableArray* selectedBlogs;
 @property (nonatomic, assign) BOOL allTagsAndBlogs;
+
+
 
 
 @end

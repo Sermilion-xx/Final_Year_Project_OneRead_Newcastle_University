@@ -295,17 +295,7 @@ static NSString *CellIdentifier = @"MyOptionCell";
             }
             
         }
-        
-        
-        
-        
-        
-
-
-
-
-
-        
+    
         return;
     }
     

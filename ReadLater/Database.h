@@ -52,7 +52,7 @@
 
 - (BOOL) deleteArticle:(NSInteger) article_id;
 
-- (BOOL) archiveArticle:(Article *) article forUser:(NSInteger)user_id;
+- (BOOL) archiveArticle:(Article *) article;
 
 -(NSInteger)getLastArticleID;
 

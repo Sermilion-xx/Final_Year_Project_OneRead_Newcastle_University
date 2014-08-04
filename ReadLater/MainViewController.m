@@ -11,6 +11,8 @@
 #import "DWTagList.h"
 #import "InboxViewController.h"
 #import "ArchiveViewController.h"
+#import "AllTagsViewController.h"
+#import "AllBlogsViewController.h"
 
 @interface MainViewController ()
 
@@ -114,7 +116,7 @@
     [_tagList setTagDelegate:self];
     
     // Customisation
-    [_tagList setCornerRadius:4.0f];
+    [_tagList setCornerRadius:8.0f];
     [_tagList setBorderColor:[UIColor lightGrayColor].CGColor];
     [_tagList setBorderWidth:1.0f];
     
@@ -125,7 +127,7 @@
     [_blogList setTagDelegate:self];
     
     // Customisation
-    [_blogList setCornerRadius:4.0f];
+    [_blogList setCornerRadius:6.0f];
     [_blogList setBorderColor:[UIColor lightGrayColor].CGColor];
     [_blogList setBorderWidth:1.0f];
     
@@ -138,10 +140,27 @@
 {
     NSString * tappedBlogOrTag = [NSString stringWithFormat:@"'%@'", tagName];
     
+    if ((self.selectedBlogs.count==self.allBlogs.count) && (self.selectedTags.count==self.allTags.count)) {
+        self.allTagsAndBlogs = YES;
+    }else{
+        self.allTagsAndBlogs = NO;
+    }
+    
+    
+    
     if (self.allTagsAndBlogs) {
         [self.selectedTags removeAllObjects];
         [self.selectedBlogs removeAllObjects];
+    }else{
+        if (self.selectedTags.count==self.allTags.count) {
+            [self.selectedTags removeAllObjects];
+        }
+        if (self.selectedBlogs.count==self.allBlogs.count) {
+            [self.selectedBlogs removeAllObjects];
+        }
     }
+    
+    
     NSRange range = [tagName rangeOfString:@"."];
     if (range.location != NSNotFound) {
         
@@ -245,6 +264,27 @@
         
     }
     
+    if ([segue.identifier isEqualToString:@"allTagsSegue"]) {
+        [self.selectedTags removeAllObjects];
+        UINavigationController * navigationController = (UINavigationController *)[segue destinationViewController];
+        AllTagsViewController * controller = [[navigationController viewControllers] objectAtIndex:0];
+        controller.allTags = self.allTags;
+        //tags
+        [controller.selectedTags removeAllObjects];
+        [controller setDelegate:self];
+
+    }
+    
+    if ([segue.identifier isEqualToString:@"allBlogsSegue"]) {
+        [self.selectedTags removeAllObjects];
+        UINavigationController * navigationController = (UINavigationController *)[segue destinationViewController];
+        AllBlogsViewController * controller = [[navigationController viewControllers] objectAtIndex:0];
+        [controller.allBlogs removeAllObjects];
+        controller.allBlogs = self.allBlogs;
+        [controller setDelegate:self];
+        
+    }
+    
 }
 
 - (void)viewDidUnload
@@ -261,6 +301,39 @@
 
 - (IBAction)goBack:(UIStoryboardSegue *)sender
 {
+    
+}
+
+- (void)tagsWereSelected:(NSArray *)SelectedTags
+{
+    if (SelectedTags.count==0) {
+        SelectedTags = self.allTags;
+        self.allTagsAndBlogs=YES;
+    }else{
+        self.allTagsAndBlogs=NO;
+    }
+    [self.selectedBlogs removeAllObjects];
+    [_tagList setTags:SelectedTags];
+    for (int i=0; i<SelectedTags.count; i++) {
+        [self.selectedTags addObject:[NSString stringWithFormat:@"'%@'",[SelectedTags objectAtIndex:i]]];
+    }
+    
+}
+
+- (void)blogsWereSelected:(NSArray *)SelectedBlogs
+{
+    
+    if (SelectedBlogs.count==0) {
+        SelectedBlogs = self.allBlogs;
+        self.allTagsAndBlogs=YES;
+    }else{
+        self.allTagsAndBlogs=NO;
+    }
+    [self.selectedBlogs removeAllObjects];
+    [_blogList setTags:SelectedBlogs];
+    for (int i=0; i<SelectedBlogs.count; i++) {
+        [self.selectedBlogs addObject:[NSString stringWithFormat:@"'%@'",[SelectedBlogs objectAtIndex:i]]];
+    }
     
 }
 
