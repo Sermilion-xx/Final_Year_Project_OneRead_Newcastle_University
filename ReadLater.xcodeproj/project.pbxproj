@@ -61,6 +61,10 @@
 		39ABC58019840FC5004511A2 /* AKTagTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39ABC57719840FC5004511A2 /* AKTagTextFieldCell.m */; };
 		39ABC58119840FC5004511A2 /* AKTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 39ABC57919840FC5004511A2 /* AKTextField.m */; };
 		39ABC58219840FC5004511A2 /* NSString+StringSizeWithFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 39ABC57B19840FC5004511A2 /* NSString+StringSizeWithFont.m */; };
+		39D953F6198CFA7C001BB8B4 /* SharingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39D953F5198CFA7C001BB8B4 /* SharingViewController.m */; };
+		39D953F9198D7A3D001BB8B4 /* AllTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39D953F8198D7A3D001BB8B4 /* AllTagsViewController.m */; };
+		39D953FD198ED17B001BB8B4 /* NRLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39D953FC198ED17B001BB8B4 /* NRLabel.m */; };
+		39D95400198FD446001BB8B4 /* AllBlogsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39D953FF198FD446001BB8B4 /* AllBlogsViewController.m */; };
 		39E16098197C456B007DB923 /* TaggingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E16097197C456B007DB923 /* TaggingViewController.m */; };
 		39E1609A197DAE6C007DB923 /* E.png in Resources */ = {isa = PBXBuildFile; fileRef = 39E16099197DAE6C007DB923 /* E.png */; };
 		39E1609C197DAEF7007DB923 /* R.png in Resources */ = {isa = PBXBuildFile; fileRef = 39E1609B197DAEF7007DB923 /* R.png */; };
@@ -171,6 +175,14 @@
 		39ABC57919840FC5004511A2 /* AKTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AKTextField.m; sourceTree = "<group>"; };
 		39ABC57A19840FC5004511A2 /* NSString+StringSizeWithFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringSizeWithFont.h"; sourceTree = "<group>"; };
 		39ABC57B19840FC5004511A2 /* NSString+StringSizeWithFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringSizeWithFont.m"; sourceTree = "<group>"; };
+		39D953F4198CFA7C001BB8B4 /* SharingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SharingViewController.h; path = readlater/SharingViewController.h; sourceTree = SOURCE_ROOT; };
+		39D953F5198CFA7C001BB8B4 /* SharingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SharingViewController.m; path = readlater/SharingViewController.m; sourceTree = SOURCE_ROOT; };
+		39D953F7198D7A3D001BB8B4 /* AllTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllTagsViewController.h; path = readlater/AllTagsViewController.h; sourceTree = SOURCE_ROOT; };
+		39D953F8198D7A3D001BB8B4 /* AllTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllTagsViewController.m; path = readlater/AllTagsViewController.m; sourceTree = SOURCE_ROOT; };
+		39D953FB198ED17B001BB8B4 /* NRLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NRLabel.h; path = readlater/thirdparty/NRLabel.h; sourceTree = SOURCE_ROOT; };
+		39D953FC198ED17B001BB8B4 /* NRLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NRLabel.m; path = readlater/thirdparty/NRLabel.m; sourceTree = SOURCE_ROOT; };
+		39D953FE198FD446001BB8B4 /* AllBlogsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllBlogsViewController.h; path = readlater/AllBlogsViewController.h; sourceTree = SOURCE_ROOT; };
+		39D953FF198FD446001BB8B4 /* AllBlogsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AllBlogsViewController.m; path = readlater/AllBlogsViewController.m; sourceTree = SOURCE_ROOT; };
 		39E16096197C456B007DB923 /* TaggingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaggingViewController.h; sourceTree = "<group>"; };
 		39E16097197C456B007DB923 /* TaggingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaggingViewController.m; sourceTree = "<group>"; };
 		39E16099197DAE6C007DB923 /* E.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = E.png; path = Images/E.png; sourceTree = "<group>"; };
@@ -327,6 +339,7 @@
 		39224F9B1973D63400E61111 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				39D953FA198ED166001BB8B4 /* RTLabel */,
 				39ABC56C19840FAD004511A2 /* AKTagsInputViewExample */,
 				39E160AF197EC02D007DB923 /* DWTagList */,
 				3995F5AC19509F29004C6A1A /* Swipe Implementation */,
@@ -394,16 +407,22 @@
 				398E64D61941229900BADF11 /* MainViewController.m */,
 				394A9EE6194751FA00205F5C /* InboxViewController.h */,
 				394A9EE7194751FA00205F5C /* InboxViewController.m */,
-				39305F941958460D00E4CDA2 /* ArticleViewController.h */,
-				39305F951958460D00E4CDA2 /* ArticleViewController.m */,
 				3986B3BC195F3E140010ABCE /* ArchiveViewController.h */,
 				3986B3BD195F3E140010ABCE /* ArchiveViewController.m */,
+				39305F941958460D00E4CDA2 /* ArticleViewController.h */,
+				39305F951958460D00E4CDA2 /* ArticleViewController.m */,
 				3944250519667D8000497336 /* AccordionTableViewController.h */,
 				3944250619667D8000497336 /* AccordionTableViewController.m */,
 				39E16096197C456B007DB923 /* TaggingViewController.h */,
 				39E16097197C456B007DB923 /* TaggingViewController.m */,
 				3974E46C1976E39C00F7E457 /* WebViewController.h */,
 				3974E46D1976E39C00F7E457 /* WebViewController.m */,
+				39D953F4198CFA7C001BB8B4 /* SharingViewController.h */,
+				39D953F5198CFA7C001BB8B4 /* SharingViewController.m */,
+				39D953F7198D7A3D001BB8B4 /* AllTagsViewController.h */,
+				39D953F8198D7A3D001BB8B4 /* AllTagsViewController.m */,
+				39D953FE198FD446001BB8B4 /* AllBlogsViewController.h */,
+				39D953FF198FD446001BB8B4 /* AllBlogsViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -440,6 +459,15 @@
 				39ABC57B19840FC5004511A2 /* NSString+StringSizeWithFont.m */,
 			);
 			name = AKTagsInputViewExample;
+			sourceTree = "<group>";
+		};
+		39D953FA198ED166001BB8B4 /* RTLabel */ = {
+			isa = PBXGroup;
+			children = (
+				39D953FB198ED17B001BB8B4 /* NRLabel.h */,
+				39D953FC198ED17B001BB8B4 /* NRLabel.m */,
+			);
+			name = RTLabel;
 			sourceTree = "<group>";
 		};
 		39E160AF197EC02D007DB923 /* DWTagList */ = {
@@ -564,8 +592,10 @@
 			files = (
 				39ABC58019840FC5004511A2 /* AKTagTextFieldCell.m in Sources */,
 				398E64DE194122D300BADF11 /* LoginViewController.m in Sources */,
+				39D953F6198CFA7C001BB8B4 /* SharingViewController.m in Sources */,
 				3907B301193CCCA100100BD6 /* Article.m in Sources */,
 				39224FAD1973D63400E61111 /* ECSlidingSegue.m in Sources */,
+				39D953F9198D7A3D001BB8B4 /* AllTagsViewController.m in Sources */,
 				3986B3B3195F02C60010ABCE /* AMWaveViewController.m in Sources */,
 				39ABC57D19840FC5004511A2 /* AKTagsInputView.m in Sources */,
 				394A9EE8194751FA00205F5C /* InboxViewController.m in Sources */,
@@ -578,6 +608,7 @@
 				398E64D81941229900BADF11 /* MainViewController.m in Sources */,
 				39224FAB1973D63400E61111 /* ECSlidingAnimationController.m in Sources */,
 				39ABC57F19840FC5004511A2 /* AKTagsLookup.m in Sources */,
+				39D95400198FD446001BB8B4 /* AllBlogsViewController.m in Sources */,
 				39ABC58119840FC5004511A2 /* AKTextField.m in Sources */,
 				3986B3BE195F3E140010ABCE /* ArchiveViewController.m in Sources */,
 				39ABC56B19840ECD004511A2 /* DWTagList.m in Sources */,
@@ -595,6 +626,7 @@
 				39ABC58219840FC5004511A2 /* NSString+StringSizeWithFont.m in Sources */,
 				3907B2FE193CB80E00100BD6 /* User.m in Sources */,
 				398E64DB194122AE00BADF11 /* RegisterViewController.m in Sources */,
+				39D953FD198ED17B001BB8B4 /* NRLabel.m in Sources */,
 				3916463B195C7C2E005389E1 /* JCRBlurView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
