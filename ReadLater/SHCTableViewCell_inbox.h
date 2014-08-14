@@ -25,6 +25,8 @@
 @property (nonatomic, strong) IBOutlet RTLabel *blog;
 @property (nonatomic, strong) IBOutlet UILabel *tags;
 @property (nonatomic, strong) IBOutlet UILabel *rating;
+//0-Explore, 1-Reading List, 2-Archive, 3-Inbox
+@property (nonatomic, assign) NSInteger EIRA;
 
 
 //clickable label

@@ -260,6 +260,76 @@
     
 }
 
+//- (NSMutableArray* )importAllArticleWithStatus:(NSInteger)status forUser:(NSInteger)user_id
+//{
+//    NSMutableArray *inboxArticles = [[NSMutableArray alloc]initWithCapacity:20];
+//    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN UserArticle AS UA ON UA.article_id=A.ID WHERE user_id=? AND Article.status=?"];
+//    //NSString *sql = [NSString stringWithFormat:@"SELECT * FROM UserArticle"];
+//    
+//    sqlite3_stmt *select;
+//    
+//    int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
+//    
+//    sqlite3_bind_int (select, 1, (int)user_id);
+//    sqlite3_bind_int (select, 2, (int)status);
+//    if (result == SQLITE_OK) {
+//        
+//        
+//        while (sqlite3_step(select) == SQLITE_ROW) {
+//            NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:6];
+//            
+//            // add the id:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 0)]];
+//            // add the content:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 1)]];
+//            // add the author:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 2)]];
+//            // add the date:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 3)]];
+//            // add the url:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text(select, 4)]];
+//            // add the tags:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 5)]];
+//            // add the title:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 6)]];
+//            // add the blog:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 7)]];
+//            // add the rating:
+//            [values addObject:
+//             [NSString stringWithFormat:@"%s", sqlite3_column_text (select, 8)]];
+//            
+//            
+//            
+//            Article* article = [[Article alloc]init];
+//            
+//            article.article_id = [[values objectAtIndex:0]integerValue];
+//            article.content = [values objectAtIndex:1];
+//            article.author = [values objectAtIndex:2];
+//            article.date = [values objectAtIndex:3];
+//            article.url = [values objectAtIndex:4];
+//            article.stringTags = [values objectAtIndex:5];
+//            article.title = [values objectAtIndex:6];
+//            article.blog = [values objectAtIndex:7];
+//            NSInteger a = [[values objectAtIndex:8] integerValue];
+//            article.rating = a;
+//            [inboxArticles addObject:article];
+//            //NSLog(@"Imported Article: %@", article);
+//        }
+//        
+//    }
+//    sqlite3_finalize(select);
+//    NSLog(@"%lu articles were imported form db", (unsigned long)inboxArticles.count);
+//    return inboxArticles;
+//}
+
 - (NSMutableArray*)importAllArticlesFilterByOption:(NSString*)option
 {
     NSMutableArray *filteredArticles = [[NSMutableArray alloc]initWithCapacity:20];
@@ -342,7 +412,7 @@
     
 }
 
-- (NSMutableArray*)importAndFilterByTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs status:(BOOL) status
+- (NSMutableArray*)importAndFilterByTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs status:(NSInteger) status
 {
     NSString * tagsArrayString = [tags componentsJoinedByString:@","];
     NSString * blogsArrayString = [blogs componentsJoinedByString:@","];
@@ -365,7 +435,7 @@
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
 
     if (result == SQLITE_OK) {
-     sqlite3_bind_int (select, 1, (BOOL)status);
+     sqlite3_bind_int (select, 1, (int)status);
         
         while (sqlite3_step(select) == SQLITE_ROW) {
             NSMutableArray *values = [[NSMutableArray alloc] initWithCapacity:6];
@@ -430,14 +500,17 @@
 }
 
 
-- (NSMutableArray*)getAllTags
+- (NSMutableArray*)getAllTagsWithStatus:(NSInteger)status
 {
-    NSString *sql = [NSString stringWithFormat:@"SELECT DISTINCT tag FROM ArticleTags"];
+    NSString *sql = nil; //[NSString stringWithFormat:@"SELECT DISTINCT tag FROM ArticleTags"];
+    sql = [NSString stringWithFormat:@"SELECT DISTINCT tag FROM ArticleTags LEFT OUTER JOIN Article ON Article.id=ArticleTags.article_id WHERE status=? GROUP BY ArticleTags.tag"];
+    
+    //sql = [NSString stringWithFormat:@"SELECT DISTINCT tag FROM ArticleTags LEFT OUTER JOIN Article ON Article.id=ArticleTags.article.id WHERE status=? GROUP BY Article.id"];
     sqlite3_stmt *select;
     NSMutableArray *values = [[NSMutableArray alloc]initWithCapacity:10];
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
     if (result == SQLITE_OK) {
-        
+    sqlite3_bind_int (select, 1, (int)status);
         
         while (sqlite3_step(select) == SQLITE_ROW) {
             // add the tag:
@@ -450,14 +523,17 @@
 }
 
 
-- (NSMutableArray*)getAllBlog
+- (NSMutableArray*)getAllBlogsWithStatus:(NSInteger)status
 {
-    NSString *sql = [NSString stringWithFormat:@"SELECT DISTINCT blog FROM Article"];
+    NSString *sql = [NSString stringWithFormat:@"SELECT DISTINCT blog FROM Article WHERE status=?"];
+    
+    
+    
     sqlite3_stmt *select;
     NSMutableArray *values = [[NSMutableArray alloc]initWithCapacity:10];
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &select, NULL);
     if (result == SQLITE_OK) {
-        
+    sqlite3_bind_int (select, 1, (int)status);    
         
         while (sqlite3_step(select) == SQLITE_ROW) {
             // add the tag:
@@ -580,24 +656,7 @@
 //}
 
 
-- (BOOL) deleteArticle:(NSInteger) article_id
-{
-    //NSString *sql = @"DELETE FROM UserArticle WHERE article_id=? AND user_id=?;";
-    NSString *sql = @"UPDATE Article SET status=2 WHERE article_id=?";
-    sqlite3_stmt *insert;
-    int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &insert, NULL);
-    if (result == SQLITE_OK) {
-        sqlite3_bind_int (insert, 1, (int)article_id);
-        result = sqlite3_step(insert);
-        sqlite3_finalize(insert);
-        //NSLog(@"deleteArticle: Article Deleted!");
-        return true;
-    }else {
-        NSLog(@"deleteArticle: Error: insert prepare statement failed: %s.", sqlite3_errmsg(self.db));
-        sqlite3_finalize(insert);
-        return false;
-    }
-}
+
 
 - (BOOL) addArticleToUserArticleDB:(Article *)article
 {
@@ -687,17 +746,63 @@
     return last_id;
 }
 
+//- (BOOL) deleteArticle:(NSInteger) article_id
+//{
+//    //NSString *sql = @"DELETE FROM UserArticle WHERE article_id=? AND user_id=?;";
+//    NSString *sql = @"UPDATE Article SET status=2 WHERE article_id=?";
+//    sqlite3_stmt *insert;
+//    int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &insert, NULL);
+//    if (result == SQLITE_OK) {
+//        sqlite3_bind_int (insert, 1, (int)article_id);
+//        result = sqlite3_step(insert);
+//        sqlite3_finalize(insert);
+//        //NSLog(@"deleteArticle: Article Deleted!");
+//        return true;
+//    }else {
+//        NSLog(@"deleteArticle: Error: insert prepare statement failed: %s.", sqlite3_errmsg(self.db));
+//        sqlite3_finalize(insert);
+//        return false;
+//    }
+//}
 
-- (BOOL) archiveArticle:(Article *) article
+//- (BOOL) archiveArticle:(Article *) article setArchived:(NSInteger)archived
+//{
+//    NSString *sql = [NSString stringWithFormat:@"UPDATE Article SET status = ? WHERE id=?"];
+//    
+//    sqlite3_stmt *update;
+//    int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &update, NULL);
+//    NSLog(@"archiveArticle: Before IF %d %d",result, SQLITE_OK);
+//    
+//    if (result == SQLITE_OK){
+//        sqlite3_bind_int(update, 1, (int)archived);
+//        
+//        sqlite3_bind_int(update, 2 , (int)article.article_id);
+//        
+//        char* errmsg;
+//        sqlite3_exec(self.db, "COMMIT", NULL, NULL, &errmsg);
+//        //NSLog(@"archiveArticle: Article was archived!");
+//    }else{
+//        NSLog(@"archiveArticle: Error while creating update statement. %s", sqlite3_errmsg(self.db));
+//    }
+//    
+//    
+//    if(SQLITE_DONE != sqlite3_step(update))
+//        NSLog(@"Error while updating. %s", sqlite3_errmsg(self.db));
+//    
+//    sqlite3_finalize(update);
+//    return false;
+//}
+
+- (BOOL) changeArticleStatus:(Article *) article setStatus:(NSInteger)status
 {
-    NSString *sql = [NSString stringWithFormat:@"UPDATE Article SET status = 1 WHERE id=?"];
+    NSString *sql = [NSString stringWithFormat:@"UPDATE Article SET status = ? WHERE id=?"];
     
     sqlite3_stmt *update;
     int result = sqlite3_prepare_v2(self.db, [sql UTF8String], -1, &update, NULL);
     NSLog(@"archiveArticle: Before IF %d %d",result, SQLITE_OK);
     
     if (result == SQLITE_OK){
-        sqlite3_bind_int(update, 1, 1);
+        sqlite3_bind_int(update, 1, (int)status);
         
         sqlite3_bind_int(update, 2 , (int)article.article_id);
         
@@ -719,7 +824,7 @@
 - (NSMutableArray* )importAllArchivedForUser:(NSInteger)user_id
 {
     NSMutableArray *inboxArticles = [[NSMutableArray alloc]initWithCapacity:20];
-    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN UserArticle AS UA ON UA.article_id=A.ID WHERE user_id=? AND archived=?"];
+    NSString *sql = [NSString stringWithFormat:@"SELECT * FROM Article AS A JOIN UserArticle AS UA ON UA.article_id=A.ID WHERE user_id=? AND Article.status=?"];
     //NSString *sql = [NSString stringWithFormat:@"SELECT * FROM UserArticle"];
     
     sqlite3_stmt *select;
@@ -785,5 +890,7 @@
     NSLog(@"%lu articles were imported form db", (unsigned long)inboxArticles.count);
     return inboxArticles;
 }
+
+
 
 @end

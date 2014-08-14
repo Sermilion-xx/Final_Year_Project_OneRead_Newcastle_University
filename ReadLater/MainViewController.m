@@ -20,7 +20,7 @@
 
 @implementation MainViewController
 
-@synthesize allBlogs, allTags, db, selectedTags, selectedBlogs, ERA, sortingOption, allTagsAndBlogs;
+@synthesize allBlogs, allTags, db, selectedTags, selectedBlogs, EIRA, sortingOption, allTagsAndBlogs;
 
 - (Database* ) db
 {
@@ -66,12 +66,12 @@
     return selectedBlogs;
 }
 
-- (NSInteger)ERA
+- (NSInteger)EIRA
 {
-    if (!ERA) {
-        ERA = 1;
+    if (!EIRA) {
+        EIRA = 2;
     }
-    return ERA;
+    return EIRA;
 }
 
 - (NSInteger)sortingOption
@@ -99,19 +99,33 @@
     return self;
 }
 
-
+//- (void)tagAddedToArticle:(Article *)article
+//{
+//    self.allTags = [self.db getAllTags];
+//    self.allBlogs = [self.db getAllBlog];
+//}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.EIRA=2;
     [self.db openDatabase];
-    self.allTags = [self.db getAllTags];
-    self.allBlogs = [self.db getAllBlog];
+    self.allBlogs = [self.db getAllBlogsWithStatus:0];
+    self.allTags = [self.db getAllTagsWithStatus:0];
+//    if(self.EIRA==2){
+//        self.allTags = [self.db getAllTagsWithStatus:0];
+//    }else if(self.EIRA==3){
+//
+//    }
+    
     [self.db closeDatabase];
     
     _tagList = [[DWTagList alloc] initWithFrame:CGRectMake(30.0f, 180.0f, self.view.bounds.size.width-40.0f, 50.0f)];
     [_tagList setAutomaticResize:YES];
-    _array = [[NSMutableArray alloc] initWithArray:self.allTags];
+    
+       _array = [[NSMutableArray alloc] initWithArray:self.allTags];
+    
+    
     [_tagList setTags:_array];
     [_tagList setTagDelegate:self];
     
@@ -186,17 +200,26 @@
 
 - (IBAction)ETapped:(id)sender
 {
-    self.ERA = 0;
+    self.EIRA = 0;
 }
 
 - (IBAction)RTapped:(id)sender
 {
-    self.ERA = 1;
+    [self.db  openDatabase];
+    [self.tagList setTags:[self.db getAllTagsWithStatus:0]];
+    [self.blogList setTags:[self.db getAllBlogsWithStatus:0]];
+    [self.db closeDatabase];
+    
+    self.EIRA = 2;
 }
 
 - (IBAction)ATapped:(id)sender
 {
-    self.ERA = 2;
+    [self.db  openDatabase];
+    [self.tagList setTags:[self.db getAllTagsWithStatus:1]];
+    [self.blogList setTags:[self.db getAllBlogsWithStatus:1]];
+    [self.db closeDatabase];
+    self.EIRA = 3;
 }
 
 - (IBAction)sortByDateTapped:(id)sender
@@ -218,25 +241,11 @@
         self.allTagsAndBlogs=NO;
     }
     
-//    if (self.selectedTags.count==0) {
-//        for (int i=0; i<self.allTags.count; i++) {
-//            [self.selectedTags addObject:[NSString stringWithFormat:@"'%@'", [self.allTags objectAtIndex:i]]];
-//        }
-//        //self.selectedTags = self.allTags;
-//    }
-//    if (self.selectedBlogs.count==0) {
-//        for (int i=0; i<self.allBlogs.count; i++) {
-//            [self.selectedBlogs addObject:[NSString stringWithFormat:@"'%@'", [self.allBlogs objectAtIndex:i]]];
-//        }
-//        //self.selectedBlogs= self.allBlogs;
-//    }
-    
-    
-    if (self.ERA == 0) {
+    if (self.EIRA == 0) {
        [self performSegueWithIdentifier: @"ExploreSegue" sender: self];
-    }else if(self.ERA ==1){
+    }else if(self.EIRA ==2){
         [self performSegueWithIdentifier: @"InboxSegue" sender: self];
-    }else if(self.ERA ==2){
+    }else if(self.EIRA ==3){
         [self performSegueWithIdentifier: @"ArchiveSegue" sender: self];
     }
 }
@@ -245,7 +254,7 @@
     if([segue.identifier isEqualToString:@"InboxSegue"]){
         UINavigationController * navigationController = (UINavigationController *)[segue destinationViewController];
         InboxViewController * controller = [[navigationController viewControllers] objectAtIndex:0];
-        controller.ERA = ERA;
+        controller.EIRA = EIRA;
         controller.sortingOption = self.sortingOption;
         controller.selectedTags = self.selectedTags;
         controller.selectedBlogs = self.selectedBlogs;
@@ -256,11 +265,15 @@
     if([segue.identifier isEqualToString:@"ArchiveSegue"]){
         UINavigationController * navigationController = (UINavigationController *)[segue destinationViewController];
         ArchiveViewController * controller = [[navigationController viewControllers] objectAtIndex:0];
-        controller.ERA = ERA;
+        controller.ERA = EIRA;
         controller.sortingOption = self.sortingOption;
+        
+        
+        
         controller.selectedTags = self.selectedTags;
         controller.selectedBlogs = self.selectedBlogs;
         controller.allTagsAndBlogs = self.allTagsAndBlogs;
+
         
     }
     
@@ -301,6 +314,13 @@
 
 - (IBAction)goBack:(UIStoryboardSegue *)sender
 {
+    [self.db openDatabase];
+    self.allTags = [self.db getAllTagsWithStatus:0];
+    self.EIRA=2;
+    self.allBlogs = [self.db getAllBlogsWithStatus:0];
+    [_tagList setTags:self.allTags];
+    [_blogList setTags:self.allBlogs];
+    [self.db closeDatabase];
     
 }
 
@@ -336,5 +356,6 @@
     }
     
 }
+
 
 @end

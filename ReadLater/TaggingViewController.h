@@ -31,4 +31,10 @@
 
 @property (nonatomic, weak) id<TaggingDelegate> delegate;
 
+
+@property (nonatomic, strong) NSURLConnection * connection;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSData* response;
+@property (nonatomic, strong) NSMutableArray* jsonData;
+
 @end

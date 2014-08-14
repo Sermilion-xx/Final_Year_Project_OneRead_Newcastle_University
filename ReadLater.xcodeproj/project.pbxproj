@@ -52,6 +52,8 @@
 		398E64DE194122D300BADF11 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 398E64DD194122D300BADF11 /* LoginViewController.m */; };
 		3995F5BB1950BD6A004C6A1A /* SHCTableViewCell_inbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 3995F5BA1950BD6A004C6A1A /* SHCTableViewCell_inbox.m */; };
 		3995F5BD1950BEA6004C6A1A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3995F5BC1950BEA6004C6A1A /* QuartzCore.framework */; };
+		399D37F31993D19C0029D578 /* ExploreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 399D37F21993D19C0029D578 /* ExploreViewController.m */; };
+		399D37F61993D8200029D578 /* InboxArticlesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 399D37F51993D8200029D578 /* InboxArticlesViewController.m */; };
 		39A1BB20195F43AB007AAEC8 /* ArchiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3986B3BD195F3E140010ABCE /* ArchiveViewController.m */; };
 		39ABC56B19840ECD004511A2 /* DWTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 39ABC56A19840ECD004511A2 /* DWTagList.m */; };
 		39ABC57C19840FC5004511A2 /* AKTagCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39ABC56E19840FC5004511A2 /* AKTagCell.m */; };
@@ -158,6 +160,10 @@
 		3995F5BA1950BD6A004C6A1A /* SHCTableViewCell_inbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHCTableViewCell_inbox.m; sourceTree = "<group>"; };
 		3995F5BC1950BEA6004C6A1A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3995F5BE1950CC29004C6A1A /* SHCTableViewCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHCTableViewCellDelegate.h; sourceTree = "<group>"; };
+		399D37F11993D19C0029D578 /* ExploreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExploreViewController.h; path = readlater/ExploreViewController.h; sourceTree = SOURCE_ROOT; };
+		399D37F21993D19C0029D578 /* ExploreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExploreViewController.m; path = readlater/ExploreViewController.m; sourceTree = SOURCE_ROOT; };
+		399D37F41993D8200029D578 /* InboxArticlesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InboxArticlesViewController.h; path = readlater/InboxArticlesViewController.h; sourceTree = SOURCE_ROOT; };
+		399D37F51993D8200029D578 /* InboxArticlesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InboxArticlesViewController.m; path = readlater/InboxArticlesViewController.m; sourceTree = SOURCE_ROOT; };
 		39ABC56919840ECD004511A2 /* DWTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DWTagList.h; path = readlater/DWTagList.h; sourceTree = SOURCE_ROOT; };
 		39ABC56A19840ECD004511A2 /* DWTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DWTagList.m; path = readlater/DWTagList.m; sourceTree = SOURCE_ROOT; };
 		39ABC56D19840FC5004511A2 /* AKTagCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTagCell.h; sourceTree = "<group>"; };
@@ -423,6 +429,10 @@
 				39D953F8198D7A3D001BB8B4 /* AllTagsViewController.m */,
 				39D953FE198FD446001BB8B4 /* AllBlogsViewController.h */,
 				39D953FF198FD446001BB8B4 /* AllBlogsViewController.m */,
+				399D37F11993D19C0029D578 /* ExploreViewController.h */,
+				399D37F21993D19C0029D578 /* ExploreViewController.m */,
+				399D37F41993D8200029D578 /* InboxArticlesViewController.h */,
+				399D37F51993D8200029D578 /* InboxArticlesViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -596,7 +606,9 @@
 				3907B301193CCCA100100BD6 /* Article.m in Sources */,
 				39224FAD1973D63400E61111 /* ECSlidingSegue.m in Sources */,
 				39D953F9198D7A3D001BB8B4 /* AllTagsViewController.m in Sources */,
+				399D37F61993D8200029D578 /* InboxArticlesViewController.m in Sources */,
 				3986B3B3195F02C60010ABCE /* AMWaveViewController.m in Sources */,
+				399D37F31993D19C0029D578 /* ExploreViewController.m in Sources */,
 				39ABC57D19840FC5004511A2 /* AKTagsInputView.m in Sources */,
 				394A9EE8194751FA00205F5C /* InboxViewController.m in Sources */,
 				39E16098197C456B007DB923 /* TaggingViewController.m in Sources */,

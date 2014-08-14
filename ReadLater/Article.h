@@ -21,6 +21,8 @@
 @property (nonatomic, strong) NSString* title;
 @property (nonatomic, strong) NSString* blog;
 @property (nonatomic, assign) NSInteger rating;
+
+//0-inbox, 1 - archived, 2 - delete, 3 - inbox 
 @property (nonatomic, assign) NSInteger status;
 
 // A boolean value that determines the completed state of this item.

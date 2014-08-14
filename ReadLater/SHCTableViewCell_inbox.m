@@ -18,14 +18,20 @@
     UILabel *tagLabel;
 	UILabel *shareLabel;
     
+    UILabel *unarchiveLabel;
+	UILabel *sendToReadingListLabel;
+    
     BOOL _markDeleteOnDragRelease;
 	BOOL _markArchivedOnDragRelease;
     BOOL _markSetTagOnDragRelease;
     BOOL _markShareOnDragRelease;
+    
+    BOOL _markUnarchiveOnDragRelease;
+    BOOL _markSendToReadingListOnDragRelease;
 }
 
 const float UI_CUES_MARGIN = 20.0f;
-const float UI_CUES_WIDTH = 60.0f;
+const float UI_CUES_WIDTH = 100.0f;
 
 - (void)awakeFromNib {
     //self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -48,11 +54,24 @@ const float UI_CUES_WIDTH = 60.0f;
         tagLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:tagLabel];
         
-        // add a favourite label
+        // add a share label
         shareLabel = [self createCueLabel];
         shareLabel.text = @"Share";
         shareLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:shareLabel];
+        
+        // add a unarchive label
+        unarchiveLabel = [self createCueLabel];
+        unarchiveLabel.text = @"Unarchive";
+        unarchiveLabel.textAlignment = NSTextAlignmentLeft;
+        [self addSubview:unarchiveLabel];
+        
+        // add a unarchive label
+        sendToReadingListLabel = [self createCueLabel];
+        sendToReadingListLabel.text = @"Reading List";
+        sendToReadingListLabel.textAlignment = NSTextAlignmentLeft;
+        [self addSubview:sendToReadingListLabel];
+
 		// remove the default blue highlight for selected cells
 		//self.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -90,7 +109,17 @@ const float LABEL_LEFT_MARGIN = 20.0f;
 
     
     shareLabel.frame = CGRectMake(-UI_CUES_WIDTH - UI_CUES_MARGIN, 0, UI_CUES_WIDTH, self.bounds.size.height);
-
+    
+    
+    unarchiveLabel.frame = CGRectMake(self.bounds.size.width + UI_CUES_MARGIN, 0, UI_CUES_WIDTH, self.bounds.size.height);
+    if(self.EIRA==3){
+        archiveLabel.hidden=YES;
+    }
+    
+    sendToReadingListLabel.frame = CGRectMake(self.bounds.size.width + UI_CUES_MARGIN, 0, UI_CUES_WIDTH, self.bounds.size.height);
+    if(self.EIRA==1){
+        archiveLabel.hidden=YES;
+    }
     
     CGSize optimumSize = [self.rtLabel optimumSize];
 	CGRect frame = [self.rtLabel frame];
@@ -132,16 +161,33 @@ const float LABEL_LEFT_MARGIN = 20.0f;
         CGPoint translation = [recognizer translationInView:self];
         self.center = CGPointMake(_originalCenter.x + translation.x, _originalCenter.y);
         // determine whether the item has been dragged far enough to initiate a delete / complete
-        _markArchivedOnDragRelease = self.frame.origin.x < (-self.frame.size.width / 2+(self.frame.size.width/4));
-        _markDeleteOnDragRelease = self.frame.origin.x < (-self.frame.size.width / 2);
+        
+        //unarchive, sendToReadingList
+        if(self.EIRA==0 ||self.EIRA==1){
+            _markSendToReadingListOnDragRelease = self.frame.origin.x < (-self.frame.size.width / 2+(self.frame.size.width/4));
+        }else if(self.EIRA==2){
+            _markArchivedOnDragRelease =          self.frame.origin.x < (-self.frame.size.width / 2+(self.frame.size.width/4));
+        }else if(self.EIRA==3){
+            _markUnarchiveOnDragRelease = self.frame.origin.x < (-self.frame.size.width / 2+(self.frame.size.width/4));
+        }
+        
+        if(self.EIRA!=0){
+           _markDeleteOnDragRelease = self.frame.origin.x < (-self.frame.size.width / 2); 
+        }
+        
         _markSetTagOnDragRelease = self.frame.origin.x > (self.frame.size.width / 2);
         _markShareOnDragRelease = self.frame.origin.x > (self.frame.size.width / 4);
         
         if(_markDeleteOnDragRelease){
             _markArchivedOnDragRelease=false;
+            //_markSendToReadingListOnDragRelease=false;
+            _markUnarchiveOnDragRelease=false;
             deleteLabel.hidden=NO;
+            _markSendToReadingListOnDragRelease=false;
         }else{
             deleteLabel.hidden=YES;
+            unarchiveLabel.hidden=YES;
+            sendToReadingListLabel.hidden=YES;
         }
         
         if(_markArchivedOnDragRelease){
@@ -165,6 +211,26 @@ const float LABEL_LEFT_MARGIN = 20.0f;
         }else{
             shareLabel.hidden=YES;
         }
+        
+        if (_markSendToReadingListOnDragRelease) {
+            _markDeleteOnDragRelease=false;
+            _markArchivedOnDragRelease=false;
+            sendToReadingListLabel.hidden=NO;
+        }else{
+            //deleteLabel.hidden=YES;
+            unarchiveLabel.hidden=YES;
+            sendToReadingListLabel.hidden=YES;
+        }
+    
+        if (_markUnarchiveOnDragRelease) {
+            _markDeleteOnDragRelease=false;
+            _markArchivedOnDragRelease=false;
+            unarchiveLabel.hidden=NO;
+        }else{
+            //deleteLabel.hidden=YES;
+            unarchiveLabel.hidden=YES;
+            //sendToReadingListLabel.hidden=YES;
+        }
     }
     
     if (recognizer.state == UIGestureRecognizerStateEnded) {
@@ -182,7 +248,7 @@ const float LABEL_LEFT_MARGIN = 20.0f;
 		if (_markDeleteOnDragRelease) {
 			// notify the delegate that this item should be deleted
             self.todoItem.completed = YES;
-			[self.delegate deleteArticle:self.todoItem];
+			[self.delegate archiveUnarchiveDeleteArticle:self.todoItem setStatus:2];
             NSLog(@"Delete Selected!");
 		}
         if (!_markArchivedOnDragRelease) {
@@ -197,7 +263,7 @@ const float LABEL_LEFT_MARGIN = 20.0f;
             // mark the item as complete and update the UI state
             self.todoItem.completed = YES;
             NSLog(@"Archive Selected!");
-           [self.delegate archiveArticle:self.todoItem];
+            [self.delegate archiveUnarchiveDeleteArticle:self.todoItem setStatus:1];
             
         }
         if (!_markSetTagOnDragRelease) {
@@ -228,6 +294,40 @@ const float LABEL_LEFT_MARGIN = 20.0f;
             [self.delegate performSegueForSharing:self.todoItem];
             self.todoItem.completed = YES;
             NSLog(@"Share Selected!");
+        }
+        
+        if (!_markUnarchiveOnDragRelease) {
+            // if the item is not being deleted, snap back to the original location
+            [UIView animateWithDuration:0.2
+                             animations:^{
+                                 self.frame = originalFrame;
+                             }
+             ];
+        }
+        if (_markUnarchiveOnDragRelease) {
+            // mark the item as complete and update the UI state
+            //[self.delegate performSegueForSharing:self.todoItem];
+            self.todoItem.completed = YES;
+            NSLog(@"Unarchive Selected!");
+            [self.delegate archiveUnarchiveDeleteArticle:self.todoItem setStatus:0];
+        }
+        
+        //send to reading list
+        if (!_markSendToReadingListOnDragRelease) {
+            // if the item is not being deleted, snap back to the original location
+            [UIView animateWithDuration:0.2
+                             animations:^{
+                                 self.frame = originalFrame;
+                             }
+             ];
+        }
+        
+        if (_markSendToReadingListOnDragRelease) {
+            // mark the item as complete and update the UI state
+            //[self.delegate performSegueForSharing:self.todoItem];
+            self.todoItem.completed = YES;
+            NSLog(@"Send to Reading List Selected!");
+            [self.delegate sendArticleToReadingList:self.todoItem];
         }
         
     }

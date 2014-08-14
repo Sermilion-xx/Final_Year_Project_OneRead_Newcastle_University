@@ -32,14 +32,18 @@
 
 - (NSMutableArray*)importAllArticlesWithStatus:(int)status;
 
+//- (NSMutableArray*)importAllArticleWithStatus:(NSInteger)status forUser:(NSInteger)user_id;
+
 - (NSMutableArray*)importAllArticlesFilterByOption:(NSString*)option;
 
-- (NSMutableArray*) importAllFollowersForUser:(NSInteger)user_id;
+- (NSMutableArray*)importAllFollowersForUser:(NSInteger)user_id;
 
-- (NSMutableArray*)importAndFilterByTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs status:(BOOL) status;
+- (NSMutableArray*)importAndFilterByTags:(NSMutableArray*)tags andBlogs:(NSMutableArray*)blogs status:(NSInteger) status;
 
-- (NSMutableArray*)getAllTags;
-- (NSMutableArray*)getAllBlog;
+
+
+- (NSMutableArray*)getAllTagsWithStatus:(NSInteger)status;
+- (NSMutableArray*)getAllBlogsWithStatus:(NSInteger)status;
 
 - (NSString* )getLastArticleDate;
 
@@ -49,13 +53,15 @@
 - (BOOL) addArticleToUserArticleDB:(Article *)article;
 
 - (BOOL) addTagsForArticleWithID:(NSInteger)article_id tags:(NSArray*)tags;
+//0-inbox, 1-archived, 2- deleted
+- (BOOL) changeArticleStatus:(Article *) article setStatus:(NSInteger)status;
 
-- (BOOL) deleteArticle:(NSInteger) article_id;
+//- (BOOL) deleteArticle:(NSInteger) article_id;
+//
+//- (BOOL) archiveArticle:(Article *) article setArchived:(NSInteger)archived;
 
-- (BOOL) archiveArticle:(Article *) article;
+- (NSInteger)getLastArticleID;
 
--(NSInteger)getLastArticleID;
-
-- (NSMutableArray* )importAllArchivedForUser:(NSInteger)user_id;
+//- (NSMutableArray* )importAllArchivedForUser:(NSInteger)user_id;
 
 @end

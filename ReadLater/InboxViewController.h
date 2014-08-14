@@ -40,7 +40,9 @@
 @property (nonatomic, strong) NSURL* url;
 
 //0 - E, 1- R, 2-A
-@property (nonatomic, assign) NSInteger ERA;
+//@property (nonatomic, assign) NSInteger ERA;
+
+@property (nonatomic, assign) NSInteger EIRA;
 //0 - date, 1 - rating
 @property (nonatomic, assign) NSInteger sortingOption;
 

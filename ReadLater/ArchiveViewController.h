@@ -42,5 +42,6 @@
 @property (nonatomic, strong) NSMutableArray* selectedTags;
 @property (nonatomic, strong) NSMutableArray* selectedBlogs;
 @property (nonatomic, assign) BOOL allTagsAndBlogs;
+@property (nonatomic, assign) NSInteger EIRA;
 
 @end

@@ -10,4 +10,6 @@
 
 @interface NRLabel : UILabel
 
+@property (nonatomic) UIEdgeInsets edgeInsets;
+
 @end

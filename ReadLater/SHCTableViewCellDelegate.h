@@ -12,13 +12,20 @@
 //
 @protocol SHCTableViewCellDelegate <NSObject>
 
-// indicates that the given item has been deleted
-- (void) deleteArticle:(Article*) articleToDelete;
 
-- (void) archiveArticle:(Article*) articleToArchive;
+// indicates that the given item has been deleted
+//- (void) deleteArticle:(Article*) articleToDelete;
+@optional
+- (void) archiveUnarchiveDeleteArticle:(Article*) articleToArchive setStatus:(NSInteger)status;
 
 - (void) performSegueForSharing:(Article*)article;
 
 - (void) performSegueForTagging:(Article*)article;
+
+//add article to user database form Inbox
+
+- (void) sendArticleToReadingList:(Article*) articleToArchive;
+
+
 
 @end

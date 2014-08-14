@@ -148,6 +148,7 @@
     static NSString *CellIdentifier = @"ContentCell";
     
     SHCTableViewCell_inbox *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.EIRA=3;
     cell.textLabel.textColor = [UIColor whiteColor];
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:11]];
     cell.textLabel.backgroundColor = [UIColor clearColor];
@@ -197,25 +198,26 @@
 }
 
 
-#pragma mark TODO delete from server database
-//method to delete an article form view and to call method to delete from database, as well as form server database
--(void)deleteArticle:(Article*)articleToDelete {
-    // use the UITableView to animate the removal of this row
-    NSUInteger index = [self.articles indexOfObject:articleToDelete];
-    [self.tableView beginUpdates];
-    [self.articles removeObject:articleToDelete];
-    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
-                          withRowAnimation:UITableViewRowAnimationFade];
-    [self.db openDatabase];
-    [self.db deleteArticle:articleToDelete.article_id];
-    [self.db closeDatabase];
-    [self.tableView endUpdates];
-    [self.tableView reloadData];
-}
+//#pragma mark TODO delete from server database
+////method to delete an article form view and to call method to delete from database, as well as form server database
+//-(void)deleteArticle:(Article*)articleToDelete {
+//    // use the UITableView to animate the removal of this row
+//    NSUInteger index = [self.articles indexOfObject:articleToDelete];
+//    [self.tableView beginUpdates];
+//    [self.articles removeObject:articleToDelete];
+//    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
+//                          withRowAnimation:UITableViewRowAnimationFade];
+//    [self.db openDatabase];
+//    [self.db deleteArticle:articleToDelete.article_id];
+//    [self.db closeDatabase];
+//    [self.tableView endUpdates];
+//    [self.tableView reloadData];
+//}
 
 #pragma mark TODO delete from server database
 //method to delete an article form view and to call method to delete from database, as well as form server database
--(void)archiveArticle:(Article*)articleToArchive {
+-(void)archiveUnarchiveDeleteArticle:(Article*)articleToArchive setStatus:(NSInteger)status
+{
     // use the UITableView to animate the removal of this row
     NSUInteger index = [self.articles indexOfObject:articleToArchive];
     [self.tableView beginUpdates];
@@ -224,12 +226,13 @@
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
                           withRowAnimation:UITableViewRowAnimationFade];
     [self.db openDatabase];
-    [self.db archiveArticle:articleToArchive];
+    [self.db changeArticleStatus:articleToArchive setStatus:status];
     NSLog(@"A-Block to archive.");
     [self.db closeDatabase];
     [self.tableView endUpdates];
     [self.tableView reloadData];
 }
+
 
 
 
@@ -244,6 +247,8 @@
     self.articleToTag = article;
     [self performSegueWithIdentifier: @"tagSegueArchive" sender: self];
 }
+
+
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     

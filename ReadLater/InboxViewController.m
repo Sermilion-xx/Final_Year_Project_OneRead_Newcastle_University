@@ -19,13 +19,13 @@
 
 
 
-@interface InboxViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, TaggingDelegate>
+@interface InboxViewController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate>
 
 @end
 
 @implementation InboxViewController
 
-@synthesize db, connection, articles, response, jsonData, bgView, selectedBlogs, selectedTags, ERA, sortingOption, allTagsAndBlogs;
+@synthesize db, connection, articles, response, jsonData, bgView, selectedBlogs, selectedTags,EIRA, sortingOption, allTagsAndBlogs;
 
 
 
@@ -104,14 +104,21 @@
 {
     
     if (self.articles.count==0) {
-
-    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost/nextril/index.php"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0];
+    NSURL *theURL = [NSURL URLWithString:@"http://localhost:8080/api/reading-list/?format=json"];
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:theURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0];
     
     self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     //send id of article that was added last, to server,
     //which will return json arrya of all articles with id greater then the one sent
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
+    [request setHTTPMethod:@"GET"];
+    
+        
+    //Pass some default parameter(like content-type etc.)
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"1" forHTTPHeaderField:@"password"];
+    [request setValue:@"Sermilion" forHTTPHeaderField:@"username"];
+    //[request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
     
     if (self.connection) {
          NSLog(@"makeConnetion: Connected!");
@@ -119,7 +126,6 @@
     }else{
         NSLog(@"makeConnetion: Error while connecting...");
     }
-    
     }else{
         NSLog(@"makeConnetion: Loading 2nd time!");
     }
@@ -138,7 +144,7 @@
     
     if(response!=nil){
         
-        //NSLog(@"Got response from server %@", response);
+    NSLog(@"Got response from server %@", response);
     if (self.connection) {
 
         NSError* error;
@@ -178,7 +184,7 @@
             Article* article = [[Article alloc]initWithId:0 content:content author:author date:date1 url:url tags:tagsArray stringTags:tags arhived:archived title:title blog:blog rating:rating status:status];
             //adding articel to database
             added = [self.db addArticleToArticleDB:article];
-            
+            NSLog(@"Got from server: %@", article);
             if (added == true) {
                 NSInteger last_id = [self.db getLastArticleID];
                 article.article_id = last_id;
@@ -199,21 +205,8 @@
         }
     }
     }
-            if (!self.allTagsAndBlogs) {
-                    self.articles = [self.db importAndFilterByTags:self.selectedTags andBlogs:selectedBlogs status:0];
-                    self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-            }else{
-                self.articles = [self.db importAllArticlesWithStatus:0];
-                self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-            }
-            [self.tableView reloadData];
+    
         self.connection = nil;
-    //}
-//    else{
-//        //NSLog(@"connectionDidFinishLoading: Did not get resopnse from server: %@", response);
-//    }
-
-
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -225,8 +218,14 @@
     [self.db openDatabase];
     NSString* date_added = [self.db getLastArticleDate];
     [self makeConnetion:(id)date_added];
+    
+    self.articles = [self.db importAndFilterByTags:self.selectedTags andBlogs:selectedBlogs status:0];
+    self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
+    [self.tableView reloadData];
   
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -270,6 +269,7 @@
     static NSString *CellIdentifier = @"ContentCell";
     
     SHCTableViewCell_inbox *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    cell.EIRA=2;
     cell.textLabel.textColor = [UIColor whiteColor];
     [cell.textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:11]];
     cell.textLabel.backgroundColor = [UIColor clearColor];
@@ -312,28 +312,10 @@
     return 70.0f;
 }
 
-
-
-
 #pragma mark TODO delete from server database
 //method to delete an article form view and to call method to delete from database, as well as form server database
--(void)deleteArticle:(Article*)articleToDelete {
-    // use the UITableView to animate the removal of this row
-    NSUInteger index = [self.articles indexOfObject:articleToDelete];
-    [self.tableView beginUpdates];
-    [self.articles removeObject:articleToDelete];
-    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
-                          withRowAnimation:UITableViewRowAnimationFade];
-    [self.db openDatabase];
-    [self.db deleteArticle:articleToDelete.article_id];
-    [self.db closeDatabase];
-    [self.tableView endUpdates];
-    [self.tableView reloadData];
-}
-
-#pragma mark TODO delete from server database
-//method to delete an article form view and to call method to delete from database, as well as form server database
--(void)archiveArticle:(Article*)articleToArchive {
+-(void)archiveUnarchiveDeleteArticle:(Article*)articleToArchive setStatus:(NSInteger)status
+{
     // use the UITableView to animate the removal of this row
     NSUInteger index = [self.articles indexOfObject:articleToArchive];
     [self.tableView beginUpdates];
@@ -341,13 +323,49 @@
     
     [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
                           withRowAnimation:UITableViewRowAnimationFade];
-    //NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
     [self.db openDatabase];
-    [self.db archiveArticle:articleToArchive];
+    [self.db changeArticleStatus:articleToArchive setStatus:status];
+    NSLog(@"A-Block to archive.");
     [self.db closeDatabase];
     [self.tableView endUpdates];
     [self.tableView reloadData];
 }
+
+
+//#pragma mark TODO delete from server database
+////method to delete an article form view and to call method to delete from database, as well as form server database
+//-(void)deleteArticle:(Article*)articleToDelete {
+//    // use the UITableView to animate the removal of this row
+//    NSUInteger index = [self.articles indexOfObject:articleToDelete];
+//    [self.tableView beginUpdates];
+//    [self.articles removeObject:articleToDelete];
+//    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
+//                          withRowAnimation:UITableViewRowAnimationFade];
+//    [self.db openDatabase];
+//    [self.db deleteArticle:articleToDelete.article_id];
+//    [self.db closeDatabase];
+//    [self.tableView endUpdates];
+//    [self.tableView reloadData];
+//}
+//
+//#pragma mark TODO delete from server database
+////method to delete an article form view and to call method to delete from database, as well as form server database
+////0-readingList, 1-archived, 2-deleted
+//-(void)archiveArticle:(Article*)articleToArchive setArchived:(NSInteger)archived{
+//    // use the UITableView to animate the removal of this row
+//    NSUInteger index = [self.articles indexOfObject:articleToArchive];
+//    [self.tableView beginUpdates];
+//    [self.articles removeObject:articleToArchive];
+//    
+//    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]]
+//                          withRowAnimation:UITableViewRowAnimationFade];
+//    //NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
+//    [self.db openDatabase];
+//    [self.db changeArticleStatus:articleToArchive setStatus:1];
+//    [self.db closeDatabase];
+//    [self.tableView endUpdates];
+//    [self.tableView reloadData];
+//}
 
 - (void) performSegueForSharing:(Article*)article
 {
@@ -378,7 +396,7 @@
 
 - (IBAction)goBack:(UIStoryboardSegue *)sender
 {
-
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -402,28 +420,15 @@
     if([segue.identifier isEqualToString:@"tagSegue"]){
         TaggingViewController *controller = (TaggingViewController *)segue.destinationViewController;
         controller.article = self.articleToTag;
-        [controller setDelegate:self];
+        //[controller setDelegate:self];
     }
 
 }
 
 
 
-#pragma mark - State Selection Delegate
-- (void)tagAddedToArticle:(Article *)article
-{
-    if (!self.allTagsAndBlogs) {
-        //if (self.selectedTags.count>0 && self.selectedBlogs.count>0) {
-        self.articles = [self.db importAndFilterByTags:self.selectedTags andBlogs:selectedBlogs status:0];
-        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-        //}
-    }else{
-        //NSInteger user_id = [[[NSUserDefaults standardUserDefaults] objectForKey:@"UserLoginIdSession"]integerValue];
-        self.articles = [self.db importAllArticlesWithStatus:0];
-        self.articles = [[self sortArticlesBy:(int)self.sortingOption]mutableCopy];
-    }
-    [self.tableView reloadData];
-}
+
+
 
 - (NSArray*)sortArticlesByDate:(NSMutableArray*)articles1
 {

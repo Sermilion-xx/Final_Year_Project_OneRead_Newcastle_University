@@ -122,8 +122,8 @@ static NSString *CellIdentifier = @"MyOptionCell";
     
     
     [self.db openDatabase];
-    self.tags = [self.db getAllTags];
-    self.blogs = [self.db getAllBlog];
+    self.tags = [self.db getAllTagsWithStatus:0];
+    self.blogs = [self.db getAllBlogsWithStatus:0];
     
     [self.db closeDatabase];
 

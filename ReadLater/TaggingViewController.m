@@ -20,7 +20,7 @@
 
 @implementation TaggingViewController
 
-@synthesize tags, article, db;
+@synthesize tags, article, db, response, connection;
 
 - (NSMutableArray*) tags
 {
@@ -60,7 +60,7 @@
     [self.view setBackgroundColor:[UIColor clearColor]];
     self.titleLabel.text = self.article.title;
     [self.db openDatabase];
-    self.tags = [self.db getAllTags];
+    self.tags = [self.db getAllTagsWithStatus:0];
     [self.db closeDatabase];
     
     
@@ -111,14 +111,78 @@
             [_tagsInputView.selectedTags addObject:[NSString stringWithFormat:@"#%@", [temp objectAtIndex:i]]];
         }
     [self.db openDatabase];
+    
     for (int i=0;i<_tagsInputView.selectedTags.count; i++){
         [self.db addTagsForArticleWithID:self.article.article_id tags:[_tagsInputView.selectedTags objectAtIndex:i]];
         [self.article.tags addObject:[_tagsInputView.selectedTags objectAtIndex:i]];
     }
+    
     [self.db closeDatabase];
-    [self.delegate tagAddedToArticle:self.article];
+    //[self.delegate tagAddedToArticle:self.article];
+    
+//    NSString* url = nil;
+//    NSString* article_id = [NSString stringWithFormat:@"%ld", (long)self.article.article_id];
+
+//    NSData *data = [[NSData alloc]init];
+//    [data setValue:article_id forKey:@"article_id"];
+//    [data setValue:_tagsInputView.selectedTags forKey:@"tags"];
+//    
+//    //send tags to add to database
+//    [self makeConnetion:data toUrl:url];
     
    [self dismissViewControllerAnimated:YES completion:NULL]; 
+}
+
+- (void) makeConnetion:(id)data toUrl:(NSString*)url
+{
+        NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15.0];
+        
+        self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+        [request setHTTPMethod:@"POST"];
+        [request setHTTPBody:[data dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        if (self.connection) {
+            NSLog(@"Tagging: makeConnetion: Connected!");
+            [self connectionDidFinishLoading:self.connection];
+        }else{
+            NSLog(@"Tagging: makeConnetion: Error while connecting...");
+        }
+
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData*)data
+{
+    response = [[NSData alloc] initWithData:data];
+    
+}
+
+- (void) connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    NSString* result = nil;
+    if(response!=nil){
+        if (self.connection) {
+            
+            NSError* error;
+            NSArray* json = [NSJSONSerialization
+                             JSONObjectWithData:response
+                             options:kNilOptions
+                             error:&error];
+            
+            self.jsonData = [[NSMutableArray alloc] initWithArray:json];
+            
+            for (int i=0; i<self.jsonData.count; i++) {
+                NSDictionary *item = [self.jsonData objectAtIndex:i];
+                result = [item objectForKey:@"result"];
+            }
+            
+            if([result isEqualToString:@"success"]){
+                NSLog(@"Tag was added to server database.");
+            }else{
+                NSLog(@"Error adding tag to server database.");
+            }
+            
+        }
+    }
 }
 
 @end

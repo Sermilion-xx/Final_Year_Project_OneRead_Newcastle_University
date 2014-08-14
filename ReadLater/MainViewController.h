@@ -41,20 +41,21 @@
 
 @property (nonatomic, strong) IBOutlet UIButton* goButton;
 
+@property (nonatomic, strong) Database* db;
 @property (nonatomic, strong) NSMutableArray* allTags;
 @property (nonatomic, strong) NSMutableArray* allBlogs;
 @property (nonatomic, strong) NSMutableArray* selectedTags;
 @property (nonatomic, strong) NSMutableArray* selectedBlogs;
-@property (nonatomic, strong) Database* db;
+
 //0 - E, 1- R, 2-A
-@property (nonatomic, assign) NSInteger ERA;
+@property (nonatomic, assign) NSInteger EIRA;
 //0 - date, 1 - rating
 @property (nonatomic, assign) NSInteger sortingOption;
 @property (nonatomic, assign) BOOL allTagsAndBlogs;
 //to indicate all tags(0) or all blogs(1)
 @property (nonatomic, assign) NSInteger type;
 
-
+- (IBAction)goBack:(UIStoryboardSegue *)sender;
 
 
 @end
